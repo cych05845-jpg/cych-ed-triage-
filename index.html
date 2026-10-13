@@ -673,6 +673,27 @@ body.navopen .fab{z-index:55}
 .rinfo b{font-size:16px}.rinfo ul{margin:4px 0 0;padding-left:20px}
 .rinfo.pop{animation:popin .3s ease}
 @media (prefers-reduced-motion: reduce){.ecg,.vwave.run,.rrole.cpr circle,.rrole.cpr .rini,.bolt.zap{animation:none}.bolt.zap{opacity:1}}
+/* 帳號與公告管理 */
+.bform{display:grid;gap:10px}
+.bform label{display:grid;gap:4px;font-size:13px;font-weight:700;color:var(--ink-2)}
+.bform input,.bform textarea{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:9px 12px;width:100%;min-width:0;font:inherit;font-size:16px}
+.bform textarea{min-height:110px;font-family:var(--f-body)}
+.bform label.chk{display:flex;align-items:center;gap:8px;font-weight:500;color:var(--ink);cursor:pointer}
+.bform input[type=checkbox]{width:auto}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.blist{display:grid;gap:8px}
+.bitem{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:6px;min-width:0}
+.bitem.off{opacity:.62}
+.bitem b{overflow-wrap:anywhere}
+.bitem .meta{font-size:12.5px;color:var(--ink-2);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.bitem .acts{display:flex;gap:6px;flex-wrap:wrap}
+.sbtn{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;padding:5px 12px;font-size:13px;font-weight:700;cursor:pointer}
+.sbtn.danger{border-color:var(--bad);color:var(--bad)}
+.bmsg{border-radius:10px;padding:9px 12px;font-size:14px;background:var(--tint);border:1px solid var(--tint-line)}
+.bmsg.err{color:var(--bad)}
+.offtag{font-size:11.5px;font-weight:700;border-radius:999px;padding:1px 8px;background:var(--surface-2);color:var(--ink-2)}
+.acctwho{display:grid;gap:2px}
+.acctwho b{font-size:20px}
 </style>
 
 </head>
@@ -682,6 +703,7 @@ body.navopen .fab{z-index:55}
   <div class="strip" aria-hidden="true"><i class="lvbg1"></i><i class="lvbg2"></i><i class="lvbg3"></i><i class="lvbg4"></i><i class="lvbg5"></i></div>
   <h1 id="barTitle">嘉基急診學習站<small>急診各區訓練</small></h1>
   <button class="nbtn" id="homeBtn" hidden>⌂ 首頁</button>
+  <button class="nbtn" id="acctBtn" hidden>登入</button>
 </div></header>
 <main class="wrap" id="view"></main>
 <div class="dock" id="dock" hidden><div class="in" id="dockIn">
@@ -694,6 +716,8 @@ body.navopen .fab{z-index:55}
 <div class="scrim" id="scrim" hidden></div>
 <button class="fab" id="fab" aria-label="開啟選單" aria-controls="side" aria-expanded="false">☰<span>選單</span></button>
 
+<!-- 嘉基急診帳號中心：登入、權限、公告後端 -->
+<script src="https://cych05845-jpg.github.io/ed-account/account-sdk.js"></script>
 <script>
 /* ---------- visual components ---------- */
 const T = (l, txt) => `<span class="tag lvbg${l}">${txt || l + " 級"}</span>`;
@@ -894,7 +918,7 @@ function render(){
   v.onclick = v.oninput = v.onchange = null;
   const m = route.match(/^(lc|lw|lq|ta|tqs|lqs|rqs|rt|cqs|oqs|pqs|sqs|wt|ws|tm)-(.+)$/);
   if (m) ({ lc, lw: x => lw(+x), lq: x => lq(+x), ta: x => ta(+x), tqs: x => qstage("t", +x), lqs: x => qstage("l", +x), rqs: x => qstage("r", +x), rt: rtopic, cqs: x => qstage("c", +x), oqs: x => qstage("o", +x), pqs: x => qstage("p", +x), sqs: x => qstage("s", +x), wt: wtopic, ws: sortPage, tm: tmPage })[m[1]](m[2]);
-  else ({ room, team, codes, special: () => wardHub("s"), squest: () => qmap("s"), vsign, treat: () => wardHub("c"), obs: () => wardHub("o"), peds: () => wardHub("p"), cquest: () => qmap("c"), oquest: () => qmap("o"), pquest: () => qmap("p"), otier, home, triage, lookup, practice: pHome, ref, handout, news, pgy, works, games, rush, flash, leader, lmap, lcourse, lbook, ldrill, tassess: () => assessHub("t"), lassess: () => assessHub("l"), tbook, taudit, texam: () => quiz("t"), lsjt: () => quiz("l"), tnote: () => noteView("t"), lnote: () => noteView("l"), llog, quest, tquest: () => qmap("t"), lquest: () => qmap("l"), rquest: () => qmap("r"), resus: resusHub, rbook, rdrug }[route] || home)();
+  else ({ room, team, codes, special: () => wardHub("s"), squest: () => qmap("s"), vsign, treat: () => wardHub("c"), obs: () => wardHub("o"), peds: () => wardHub("p"), cquest: () => qmap("c"), oquest: () => qmap("o"), pquest: () => qmap("p"), otier, home, triage, lookup, practice: pHome, ref, handout, news, pgy, works, games, rush, flash, leader, lmap, lcourse, lbook, ldrill, tassess: () => assessHub("t"), lassess: () => assessHub("l"), tbook, taudit, texam: () => quiz("t"), lsjt: () => quiz("l"), tnote: () => noteView("t"), lnote: () => noteView("l"), llog, quest, tquest: () => qmap("t"), lquest: () => qmap("l"), rquest: () => qmap("r"), resus: resusHub, rbook, rdrug, acct, bmanage }[route] || home)();
   const y = RESTORING ? (SCROLL[route] || 0) : 0; window.scrollTo(0, y); if (y) requestAnimationFrame(() => window.scrollTo(0, y));
 }
 
@@ -916,36 +940,31 @@ let WORKS = [
   { t: "檢傷動態講義", a: "急診部檢傷訓練", k: "講義", d: "五單元色塊講義，圖解可逐步播放，附課前練習與學會複雜案例。", u: "handouts.html" },
   { t: "檢傷動態簡報", a: "急診部檢傷訓練", k: "簡報", d: "五單元 PowerPoint，一張一個重點、按一下出現一段，備忘稿附參考答案。", u: "" },
 ];
-// 管理者用 Google 試算表發公告：把「公告」分頁「發布到網路」成 CSV，網址貼在這裡（留空＝用 board.json）
-const BOARD_CSV = "";
-function parseCSV(s){
-  const rows = []; let row = [], f = "", q = false;
-  for (let i = 0; i < s.length; i++) { const c = s[i];
-    if (q) { if (c === '"') { if (s[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
-    else if (c === '"') q = true; else if (c === ",") { row.push(f); f = ""; }
-    else if (c === "\n" || c === "\r") { if (c === "\r" && s[i + 1] === "\n") i++; row.push(f); rows.push(row); row = []; f = ""; }
-    else f += c; }
-  if (f || row.length) { row.push(f); rows.push(row); }
-  return rows;
-}
-async function loadSheetBoard(){
-  const r = await fetch(BOARD_CSV, { cache: "no-store" }); if (!r.ok) throw 0;
-  const [h, ...rows] = parseCSV(await r.text()); const k = n => h.findIndex(x => x.trim() === n);
-  const c = { d: k("日期"), tag: k("標籤"), t: k("標題"), b: k("內容"), l: k("連結"), on: k("顯示") };
-  const pad = s => { const m = String(s).trim().match(/^(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})/); return m ? `${m[1]}-${m[2].padStart(2, "0")}-${m[3].padStart(2, "0")}` : ""; };
-  const L = rows.map(x => { const l = c.l >= 0 ? (x[c.l] || "").trim() : "", o = { d: pad(x[c.d] || ""), tag: (x[c.tag] || "").trim(), t: (x[c.t] || "").trim(), b: c.b >= 0 ? x[c.b] || "" : "" };
-      if (l) /^https?:/.test(l) ? o.u = l : o.go = l.replace(/^#/, ""); if (c.on >= 0 && /^(FALSE|否|N|隱藏)$/i.test((x[c.on] || "").trim())) o.hide = true; return o; })
-    .filter(o => o.d && o.t && !o.hide);
-  if (!L.length) throw 0; BOARD = L;
-}
+// 公告由帳號中心管理：有「學習站・發公告」權限的人在 #bmanage 發佈。讀不到時用 board.json，再不行用上面的內建內容。
+const ACC = window.ACCOUNT || null;
+let ME = null, BOARD_SRC = "builtin", BOARD_STATIC = BOARD.slice();
+const canAnnounce = () => !!(ME && ME.has);
 (async () => {
-  let sheetOK = false;
-  if (BOARD_CSV) try { await loadSheetBoard(); sheetOK = true; } catch (e) {}
-  for (const [f, set] of [["board.json", v => BOARD = v], ["works.json", v => WORKS = v]]) {
-    if (f === "board.json" && sheetOK) continue;
+  for (const [f, set] of [["board.json", v => { BOARD_STATIC = v; if (BOARD_SRC !== "center") { BOARD = v; BOARD_SRC = "json"; } }], ["works.json", v => WORKS = v]]) {
     try { const r = await fetch(f, { cache: "no-store" }); if (r.ok) { const j = await r.json(); if (Array.isArray(j) && j.length) set(j); } } catch (e) {}
   }
+  if (ACC) try { const r = await ACC.api("boardList"); if (r.ok && r.items.length) { BOARD = r.items; BOARD_SRC = "center"; } } catch (e) {}
   if (["home", "news", "works"].includes(route)) render();
+})();
+/* 登入狀態：在帳號中心登入一次，學習站就認得你 */
+function paintAcct(){
+  const b = $("acctBtn"); if (!ACC) { b.hidden = true; return; }
+  const u = ME || ACC.cachedUser();
+  b.hidden = false; b.textContent = u ? u.name : "登入";
+  b.setAttribute("aria-label", u ? `我的帳號：${u.name}` : "登入");
+  b.onclick = () => u ? go("acct") : ACC.goLogin();
+}
+(async () => {
+  if (!ACC) return paintAcct();
+  paintAcct();
+  try { ME = await ACC.optional("hub.announce"); } catch (e) {}
+  paintAcct();
+  if (["home", "news", "acct", "bmanage"].includes(route)) render();
 })();
 const today = () => { const n = new Date(), p = x => String(x).padStart(2, "0"); return `${n.getFullYear()}-${p(n.getMonth()+1)}-${p(n.getDate())}`; };
 const linkify = s => esc(s).replace(/https?:\/\/[^\s<]+/g, u => `<a href="${u}" target="_blank" rel="noopener">${u}</a>`);
@@ -969,7 +988,7 @@ function home(){
   $("view").innerHTML = `
     <section class="hello"><div><h2>今天想練哪一區？</h2><p>依你輪到的工作區域學習；檢傷區已開放，其餘各區陸續建置。</p></div>${img("hospital")}</section>
     <a class="qbanner" href="#quest"><div class="ill" style="width:52px;height:52px;background:rgba(255,255,255,.92)">${img("map")}</div><div><b>急診成長地圖</b><span>新進 → 兒科 → 急救區 → 檢傷 → Leader，一站一站往上</span></div><span class="go">看我的地圖</span></a>
-    <div class="sec-h"><h2>公告</h2><a href="#news">全部公告 ›</a></div>
+    <div class="sec-h"><h2>公告</h2><span class="row" style="gap:14px">${canAnnounce() ? `<a href="#bmanage">＋ 發公告</a>` : ""}<a href="#news">全部公告 ›</a></span></div>
     ${newsHTML(sortedNews().slice(0, 3))}
     <div class="sec-h"><h2>學習區（依年資）</h2></div>
     <div class="zones">${ZONES.map(([id, n, s, a, c, live, yr]) => `<button class="zone ${live ? "" : "soon"}" style="background:var(${c})" ${live ? `data-z="${id}"` : 'aria-disabled="true"'}>
@@ -987,7 +1006,119 @@ function home(){
 }
 function news(){
   setBar("公告", "課程、作業與學習站更新", "home", "--z-leader");
-  $("view").innerHTML = newsHTML(sortedNews()) + `<p class="foot">底色標示的是今天以後的事項。公告由管理者更新。</p>`;
+  $("view").innerHTML = (canAnnounce() ? `<div class="row" style="margin-bottom:12px"><a class="btn" style="text-decoration:none" href="#bmanage">發公告／管理公告</a></div>` : "")
+    + newsHTML(sortedNews()) + `<p class="foot">底色標示的是今天以後的事項。公告由管理者更新。</p>`;
+}
+
+/* ---------- 我的帳號 ---------- */
+function acct(){
+  setBar("我的帳號", "嘉基急診帳號中心", "home", "--z-leader");
+  const u = ME || (ACC && ACC.cachedUser());
+  if (!ACC) { $("view").innerHTML = `<section class="panel"><p class="hint" style="margin:0">目前連不到帳號中心，請確認網路後重新整理。</p></section>`; return; }
+  if (!u) {
+    $("view").innerHTML = `<section class="panel stack"><b>還沒登入</b><p class="hint" style="margin:0">用員編登入後，有權限的人可以在學習站發公告。一般閱讀、練習不用登入。</p><div class="row"><button class="btn" data-act="login">登入</button></div></section>`;
+    $("view").onclick = e => { if (e.target.closest("[data-act=login]")) ACC.goLogin(); };
+    return;
+  }
+  $("view").innerHTML = `<section class="panel stack">
+      <div class="acctwho"><b>${esc(u.name)}</b><span class="hint">員編 ${esc(u.empId)}${u.title ? "・" + esc(u.title) : ""}</span></div>
+      <div class="row">
+        ${canAnnounce() ? `<a class="btn" style="text-decoration:none" href="#bmanage">公告管理</a>` : ""}
+        <a class="btn ghost" style="text-decoration:none" href="${esc(ACC.centerUrl)}">帳號中心（改 PIN、看權限）</a>
+        <button class="btn ghost" data-act="logout">登出</button>
+      </div>
+      <p class="hint" style="margin:0">在帳號中心登出或改 PIN，所有急診院內程式都會一起生效。</p></section>`;
+  $("view").onclick = e => { if (e.target.closest("[data-act=logout]")) { ACC.logout(); ME = null; BM.items = null; paintAcct(); go("home"); } };
+}
+
+/* ---------- 公告管理（權限：學習站・發公告） ---------- */
+const BM = { items: null, edit: null, del: null, msg: "", err: "", busy: false, draft: null };
+async function bmanage(){
+  setBar("公告管理", "發佈、修改、隱藏學習站公告", "news", "--z-leader");
+  const v = $("view");
+  if (!ACC) { v.innerHTML = `<section class="panel"><p class="hint" style="margin:0">目前連不到帳號中心，請確認網路後重新整理。</p></section>`; return; }
+  if (!ME) {
+    v.innerHTML = `<section class="panel stack"><b>請先登入</b><p class="hint" style="margin:0">發公告需要用員編登入，而且帳號要有「學習站・發公告」權限。</p><div class="row"><button class="btn" data-act="login">登入</button></div></section>`;
+    v.onclick = e => { if (e.target.closest("[data-act=login]")) ACC.goLogin(); };
+    return;
+  }
+  if (!ME.has) { v.innerHTML = `<section class="panel"><p class="hint" style="margin:0">你的帳號還沒有發公告權限。請帳號管理者在帳號中心幫你勾選「學習站・發公告」。</p></section>`; return; }
+  if (!BM.items) {
+    v.innerHTML = `<p class="hint">讀取公告中…</p>`;
+    try { const r = await ACC.api("boardList"); if (!r.ok) throw new Error(r.error); BM.items = r.items; }
+    catch (e) { if (route === "bmanage") v.innerHTML = `<div class="bmsg err">${esc(e.message || "讀不到公告，請稍後再試")}</div>`; return; }
+    if (route !== "bmanage") return;
+  }
+  bmDraw();
+}
+function bmSync(items){
+  BM.items = items;
+  const vis = items.filter(o => !o.hide);
+  if (vis.length) { BOARD = vis; BOARD_SRC = "center"; } else { BOARD = BOARD_STATIC; BOARD_SRC = "json"; }
+}
+function bmDraw(){
+  const v = $("view"), cur = BM.edit ? BM.items.find(o => o.id === BM.edit) : null;
+  const it = BM.draft || (cur ? { ...cur, link: cur.u || cur.go || "" } : null), editing = !!BM.edit;
+  const link = it ? it.link || "" : "";
+  const list = BM.items.slice().sort((x, y) => y.d.localeCompare(x.d));
+  v.innerHTML = `
+    ${BM.items.length === 0 && BOARD_STATIC.length ? `<section class="panel stack" style="margin-bottom:14px"><b>先把現有的 ${BOARD_STATIC.length} 則公告搬過來</b>
+      <p class="hint" style="margin:0">目前首頁的公告來自 board.json，不能在這裡修改。搬過來之後，所有公告都在這裡發佈、修改、隱藏。</p>
+      <div class="row"><button class="btn" data-act="import" ${BM.busy ? "disabled" : ""}>搬入 ${BOARD_STATIC.length} 則公告</button></div></section>` : ""}
+    <section class="panel stack" style="margin-bottom:14px">
+      <b>${editing ? "修改公告" : "發一則新公告"}</b>
+      <div class="bform">
+        <div class="bgrid">
+          <label>日期<input type="date" id="bD" value="${esc(it ? it.d : today())}"></label>
+          <label>標籤<input id="bTag" list="bTags" maxlength="12" value="${esc(it ? it.tag || "" : "公告")}"></label>
+        </div>
+        <datalist id="bTags"><option value="公告"><option value="課程"><option value="作業"><option value="報告"><option value="提醒"><option value="新功能"></datalist>
+        <label>標題（首頁顯示這一行）<input id="bT" maxlength="120" value="${esc(it ? it.t : "")}" placeholder="例：11/3 檢傷筆試改到急診討論室"></label>
+        <label>詳細內容（可省略；有內容的公告點開才看得到）<textarea id="bB" placeholder="時間、地點、要準備的東西…">${esc(it ? it.b || "" : "")}</textarea></label>
+        <label>點了要去哪裡（可省略）<input id="bL" value="${esc(link)}" placeholder="完整網址 https://…，或站內頁面：treat、obs、peds、resus、triage、leader、special"></label>
+        <label class="chk"><input type="checkbox" id="bShow" ${!it || !it.hide ? "checked" : ""}> 顯示在學習站（取消勾選就先藏起來）</label>
+      </div>
+      ${BM.err ? `<div class="bmsg err">${esc(BM.err)}</div>` : BM.msg ? `<div class="bmsg">${esc(BM.msg)}</div>` : ""}
+      <div class="row"><button class="btn" data-act="save" ${BM.busy ? "disabled" : ""}>${editing ? "儲存修改" : "發佈"}</button>${editing || BM.draft ? `<button class="btn ghost" data-act="cancel">${editing ? "取消修改" : "清空"}</button>` : ""}</div>
+    </section>
+    <div class="sec-h"><h2>全部公告（${BM.items.length}）</h2></div>
+    <div class="blist">${list.length ? list.map(o => `<article class="bitem ${o.hide ? "off" : ""}">
+      <div class="meta"><time>${esc(o.d)}</time><span class="ntag">${esc(o.tag || "公告")}</span>${o.hide ? `<span class="offtag">已隱藏</span>` : ""}${o.by ? `<span>${esc(o.by)}</span>` : ""}</div>
+      <b>${esc(o.t)}</b>
+      ${BM.del === o.id ? `<div class="bmsg err">刪除後無法復原。確定刪除這則公告？ <span class="acts" style="display:inline-flex;margin-left:6px"><button class="sbtn danger" data-act="delyes" data-id="${esc(o.id)}">刪除</button><button class="sbtn" data-act="delno">取消</button></span></div>`
+        : `<div class="acts"><button class="sbtn" data-act="edit" data-id="${esc(o.id)}">修改</button><button class="sbtn" data-act="toggle" data-id="${esc(o.id)}">${o.hide ? "顯示" : "隱藏"}</button><button class="sbtn danger" data-act="del" data-id="${esc(o.id)}">刪除</button></div>`}
+    </article>`).join("") : `<p class="hint">還沒有公告。</p>`}</div>
+    <p class="foot">公告存在帳號中心的 board 分頁，誰發的、誰改的都有紀錄。</p>`;
+  v.onclick = bmClick;
+}
+async function bmCall(action, body, okMsg){
+  BM.busy = true; BM.err = ""; BM.msg = ""; bmDraw();
+  try {
+    const r = await ACC.api(action, body); if (!r.ok) throw new Error(r.error);
+    const l = await ACC.api("boardList"); if (l.ok) bmSync(l.items);
+    BM.msg = typeof okMsg === "function" ? okMsg(r) : okMsg; return true;
+  } catch (e) { BM.err = e.message || "沒有成功，請稍後再試"; return false; }
+  finally { BM.busy = false; if (route === "bmanage") bmDraw(); }
+}
+async function bmClick(e){
+  const b = e.target.closest("[data-act]"); if (!b || BM.busy) return;
+  const act = b.dataset.act, id = b.dataset.id, o = id && BM.items.find(x => x.id === id);
+  const form = () => ({ id: BM.edit || "", d: $("bD").value, tag: $("bTag").value.trim() || "公告", t: $("bT").value.trim(), b: $("bB").value, link: $("bL").value.trim(), hide: !$("bShow").checked });
+  if (act === "edit") { BM.edit = id; BM.draft = null; BM.msg = BM.err = ""; bmDraw(); window.scrollTo(0, 0); return; }
+  if (act === "cancel") { BM.edit = null; BM.draft = null; BM.msg = BM.err = ""; bmDraw(); return; }
+  const f = form(); if (f.t || f.b || f.link || BM.edit) BM.draft = f;   // 重畫時保留還沒存的內容
+  if (act === "del") { BM.del = id; bmDraw(); }
+  else if (act === "delno") { BM.del = null; bmDraw(); }
+  else if (act === "delyes") { BM.del = null; if (BM.edit === id) { BM.edit = null; BM.draft = null; } await bmCall("boardDelete", { id }, "已刪除"); }
+  else if (act === "toggle" && o) await bmCall("boardSave", { item: { ...o, link: o.u || o.go || "", hide: !o.hide } }, o.hide ? "已顯示在學習站" : "已隱藏");
+  else if (act === "import") await bmCall("boardImport", { items: BOARD_STATIC.map(x => ({ ...x, link: x.u || x.go || "" })) }, r => `搬入 ${r.added} 則` + (r.skipped ? `，略過 ${r.skipped} 則重複或缺資料的` : ""));
+  else if (act === "save") {
+    const item = f; BM.draft = f;
+    if (!item.d) { BM.err = "請選日期"; return bmDraw(); }
+    if (!item.t) { BM.err = "請填標題"; return bmDraw(); }
+    const wasEdit = !!BM.edit;
+    if (await bmCall("boardSave", { item }, wasEdit ? "已儲存修改" : "已發佈，首頁馬上看得到")) { BM.edit = null; BM.draft = null; bmDraw(); }
+  }
 }
 
 /* ---------- PGY ---------- */
