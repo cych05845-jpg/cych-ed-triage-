@@ -897,6 +897,278 @@ a.extra:hover,a.mod:hover,button.mod:hover{transform:translateY(-2px);border-col
 @media (prefers-reduced-motion:no-preference){.s-star{animation:twinkle 3.2s ease-in-out infinite}.s-star:nth-of-type(3n){animation-delay:1.1s}.s-star:nth-of-type(3n+1){animation-delay:2.2s}}
 @keyframes twinkle{50%{opacity:.35}}
 
+/* 回程選單 */
+.backmenu{position:fixed;z-index:60;top:calc(env(safe-area-inset-top,0px) + 58px);left:max(12px,calc(50% - 508px));width:min(300px,calc(100vw - 24px));background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px -12px rgba(16,40,64,.35);padding:8px;display:grid;gap:2px}
+@media (min-width:1100px){.backmenu{left:268px}}
+.bmhd{font-size:12px;font-weight:700;color:var(--ink-2);letter-spacing:.06em;padding:6px 10px 4px}
+.backmenu button{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:center;text-align:left;border:0;background:transparent;border-radius:10px;padding:8px 10px;color:var(--ink)}
+.backmenu button:hover,.backmenu button:focus-visible{background:var(--surface-2)}
+.backmenu i{font-style:normal;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--zt,var(--surface-2));color:var(--zi,var(--ink));font-weight:900;--zz:var(--zc,var(--z-triage));--zt:color-mix(in oklab,var(--zz) var(--ta),var(--surface));--zi:color-mix(in oklab,var(--zz) var(--ti),var(--ink))}
+.backmenu b{display:block;font-size:14.5px}.backmenu small{display:block;font-size:12px;color:var(--ink-2)}
+@media (prefers-reduced-motion:no-preference){.backmenu:not([hidden]){animation:popin .18s ease}}
+/* 成長地圖：闖關與學習頁分兩組 */
+.cgo{display:grid;gap:10px}
+.cgrp{display:grid;grid-template-columns:76px minmax(0,1fr);gap:8px;align-items:start}
+.cgl{font-size:12.5px;font-weight:700;color:var(--ink-2);padding-top:8px;white-space:nowrap}
+.cbtn{display:inline-flex;align-items:center;border-radius:12px;padding:8px 14px;font-weight:700;font-size:14px;text-decoration:none;border:1.5px solid color-mix(in oklab,var(--cc) 45%,var(--line));color:color-mix(in oklab,var(--cc) var(--ti),var(--ink));background:var(--surface)}
+.cbtn.q{background:var(--cc);border-color:var(--cc);color:#fff;box-shadow:0 8px 18px -10px var(--cc)}
+@media (max-width:420px){.cgrp{grid-template-columns:1fr;gap:4px}.cgl{padding-top:0}}
+/* 學習區卡片：加寬、字放大 */
+@media (min-width:900px){.zones{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1280px){.zones{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.zone{grid-template-columns:minmax(0,1fr) 68px;padding:20px 22px;min-height:150px}
+.zone b{font-size:19px}
+.zone>div>span:not(.yr){font-size:14.5px;line-height:1.65}
+.zone .ill{width:68px;height:68px}.zone .ill img{width:48px;height:48px}
+.zp{max-width:none}
+
+/* ===== 第 7 批：滿版地圖、勳章、人型圖、判斷技巧、線上教材 ===== */
+.bmall,.bmsheet,.jrow,.mcard{--zz:var(--brand);--zt:color-mix(in oklab,var(--zz) var(--ta),var(--surface));--zt2:color-mix(in oklab,var(--zz) var(--tb),var(--surface));--zb:color-mix(in oklab,var(--zz) 26%,var(--line));--zi:color-mix(in oklab,var(--zz) var(--ti),var(--ink))}
+.bmall[style],.bmsheet[style],.jrow[style],.mcard[style]{--zt:color-mix(in oklab,var(--zz) var(--ta),var(--surface))}
+.bmall{display:contents}
+body.noscroll{overflow:hidden}
+/* 滿版闖關地圖 */
+.qmap{max-width:none;width:calc(100% + 32px);margin-inline:-16px;border-radius:0;border-inline:0}
+@media (min-width:700px){.qmap{border-radius:26px;border-inline:1px solid var(--line)}}
+.q-grid{fill:none;stroke:color-mix(in srgb,var(--ink) 7%,transparent);stroke-width:1}
+.q-compass circle{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.q-compass .cn{fill:var(--lv1)}.q-compass .cs{fill:var(--ink-2)}.q-compass .ce{fill:var(--line)}
+.q-compass text{font:700 10px var(--f-data);fill:var(--ink-2)}
+.qpin{position:absolute;top:-30px;left:50%;transform:translateX(-50%);background:var(--warm);color:#fff;font-size:11.5px;font-weight:700;border-radius:999px;padding:2px 10px;white-space:nowrap;box-shadow:0 6px 14px -6px var(--warm);z-index:2}
+.qpin::after{content:"";position:absolute;left:50%;bottom:-5px;transform:translateX(-50%);border:5px solid transparent;border-bottom:0;border-top-color:var(--warm)}
+@media (prefers-reduced-motion:no-preference){.qpin{animation:bob 1.8s ease-in-out infinite}}
+@keyframes bob{50%{transform:translate(-50%,-4px)}}
+.qhead{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center}
+.qmedal{text-decoration:none;line-height:0}
+/* 勳章 */
+.medal{--ms:72px;position:relative;display:inline-block;width:var(--ms);height:calc(var(--ms) * 86 / 72);flex:none;vertical-align:middle}
+.medal svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.medal .mimg{position:absolute;left:50%;top:60.5%;width:calc(var(--ms) * .4);height:calc(var(--ms) * .4);transform:translate(-50%,-50%);display:grid;place-items:center}
+.medal .mimg img{width:100%;height:100%}
+.mrib1{fill:var(--zz,var(--brand))}.mrib2{fill:color-mix(in oklab,var(--zz,var(--brand)) 72%,#000)}
+.mstar{fill:#fff;opacity:.95}
+.m-gold .mrim{fill:#E3A82B;stroke:#F6D27A;stroke-width:2}.m-gold .mface{fill:#FFF1C9}
+.m-silver .mrim{fill:#AEB9C4;stroke:#DCE3EA;stroke-width:2}.m-silver .mface{fill:#F1F4F7}
+.m-bronze .mrim{fill:#C3814C;stroke:#E6B48A;stroke-width:2}.m-bronze .mface{fill:#F8E6D6}
+.m-none .mrim{fill:var(--surface-2);stroke:var(--line);stroke-width:2}.m-none .mface{fill:var(--surface)}.m-none .mrib1,.m-none .mrib2{fill:var(--line)}.m-none .mimg{opacity:.45;filter:grayscale(1)}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.mgrid.small{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+.mcard{position:relative;display:grid;justify-items:center;text-align:center;gap:4px;padding:16px 12px 14px;border-radius:18px;background:linear-gradient(170deg,var(--zt),var(--surface) 60%);border:1px solid var(--line);box-shadow:var(--shadow);text-decoration:none;color:var(--ink)}
+.mcard b{font-size:15px}.mcard .mt{font-size:12.5px;font-weight:700;color:var(--warm-ink)}
+.mcard small{font-size:12px;color:var(--ink-2);line-height:1.5}
+.mcard em{position:absolute;top:8px;right:10px;font-style:normal;font-size:11px;color:var(--ink-2);font-family:var(--f-data)}
+.mcard.lock{background:var(--surface)}
+.mgot{display:grid;justify-items:center;text-align:center;gap:6px;padding:22px 18px}
+.mgot small{font-size:12.5px;font-weight:700;letter-spacing:.08em;color:var(--warm-ink)}
+.mgot h2{font-size:24px}.mgot p{margin:0;color:var(--ink-2)}
+@media (prefers-reduced-motion:no-preference){.mgot .medal{animation:popin .5s cubic-bezier(.2,1.4,.4,1) both}}
+.tmed{grid-column:1/-1;justify-self:start;display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink-2);font-size:13px;border:1px solid var(--tint-line);border-radius:999px;padding:2px 12px 2px 4px;background:var(--surface)}
+.tmed b{color:var(--warm-ink);font-family:var(--f-data)}
+/* 跳出視窗 */
+.sheet{position:fixed;inset:0;z-index:70;background:rgba(12,24,32,.42);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);display:grid;place-items:end center;padding:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+@media (min-width:700px){.sheet{place-items:center}}
+.mdlcard{background:var(--surface);border-radius:22px;width:100%;max-width:640px;max-height:calc(100% - 20px);overflow:auto;box-shadow:0 24px 60px -20px rgba(0,0,0,.45);overscroll-behavior:contain}
+@media (prefers-reduced-motion:no-preference){.sheet:not([hidden]) .mdlcard{animation:popin .22s ease}}
+.shd{position:sticky;top:0;z-index:1;display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:18px 20px 12px;background:linear-gradient(180deg,var(--zt2),var(--surface))}
+.shd small{font-size:12.5px;font-weight:700;color:var(--zi);letter-spacing:.06em}.shd h2{font-size:21px}
+.sclose{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.dztabs{display:flex;gap:6px;overflow-x:auto;padding:0 20px 10px;scrollbar-width:thin}
+.dztabs button{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-weight:700;font-size:13.5px;white-space:nowrap;color:var(--ink)}
+.dztabs button[aria-selected="true"]{background:var(--zz);border-color:var(--zz);color:#fff}
+.sbody{padding:6px 20px 22px;display:grid;gap:16px}
+.sbody h3{display:flex;align-items:center;gap:8px;font-size:15.5px;margin:0 0 6px}
+.sbody h3 i{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-style:normal;font-size:14px;background:var(--zt2);color:var(--zi)}
+.sbody ul,.sbody ol{margin:0;padding-left:22px;display:grid;gap:4px;font-size:14.5px;line-height:1.65}
+.dglist{display:grid;gap:8px}
+.drug1{display:grid;gap:2px;border:1px solid var(--line);border-left:4px solid var(--zz);border-radius:12px;padding:8px 12px;background:var(--surface)}
+.drug1 b{font-size:14.5px}.drug1 span{font-size:14px;line-height:1.6}.drug1 small{font-size:12.5px;color:var(--warm-ink)}
+/* 人型疾病圖 */
+:root{--fig1:#EAF1F6;--fig2:#DCE7EF;--figline:#BFCFDC}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--fig1:#26353F;--fig2:#1F2C36;--figline:#3C5162}}
+:root[data-theme="dark"]{--fig1:#26353F;--fig2:#1F2C36;--figline:#3C5162}
+.bmhead{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin-bottom:10px}
+.bmwrap{display:grid;gap:16px}
+@media (min-width:760px){.bmwrap{grid-template-columns:minmax(260px,360px) minmax(0,1fr);align-items:start}}
+.bmfig{position:relative;width:100%;max-width:330px;margin:0 auto;aspect-ratio:240/440;background:radial-gradient(circle at 50% 40%,var(--zt),transparent 70%);border-radius:24px}
+.bmfig.child{aspect-ratio:240/400}
+.bmfig>svg{position:absolute;inset:0;width:100%;height:100%}
+.figorg path{fill:color-mix(in srgb,var(--zz) 16%,transparent);stroke:none}
+.figorg .figheart{fill:color-mix(in srgb,var(--lv1) 32%,transparent)}
+.figeye{fill:var(--ink-2)}.figcheek{fill:color-mix(in srgb,#F28B8B 40%,transparent)}
+.bpt{position:absolute;transform:translate(-50%,-50%);border:0;background:none;padding:0;display:grid;justify-items:center;gap:3px;cursor:pointer;z-index:1}
+.bpt i{width:20px;height:20px;border-radius:50%;background:var(--zz);border:3px solid var(--surface);box-shadow:0 0 0 4px color-mix(in srgb,var(--zz) 25%,transparent)}
+@media (prefers-reduced-motion:no-preference){.bpt i{animation:bpulse 2.4s ease-in-out infinite}}
+@keyframes bpulse{50%{box-shadow:0 0 0 9px color-mix(in srgb,var(--zz) 8%,transparent)}}
+.bpt span{font-size:12px;font-weight:700;background:var(--surface);border:1px solid var(--zb);border-radius:999px;padding:1px 8px;white-space:nowrap;color:var(--ink);box-shadow:0 2px 6px rgba(16,40,64,.1)}
+.bpt small{position:absolute;left:calc(50% + 8px);top:-9px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--warm);color:#fff;font-size:10.5px;font-weight:700;display:grid;place-items:center}
+.bpt:hover span,.bpt.on span{background:var(--zz);color:#fff;border-color:var(--zz)}
+.bmlist{display:grid;gap:8px;align-content:start}
+.bmrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 14px;color:var(--ink)}
+.bmrow b{font-size:15px}.bmrow span{grid-column:1;font-size:13px;color:var(--ink-2);line-height:1.55}
+.bmrow i{grid-column:2;grid-row:1 / 3;align-self:center;font-style:normal;color:var(--ink-2);font-size:18px}
+.bmrow:hover{border-color:var(--zb);background:var(--zt)}
+.patho{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.pcard{border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:grid;gap:8px;align-content:start;background:linear-gradient(160deg,var(--zt),var(--surface) 55%);min-width:0}
+.pcard>b{font-size:15.5px}.pcard p{margin:0;font-size:14px;line-height:1.7}
+.pf{font-family:var(--f-data);font-weight:600;font-size:13.5px;background:var(--surface);border:1px dashed var(--zb);border-radius:10px;padding:5px 10px;color:var(--zi);justify-self:start}
+.phow>span{font-size:12px;font-weight:700;color:var(--ink-2);letter-spacing:.06em}
+.phow ul{margin:4px 0 0;padding-left:18px;font-size:13.5px;line-height:1.65}
+.qalist{display:grid;gap:8px}
+.qa{border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.qa summary{cursor:pointer;padding:10px 14px;display:flex;gap:10px;align-items:flex-start;font-size:14.5px;list-style:none}
+.qa summary::-webkit-details-marker{display:none}
+.qn{font-family:var(--f-data);font-weight:600;color:var(--zi);flex:none}
+.qa>div{padding:0 14px 12px 48px}.qa b{color:var(--ok)}.qa p{margin:4px 0 0;font-size:13.5px;color:var(--ink-2)}
+/* 治療區、留觀區：疾病照護與輕重緩急 */
+.dlist{display:grid;gap:8px}
+@media (min-width:900px){.dlist{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.drow{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:12px;align-items:center;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:10px 14px;background:var(--surface);transition:border-color .2s,transform .2s}
+.drow:hover{transform:translateY(-1px);border-color:color-mix(in oklab,var(--brand) 35%,var(--line))}
+.drow img{width:40px;height:40px}
+.drow b{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:15.5px}
+.drow span{display:block;font-size:13.5px;color:var(--ink-2);line-height:1.55}
+.drow small{display:block;font-size:12.5px;color:var(--bad);margin-top:2px}
+.drow>i,.jrow>i{font-style:normal;color:var(--ink-2);font-size:18px}
+.okmark{font-style:normal;font-size:11px;font-weight:700;border-radius:999px;padding:0 8px;background:color-mix(in srgb,var(--ok) 14%,var(--surface));color:var(--ok)}
+.jlist{display:grid;gap:8px}
+.jrow{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:12px;align-items:center;text-decoration:none;color:var(--ink);border:1px solid var(--zb);border-radius:14px;padding:12px 14px;background:linear-gradient(100deg,var(--zt),var(--surface) 70%)}
+.jn{width:32px;height:32px;border-radius:10px;background:var(--zz);color:#fff;display:grid;place-items:center;font-weight:900;font-family:var(--f-data)}
+.jrow b{font-size:15.5px}.jrow>div>span{display:block;font-size:13.5px;color:var(--ink-2);line-height:1.55}
+.jrow .jn{color:#fff;font-size:15px}
+.cues{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.cues li{padding:8px 12px 8px 30px;border-radius:10px;background:var(--surface-2);font-size:14px;line-height:1.6;position:relative}
+.cues li::before{content:"";position:absolute;left:12px;top:15px;width:8px;height:8px;border-radius:50%;background:var(--warm)}
+.exans{border:1px dashed var(--tint-line);background:var(--tint);border-radius:12px;padding:10px 14px}
+.exans summary{cursor:pointer;font-weight:700;color:var(--warm-ink)}
+.exans p{margin:8px 0 0;line-height:1.75}
+/* 線上教材 */
+.courses{display:grid;gap:10px}
+.course{--cz:var(--z-leader);display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:14px;align-items:center;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow)}
+.course .cno{width:38px;height:38px;border-radius:12px;background:var(--cz);color:#fff;display:grid;place-items:center;font-weight:900;font-family:var(--f-data)}
+.course b{display:block;font-size:16px}.course span{display:block;font-size:13px;color:var(--ink-2)}
+.cbar{height:6px;border-radius:999px;background:var(--surface-2);margin:8px 0 3px;overflow:hidden;max-width:320px}
+.cbar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--cz),var(--warm))}
+.course small{font-size:12px;color:var(--ink-2)}.course .pend{color:var(--warm-ink)}
+.cgo2{font-style:normal;font-size:20px;color:var(--ink-2)}.course.done .cgo2{color:var(--ok);font-weight:900}
+.cwhead{display:grid;gap:10px}.cwtop{display:grid;gap:2px}.cwtop b{font-size:18px}
+.cwdots{display:flex;gap:6px;flex-wrap:wrap}
+.cwdots a{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;text-decoration:none;font-family:var(--f-data);font-size:12.5px;font-weight:600;border:1.5px solid var(--line);color:var(--ink-2);background:var(--surface)}
+.cwdots a.read{background:color-mix(in oklab,var(--z-leader) 14%,var(--surface));border-color:color-mix(in oklab,var(--z-leader) 40%,var(--line));color:color-mix(in oklab,var(--z-leader) var(--ti),var(--ink))}
+.cwdots a[aria-selected="true"]{background:var(--z-leader);border-color:var(--z-leader);color:#fff}
+.cwgrid{display:grid;gap:16px}
+.cwtoc{display:none}
+@media (min-width:960px){.cwgrid{grid-template-columns:230px minmax(0,1fr);align-items:start}
+  .cwtoc{display:grid;gap:4px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}
+  .cwtoc a{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;align-items:start;text-decoration:none;color:var(--ink-2);font-size:13.5px;padding:6px 8px;border-radius:10px;line-height:1.5}
+  .cwtoc i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:var(--surface-2);font-family:var(--f-data)}
+  .cwtoc a.read i{background:color-mix(in oklab,var(--z-leader) 16%,var(--surface));color:color-mix(in oklab,var(--z-leader) var(--ti),var(--ink))}
+  .cwtoc a[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--line)}
+  .cwtoc a[aria-current="true"] i{background:var(--z-leader);color:#fff}}
+.cwpage{min-height:220px}
+.cwnav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.cwnav .btn{text-decoration:none}
+
+/* 多人連線團隊擬真 */
+.drlgrid{display:grid;gap:14px}@media (min-width:860px){.drlgrid{grid-template-columns:1fr 1.2fr;align-items:start}}
+.drmode{display:grid;gap:8px}
+.drmode label{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;border:1.5px solid var(--line);border-radius:14px;padding:10px 12px;cursor:pointer}
+.drmode label:has(input:checked){border-color:var(--z-resus);background:color-mix(in oklab,var(--z-resus) 8%,var(--surface))}
+.drmode input{margin-top:4px;accent-color:var(--z-resus)}.drmode b{display:block}.drmode small{color:var(--ink-2);font-size:12.5px}
+.drroles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.drrole{text-align:left;border:1.5px solid color-mix(in srgb,var(--rc) 35%,var(--line));border-left:5px solid var(--rc);background:var(--surface);border-radius:12px;padding:10px 12px;color:var(--ink);display:grid;gap:2px}
+.drrole b{font-size:15px}.drrole small{font-size:12px;color:var(--ink-2)}
+.drrole.on{background:color-mix(in srgb,var(--rc) 12%,var(--surface))}
+.drtop{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center}
+.drtop small{display:block;font-size:12px;color:var(--ink-2);font-weight:700;letter-spacing:.06em}
+.drcode{font-family:var(--f-data);font-size:44px;letter-spacing:.12em;line-height:1;color:var(--z-resus)}
+.drjoin{display:grid;gap:2px;font-size:14px}.drjoin b{font-family:var(--f-data);font-size:18px}
+.drctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-left:auto}
+.drst{font-size:13px;font-weight:700;border-radius:999px;padding:3px 12px;background:var(--surface-2)}
+.drst.run{background:var(--z-resus);color:#fff}.drst.end{background:color-mix(in srgb,var(--ok) 16%,var(--surface));color:var(--ok)}
+.drbgrid{display:grid;gap:14px}@media (min-width:900px){.drbgrid{grid-template-columns:1.6fr 1fr}}
+.drmon{background:#0B1714;border-radius:16px;padding:12px;display:grid;gap:8px;color:#D8F5E8}
+.drcv{width:100%;height:150px;display:block;border-radius:10px;background:#06120F}
+.drmon.sm .drcv{height:100px}
+.drrhy{font-weight:900;font-size:17px;color:#45E39B}
+.drvit{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.drvit span{background:rgba(255,255,255,.06);border-radius:10px;padding:6px 8px;display:grid}
+.drvit small{font-size:11px;color:#8FB8A8;font-weight:700}.drvit b{font-family:var(--f-data);font-size:22px;color:#E8FFF4}
+.drtms{display:grid;gap:8px}
+.drtm{border:1px solid var(--line);border-radius:12px;padding:8px 12px;display:grid;gap:2px}
+.drtm small{font-size:12px;color:var(--ink-2);font-weight:700}.drtm b{font-family:var(--f-data);font-size:28px;font-variant-numeric:tabular-nums}
+.drtm.warn{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 8%,var(--surface))}.drtm.warn b{color:var(--bad)}
+.drbar{display:block;height:6px;border-radius:999px;background:var(--surface-2);overflow:hidden}.drbar u{display:block;height:100%;background:linear-gradient(90deg,var(--ok),var(--warm),var(--bad));width:0}
+.drstage{margin-top:10px;display:grid;gap:2px}.drstage small{font-size:12px;color:var(--ink-2);font-weight:700}.drstage b{font-size:17px}.drstage span{font-size:13px;color:var(--ink-2)}
+.drtiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.drtile{border:1px solid color-mix(in srgb,var(--rc) 35%,var(--line));border-top:5px solid var(--rc);border-radius:14px;background:var(--surface);padding:10px 12px;display:grid;gap:6px;align-content:start;min-height:110px}
+.drtile header{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.drtile header b{font-size:16px}.drtile header span{font-size:13px;color:var(--ink-2)}
+.drtile.empty{opacity:.65}
+.drtile p{margin:0;font-size:13.5px}.drtile time{font-family:var(--f-data);font-size:12px;color:var(--ink-2)}
+.drpend{border-radius:10px;padding:6px 10px;background:color-mix(in srgb,var(--warm) 16%,var(--surface));border:1px solid var(--tint-line);display:grid;gap:1px;font-size:14px}
+.drpend.ack{background:color-mix(in srgb,var(--rc) 10%,var(--surface));border-color:color-mix(in srgb,var(--rc) 35%,var(--line))}
+.drpend em{font-style:normal;font-size:12px;color:var(--ink-2)}.drpend i{font-style:normal;font-family:var(--f-data)}
+.drfeed{list-style:none;margin:0;padding:0;display:grid;gap:4px;max-height:420px;overflow:auto}
+.drfeed li{display:grid;grid-template-columns:52px 108px minmax(0,1fr);gap:8px;align-items:baseline;font-size:14px;padding:5px 8px;border-radius:8px;border-left:4px solid var(--rc);background:var(--surface)}
+.drfeed time{font-family:var(--f-data);font-size:12.5px;color:var(--ink-2)}.drfeed .who{font-weight:700;font-size:13px;color:color-mix(in srgb,var(--rc) 80%,var(--ink));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.drfeed li.muted{border-left-color:var(--line);grid-template-columns:1fr;color:var(--ink-2)}
+.drme{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;border-top:5px solid var(--rc)}
+.drbadge{background:var(--rc);color:#fff;font-weight:900;border-radius:12px;padding:8px 12px;font-size:16px}
+.drme b{display:block;font-size:16px}.drme small{font-size:12.5px;color:var(--ink-2)}
+.drel{text-align:right}.drel small{display:block;font-size:11px;color:var(--ink-2)}.drel b{font-family:var(--f-data);font-size:20px}
+.drcgrp{display:grid;gap:6px;border-left:4px solid var(--rc);padding-left:10px}.drcgrp>span{font-size:13px;font-weight:700;color:var(--ink-2)}
+.drcmd{border:1.5px solid color-mix(in srgb,var(--rc,var(--brand)) 40%,var(--line));background:var(--surface);color:var(--ink);border-radius:12px;padding:9px 12px;font-weight:700;font-size:14px;min-height:44px}
+.drcmd:active{transform:scale(.97)}.drcmd:disabled{opacity:.45}
+.drcmd.on{background:var(--z-resus);color:#fff;border-color:var(--z-resus)}
+.drrgrid,.drsay{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.drsent{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 10px;border-left:4px solid var(--rc);padding:6px 10px;border-radius:8px;background:color-mix(in srgb,var(--warm) 12%,var(--surface))}
+.drsent b{font-size:13px;color:var(--rc)}.drsent em{grid-column:2;font-style:normal;font-size:12.5px;color:var(--ink-2)}
+.drsent.ack{background:var(--surface-2)}.drsent.done{background:color-mix(in srgb,var(--ok) 10%,var(--surface))}.drsent.done em{color:var(--ok);font-weight:700}
+.drin{border:2px solid var(--rc);border-radius:14px;padding:12px;display:grid;gap:8px;background:color-mix(in srgb,var(--rc) 8%,var(--surface))}
+.drin b{font-size:18px}.drin.ack{border-style:dashed}
+@media (prefers-reduced-motion:no-preference){.drin:not(.ack){animation:popin .3s ease}}
+.drdeb{border-top:5px solid var(--ok)}
+.dbgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.dbr{border:1px solid var(--line);border-radius:12px;padding:8px 12px;display:grid;gap:2px}.dbr span{font-size:12.5px;color:var(--ink-2)}.dbr b{font-size:15px}
+.dbr.ok{border-color:color-mix(in srgb,var(--ok) 45%,var(--line))}.dbr.ok b{color:var(--ok)}.dbr.bad{border-color:color-mix(in srgb,var(--bad) 45%,var(--line))}.dbr.bad b{color:var(--bad)}
+.drchip{font-size:13px;font-weight:700;border-radius:999px;padding:2px 10px;background:color-mix(in srgb,var(--rc) 14%,var(--surface));color:var(--ink);border:1px solid color-mix(in srgb,var(--rc) 35%,var(--line))}
+.drtoast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:999px;font-size:14px;z-index:80}
+
+/* 團隊運作圖 */
+.drmapw>summary{cursor:pointer;font-weight:900;font-size:16px;list-style:none;display:flex;align-items:center;gap:8px}
+.drmapw>summary::-webkit-details-marker{display:none}
+.drmapw>summary::before{content:"›";display:inline-block;transition:transform .2s;color:var(--ink-2);font-size:20px}
+.drmapw[open]>summary::before{transform:rotate(90deg)}
+.drmapw[open]>summary{margin-bottom:10px}
+.drroom{position:relative;max-width:720px;margin:0 auto}
+.drroom .roomsvg{max-width:none}
+.drov{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.drarrow{stroke:var(--warm);stroke-width:2.5;stroke-dasharray:6 5;fill:none}
+.drarrow.ack{stroke:var(--ok)}
+@media (prefers-reduced-motion:no-preference){.drarrow{animation:drdash 1s linear infinite}}
+@keyframes drdash{to{stroke-dashoffset:-22}}
+.drahp{fill:var(--warm)}.drahk{fill:var(--ok)}
+.drbub rect{fill:var(--surface);stroke:var(--line);stroke-width:1.2}
+.drbub.pend rect{fill:var(--tint);stroke:var(--warm)}.drbub.ack rect{stroke:var(--ok)}
+.drbub text{font-size:11px;font-weight:700;fill:var(--ink)}
+.drleg{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;font-size:12.5px;color:var(--ink-2);margin-top:6px}
+.drleg span{display:inline-flex;align-items:center;gap:6px}
+.lg{width:14px;height:14px;border-radius:50%;display:inline-block}
+.lg.pend{border:2.5px dashed var(--lv3)}.lg.ok{border:3px solid var(--ok)}.lg.arr{width:22px;height:0;border-radius:0;border-top:2.5px dashed var(--warm)}
+
+/* 大面板播報 */
+.drsnd{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.drsnd[aria-pressed="true"]{background:var(--ok);color:#fff;border-color:var(--ok)}
+.drann{position:sticky;top:calc(env(safe-area-inset-top,0px) + 62px);z-index:15;display:flex;align-items:center;gap:14px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;padding:12px 18px;box-shadow:0 18px 40px -16px rgba(0,0,0,.4)}
+.drann b{font-size:clamp(20px,3vw,32px);line-height:1.3}
+.drannwho{flex:none;background:var(--rc);color:#fff;font-weight:900;border-radius:12px;padding:6px 12px;font-size:16px}
+.drmapbox{position:relative;max-width:720px;margin:0 auto}
+.drcall{position:absolute;transform:translate(-50%,calc(-100% - 26px));background:var(--surface);border:3px solid var(--rc);border-radius:16px;padding:8px 14px;font-weight:900;font-size:clamp(14px,1.8vw,19px);white-space:nowrap;box-shadow:0 12px 26px -10px rgba(0,0,0,.45);z-index:3;max-width:90%}
+.drcall small{display:block;font-size:12px;color:var(--rc);font-weight:900}
+.drcall::after{content:"";position:absolute;left:50%;bottom:-11px;transform:translateX(-50%);border:9px solid transparent;border-bottom:0;border-top-color:var(--rc)}
+@media (prefers-reduced-motion:no-preference){.drcall.pop,.drann.pop{animation:drpop .35s cubic-bezier(.2,1.5,.4,1)}}
+@keyframes drpop{from{transform:translate(-50%,calc(-100% - 10px)) scale(.7);opacity:0}}
+.drann.pop{animation-name:drpop2}@keyframes drpop2{from{transform:scale(.92);opacity:0}}
+
 /* 團體演練事件條 */
 .event{--zz:var(--z-spec);background:linear-gradient(100deg,var(--zt2),var(--zt) 40%,var(--surface));color:var(--ink);border:1px solid var(--zb);box-shadow:var(--shadow)}
 .event .label{color:var(--zi);opacity:1}
@@ -908,12 +1180,13 @@ a.extra:hover,a.mod:hover,button.mod:hover{transform:translateY(-2px);border-col
 </head>
 <body>
 <header class="appbar" id="bar"><div class="in">
-  <button class="nbtn" id="backBtn" hidden>‹ 上一頁</button>
+  <button class="nbtn" id="backBtn" hidden aria-haspopup="menu" aria-expanded="false">‹ 回程</button>
   <div class="strip" aria-hidden="true"><i class="lvbg1"></i><i class="lvbg2"></i><i class="lvbg3"></i><i class="lvbg4"></i><i class="lvbg5"></i></div>
   <h1 id="barTitle">嘉基急診學習站<small>急診各區訓練</small></h1>
   <button class="nbtn" id="homeBtn" hidden>⌂ 首頁</button>
   <button class="nbtn" id="acctBtn" hidden>登入</button>
 </div></header>
+<div class="backmenu" id="backMenu" role="menu" hidden></div>
 <main class="wrap" id="view"></main>
 <div class="dock" id="dock" hidden><div class="in" id="dockIn">
   <div class="big" id="dLv">—</div>
@@ -1097,9 +1370,31 @@ let route = "";
 const SCROLL = {}, HIST = []; let RESTORING = false;   // 上一頁回到原位置
 function go(r){ if (location.hash !== "#" + r) location.hash = r; else render(); }
 addEventListener("hashchange", render);
+/* 回程選單：上一頁／回闖關地圖／回學習頁／回成長地圖／回首頁 */
+let BACK = "home";
+const HUB_Q = { treat: "cquest", obs: "oquest", peds: "pquest", resus: "rquest", triage: "tquest", leader: "lquest", special: "squest" };
+function backMenu(force){
+  const m = $("backMenu"), open = force !== undefined ? force : m.hidden;
+  if (!open) { m.hidden = true; $("backBtn").setAttribute("aria-expanded", "false"); return; }
+  const hub = navKey(route), name = (NAV.flatMap(g => g[1]).find(x => x[0] === hub) || [])[1], q = HUB_Q[hub];
+  const items = [["prev", "上一頁", "‹", HIST.length > 1 ? "回到剛剛看的頁面" : "回到上一層"]];
+  if (q && route !== q) items.push(["#" + q, `回${name}闖關地圖`, "⚑", "看關卡與進度"]);
+  if (name && route !== hub && !["home", "quest", "news"].includes(hub)) items.push(["#" + hub, `回${name}學習頁`, "❏", "主題、疾病、工具"]);
+  if (route !== "quest") items.push(["#quest", "回成長地圖", "◎", "各年資的學習站"]);
+  if (route !== "home") items.push(["#home", "回首頁", "⌂", "公告、今日學習"]);
+  m.innerHTML = `<div class="bmhd">要回到哪裡？</div>` + items.map(([h, t, i, d]) => `<button role="menuitem" data-back="${h}"><i aria-hidden="true">${i}</i><span><b>${esc(t)}</b><small>${esc(d)}</small></span></button>`).join("");
+  m.hidden = false; $("backBtn").setAttribute("aria-expanded", "true"); m.querySelector("button").focus();
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-back]");
+  if (b) { backMenu(false); const h = b.dataset.back; if (h === "prev") HIST.length > 1 ? history.back() : go(BACK); else go(h.slice(1)); return; }
+  if (!e.target.closest("#backMenu")) backMenu(false);
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("backMenu").hidden) { backMenu(false); $("backBtn").focus(); } });
+addEventListener("hashchange", () => backMenu(false));
 function setBar(title, sub, back, zone){
   $("barTitle").innerHTML = `${esc(title)}<small>${esc(sub)}</small>`;
-  $("backBtn").hidden = !back; $("backBtn").onclick = () => HIST.length > 1 ? history.back() : go(back || "home");
+  $("backBtn").hidden = !back; BACK = back || "home"; $("backBtn").onclick = e => { e.stopPropagation(); backMenu(); };
   $("homeBtn").hidden = route === "home"; $("homeBtn").onclick = () => go("home");
   document.documentElement.style.setProperty("--zc", `var(${zone || "--z-triage"})`);
 }
@@ -1113,7 +1408,7 @@ function render(){
   const isBack = HIST.length > 1 && HIST[HIST.length - 2] === route, same = HIST[HIST.length - 1] === route;
   if (isBack) HIST.pop(); else if (!same) { HIST.push(route); if (HIST.length > 60) HIST.shift(); }
   RESTORING = isBack || same;
-  stopGame();
+  stopGame(); drStop();
   $("dock").hidden = true;
   const T_SUB = ["tbook","taudit","texam","tnote"], L_SUB = ["lsjt","llog","lnote"];
   const zone = (TABS.triage.some(r => r[0] === route) || T_SUB.includes(route) || /^ta-/.test(route)) ? "triage" : (TABS.leader.some(r => r[0] === route) || L_SUB.includes(route) || /^l(c|w|q)-/.test(route)) ? "leader" : null;
@@ -1125,9 +1420,9 @@ function render(){
   }
   const v = $("view"); v.classList.remove("view"); void v.offsetWidth; v.classList.add("view");
   v.onclick = v.oninput = v.onchange = null;
-  const m = route.match(/^(lc|lw|lq|ta|tqs|lqs|rqs|rt|cqs|oqs|pqs|sqs|wt|ws|tm)-(.+)$/);
-  if (m) ({ lc, lw: x => lw(+x), lq: x => lq(+x), ta: x => ta(+x), tqs: x => qstage("t", +x), lqs: x => qstage("l", +x), rqs: x => qstage("r", +x), rt: rtopic, cqs: x => qstage("c", +x), oqs: x => qstage("o", +x), pqs: x => qstage("p", +x), sqs: x => qstage("s", +x), wt: wtopic, ws: sortPage, tm: tmPage })[m[1]](m[2]);
-  else ({ room, team, codes, special: () => wardHub("s"), squest: () => qmap("s"), vsign, treat: () => wardHub("c"), obs: () => wardHub("o"), peds: () => wardHub("p"), cquest: () => qmap("c"), oquest: () => qmap("o"), pquest: () => qmap("p"), otier, home, triage, lookup, practice: pHome, ref, handout, news, pgy, works, games, rush, flash, leader, lmap, lcourse, lbook, ldrill, tassess: () => assessHub("t"), lassess: () => assessHub("l"), tbook, taudit, texam: () => quiz("t"), lsjt: () => quiz("l"), tnote: () => noteView("t"), lnote: () => noteView("l"), llog, quest, tquest: () => qmap("t"), lquest: () => qmap("l"), rquest: () => qmap("r"), resus: resusHub, rbook, rdrug, acct, bmanage }[route] || home)();
+  const m = route.match(/^(lc|lw|lq|ta|tqs|lqs|rqs|rt|cqs|oqs|pqs|sqs|wt|ws|tm|jt|drill)-(.+)$/);
+  if (m) ({ lc, lw: x => lw(+x), lq: x => lq(+x), ta: x => ta(+x), tqs: x => qstage("t", +x), lqs: x => qstage("l", +x), rqs: x => qstage("r", +x), rt: rtopic, cqs: x => qstage("c", +x), oqs: x => qstage("o", +x), pqs: x => qstage("p", +x), sqs: x => qstage("s", +x), wt: wtopic, ws: sortPage, tm: tmPage, jt: jtopic, drill: drillRoute })[m[1]](m[2]);
+  else ({ room, team, codes, special: () => wardHub("s"), squest: () => qmap("s"), vsign, treat: () => wardHub("c"), obs: () => wardHub("o"), peds: () => wardHub("p"), cquest: () => qmap("c"), oquest: () => qmap("o"), pquest: () => qmap("p"), otier, home, triage, lookup, practice: pHome, ref, handout, news, pgy, works, games, rush, flash, leader, lmap, lcourse, lbook, ldrill, tassess: () => assessHub("t"), lassess: () => assessHub("l"), tbook, taudit, texam: () => quiz("t"), lsjt: () => quiz("l"), tnote: () => noteView("t"), lnote: () => noteView("l"), llog, quest, tquest: () => qmap("t"), lquest: () => qmap("l"), rquest: () => qmap("r"), resus: resusHub, rbook, rdrug, acct, bmanage, badges, drill: () => drillRoute("") }[route] || home)();
   const y = RESTORING ? (SCROLL[route] || 0) : 0; window.scrollTo(0, y); if (y) requestAnimationFrame(() => window.scrollTo(0, y));
 }
 
@@ -1199,6 +1494,7 @@ function todayCard(){
     <div class="tmain"><div class="trow"><b>今日學習</b>${streak ? `<span class="streak">連續 ${streak} 天</span>` : ""}${t.pass >= DAY_GOAL ? `<span class="tdone">已達成</span>` : ""}</div>
       <p class="tcheer">${esc(todayCheer())}</p>
       <div class="week" aria-label="最近 7 天">${week.map(d => `<span class="${d.n ? "on" : ""} ${d.today ? "now" : ""}" title="${d.k}：過 ${d.n} 關"><i>${d.n || ""}</i>${d.today ? "今" : d.w}</span>`).join("")}</div></div>
+    <a class="tmed" href="#badges">${(() => { const m = medalState(), n = Object.values(m).filter(Boolean).length; return `${medalArt(n ? 3 : 0, "works", 30)}<span>我的勳章 <b>${n}</b> / ${Object.keys(m).length}</span>`; })()}</a>
     <a class="btn tgo" href="#${lq ? lq + "quest" : "quest"}">${t.pass >= DAY_GOAL ? "再闖一關" : lq ? "繼續闖關" : "開始今天的一關"} →</a></section>`;
 }
 const greet = () => { const h = new Date().getHours(); return h >= 23 || h < 5 ? "夜班辛苦了" : h < 11 ? "早安" : h < 14 ? "午安" : h < 18 ? "午後好" : "晚上好"; };
@@ -1218,6 +1514,7 @@ function home(){
     <div class="zones">${ZONES.map(([id, n, s, a, c, live, yr]) => `<button class="zone ${live ? "" : "soon"}" style="--zz:var(${c})" ${live ? `data-z="${id}"` : 'aria-disabled="true"'}>
       <div><span class="yr">${yr}</span><b>${n}</b><span>${s}</span>${ZONE_Q[id] ? (q => `<div class="zp${q.n === q.tot ? " full" : ""}"><small>${q.n === q.tot ? "全部過關" : q.n ? "闖關進度" : "還沒開始"}<em>${q.n} / ${q.tot}</em></small><div class="zbar"><i style="width:${q.n / q.tot * 100}%"></i></div></div>`)(qProg(ZONE_Q[id])) : ""}<div class="st">${live ? (ZONE_Q[id] && qProg(ZONE_Q[id]).n ? "繼續學習" : "開始學習") : "建置中"}</div></div><div class="ill">${img(a)}</div></button>`).join("")}</div>
     <a class="qbanner" href="#special" style="--zz:var(--z-spec);margin-top:14px"><div class="ill" style="width:52px;height:52px;background:rgba(255,255,255,.92)">${img("police")}</div><div><b>特殊教學</b><span>性侵採證、家暴兒虐、毒化災、醫療暴力、新興傳染病、災難醫療、火災地震</span></div><span class="go">進入</span></a>
+    <a class="qbanner" href="#team" style="--zz:var(--z-resus);margin-top:10px"><div class="ill" style="width:52px;height:52px;background:rgba(255,255,255,.92)">${img("fireext")}</div><div><b>團隊擬真演練</b><span>ACLS 急救團隊、000 火災：分角色一起演練，主持人勾選、依角色回饋</span></div><span class="go">開始演練</span></a>
     <div class="sec-h"><h2>更多</h2></div>
     <div class="extras four">
       <a class="extra" href="#pgy"><div class="ill">${img("pgy")}</div><div><b>PGY 新人專區</b><span>新人學習路線，已完成 ${pg.done} / ${pg.total}</span></div></a>
@@ -1566,26 +1863,30 @@ function lmap(){
     <p class="foot">依《2026年急診小組長訓練計畫》與〈訓練簡介與流程〉整理。</p>`;
 }
 function lcourse(){
-  setBar("課程重點", "8/26 五堂課", "leader", "--z-leader");
-  $("view").innerHTML = `<div class="road">${L_COURSES.map((c,i) => `<a class="rstep" href="#lc-${c.id}" style="text-decoration:none;color:inherit"><span class="no" style="background:var(--z-leader);color:#fff">${i+1}</span>
-    <div><b>${esc(c.t)}</b><span>${c.time}｜${esc(c.who)}${c.pending ? "｜教材待匯入" : ""}</span></div><span class="hint">›</span></a>`).join("")}</div>`;
+  setBar("課程重點", "線上教材：一段一頁，讀完有課後小測", "leader", "--z-leader");
+  const R = lcRead();
+  $("view").innerHTML = `<section class="hello" style="--zz:var(--z-leader)"><div><h2>小組長訓練線上教材</h2><p>五堂課，每堂分成幾段，一次讀一段；讀到最後有課後小測。進度存在這台裝置。</p></div>${img("zLeader")}</section>
+    <div class="courses">${L_COURSES.map((c, i) => { const n = c.blocks.length, r = (R[c.id] || []).length, done = !c.pending && r >= n, q = lcQuiz(c.id).length;
+      return `<a class="course ${done ? "done" : ""}" href="#lc-${c.id}-${done ? 0 : Math.min(r, n - 1)}"><span class="cno">${i + 1}</span><div><b>${esc(c.t)}</b><span>${c.time}｜講師 ${esc(c.who)}${q ? `｜課後小測 ${q} 題` : ""}</span>
+        ${c.pending ? `<small class="pend">教材待匯入</small>` : `<div class="cbar"><i style="width:${Math.min(r / n, 1) * 100}%"></i></div><small>${done ? "已讀完" : r ? `讀到第 ${Math.min(r + 1, n)} / ${n} 段` : `共 ${n} 段`}</small>`}</div><i class="cgo2" aria-hidden="true">${done ? "✓" : "›"}</i></a>`; }).join("")}</div>`;
 }
-function lc(id){
-  const c = L_COURSES.find(x => x.id === id); if (!c) return lcourse();
-  setBar(c.t, `${c.time}｜${c.who}`, "lcourse", "--z-leader");
-  const B = b => {
-    let h = b.h ? `<h3 class="bh">${esc(b.h)}</h3>` : "";
-    if (b.q) h += `<div class="qbox">${esc(b.q)}</div>`;
-    if (b.cards) h += `<div class="cgrid">${b.cards.map(x => `<div class="cc"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join("")}</div>`;
-    if (b.steps) h += `<div class="road">${b.steps.map((s,i) => `<div class="rstep" style="grid-template-columns:40px minmax(0,1fr)"><span class="no" style="background:var(--z-leader);color:#fff">${i+1}</span><div><span style="color:var(--ink);font-size:14.5px">${esc(s)}</span></div></div>`).join("")}</div>`;
-    if (b.compare) h += `<div class="cmp">${b.compare.map((x,i) => `<div class="cside ${i?"r":""}"><b>${esc(x[0])}</b>${x[1]?`<span>${esc(x[1])}</span>`:""}<ul>${x[2].map(y => `<li>${esc(y)}</li>`).join("")}</ul></div>`).join("")}</div>`;
-    if (b.table) h += `<div class="tblw"><table><thead><tr>${b.table.head.map(x => `<th>${esc(x)}</th>`).join("")}</tr></thead><tbody>${b.table.rows.map(r => `<tr>${r.map(x => `<td>${esc(x)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
-    if (b.note) h += `<div class="note">${esc(b.note)}</div>`;
-    return `<section class="panel stack">${h}</section>`;
-  };
-  const i = L_COURSES.indexOf(c), nx = L_COURSES[i+1];
-  $("view").innerHTML = c.blocks.map(B).join("") + (nx ? `<a class="btn" style="justify-self:start;text-decoration:none" href="#lc-${nx.id}">下一堂：${esc(nx.t)} ›</a>` : "") +
-    `<p class="foot">整理自 2026 年急診小組長訓練課程教材。單位分機、人力門檻與求援管道以單位公告為準。</p>`;
+function lc(arg){
+  const [id, pg] = String(arg).split("-"), c = L_COURSES.find(x => x.id === id); if (!c) return lcourse();
+  const n = c.blocks.length, k = Math.min(Math.max(+pg || 0, 0), n - 1), i = L_COURSES.indexOf(c), nx = L_COURSES[i + 1];
+  setBar(c.t, `第 ${i + 1} 堂｜${c.time}｜${c.who}`, "lcourse", "--z-leader");
+  const R = lcRead(); R[id] = [...new Set([...(R[id] || []), k])]; store.set("lc-read", R);
+  const titles = c.blocks.map((b, j) => b.h || b.q || (b.note ? "說明" : `第 ${j + 1} 段`)), quiz = lcQuiz(id), last = k === n - 1;
+  $("view").innerHTML = `
+    <section class="panel cwhead"><div class="cwtop"><span class="label">第 ${i + 1} 堂・第 ${k + 1} / ${n} 段</span><b>${esc(c.t)}</b></div>
+      <div class="cwdots" role="tablist" aria-label="本課段落">${titles.map((t, j) => `<a href="#lc-${id}-${j}" role="tab" aria-selected="${j === k}" class="${R[id].includes(j) ? "read" : ""}" title="${esc(t)}"><span>${j + 1}</span></a>`).join("")}</div></section>
+    <div class="cwgrid"><nav class="cwtoc" aria-label="段落目錄">${titles.map((t, j) => `<a href="#lc-${id}-${j}" aria-current="${j === k}" class="${R[id].includes(j) ? "read" : ""}"><i>${R[id].includes(j) ? "✓" : j + 1}</i>${esc(t)}</a>`).join("")}</nav>
+      <article class="panel stack cwpage">${lcBlockHTML(c.blocks[k])}</article></div>
+    <div class="cwnav">${k ? `<a class="btn ghost" href="#lc-${id}-${k - 1}">‹ 上一段</a>` : `<a class="btn ghost" href="#lcourse">‹ 課程列表</a>`}
+      ${!last ? `<a class="btn" style="background:var(--z-leader)" href="#lc-${id}-${k + 1}">下一段 ›</a>` : quiz.length ? `<button class="btn" id="lcQ" style="background:var(--z-leader)">課後小測（${quiz.length} 題）</button>` : nx ? `<a class="btn" style="background:var(--z-leader)" href="#lc-${nx.id}-0">下一堂：${esc(nx.t)} ›</a>` : `<a class="btn" style="background:var(--z-leader)" href="#lcourse">完成全部課程 ✓</a>`}</div>
+    <p class="foot">整理自 2026 年急診小組長訓練課程教材。單位分機、人力門檻與求援管道以單位公告為準。</p>`;
+  if (last && quiz.length) $("lcQ").onclick = () => { window.scrollTo(0, 0); miniQuiz(shuffle(quiz), ok => { const pass = ok >= Math.ceil(quiz.length * .6);
+    return `<section class="panel stack" style="text-align:center;justify-items:center"><span class="label">${pass ? "本課完成！" : "再看一次重點"}</span><span class="qstars">${ok} / ${quiz.length}</span>
+      <div class="row" style="justify-content:center">${pass && nx ? `<a class="btn" style="text-decoration:none;background:var(--z-leader)" href="#lc-${nx.id}-0">下一堂：${esc(nx.t)} ›</a>` : ""}<a class="btn ghost" style="text-decoration:none" href="#lcourse">課程列表</a>${pass ? "" : `<button class="btn" id="retry">再測一次</button>`}</div></section>`; }, () => lc(id + "-" + k)); };
 }
 function lbook(){
   setBar("手冊進度", "38 項自我追蹤（兩輪）", "leader", "--z-leader");
@@ -1935,6 +2236,7 @@ function afterCheer(stars){
   const { t, streak } = dailyStat();
   const head = stars && t.pass === DAY_GOAL ? "今日目標達成" : stars ? `今天已過 ${t.pass} 關` : "今天也挑戰了";
   const msg = stars ? (CHEER.streak[streak] && t.pass === DAY_GOAL ? CHEER.streak[streak] : pickCheer(t.pass >= 3 ? CHEER.more : CHEER.done, t.pass)) : pickCheer(CHEER.tried, t.try);
+  setTimeout(checkMedals, 300);
   return `<div class="cheer ${stars ? "ok" : ""}"><b>${head}${streak > 1 && stars ? `・連續 ${streak} 天` : ""}</b><span>${esc(msg)}</span></div>`;
 }
 function questState(z){
@@ -2110,11 +2412,11 @@ function resusHub(){
       <a class="extra" href="#room"><div class="ill">${img("zResus")}</div><div><b>急救室配置圖</b><span>設備、人員站位與任務，點圖看說明；可進 ACLS 團隊演練</span></div></a>
       <a class="extra" href="#rdrug"><div class="ill">${img("lab")}</div><div><b>急救室常見藥物卡</b><span>18 張自填：作用、副作用、護理注意事項</span></div></a>
     </div>
-    <section class="panel"><div class="bodywrap"><div class="body" id="body">${BODY_SVG}${HOT.map((h, i) => `<button class="hot" data-h="${i}" style="left:${h[0]}%;top:${h[1]}%" aria-label="${h[2]}"><span>${h[2]}</span></button>`).join("")}</div>
+    ${bodyMap("r")}
       <div class="bodyside" id="bside"><div class="label">點人體部位</div><p class="hint" style="margin:0">每個部位對應急救室常見的急重症與技術。點進去看流程、前人智慧和學理，再做小測驗。</p></div></div></section>
     ${groups.map(g => `<div class="sec-h"><h2>${g}</h2></div><div class="mods">${RT.filter(x => x.g === g).map(x => `<a class="mod" href="#rt-${x.id}">${img(x.art)}<b>${esc(x.t)}${done[x.id] ? " ✓" : ""}</b><span>${esc(x.goal)}</span></a>`).join("")}</div>`).join("")}
     <p class="foot">內容為通用護理原則整理；實際流程、藥物、數值與啟動條件依本院 SOP 與醫囑。</p>`;
-  $("view").onclick = e => { const h = e.target.closest("[data-h]"); if (!h) return;
+  $("view").onclick = e => { if (bmClick(e)) return; const h = e.target.closest("[data-h]"); if (!h) return;
     document.querySelectorAll(".hot").forEach(x => x.classList.toggle("on", x === h));
     const H = HOT[+h.dataset.h];
     $("bside").innerHTML = `<div class="label">${H[2]}</div><div class="stack" style="gap:8px">${H[3].map(id => { const x = RT_BY[id]; return `<a class="extra" href="#rt-${id}" style="grid-template-columns:40px minmax(0,1fr);padding:10px 12px"><div class="ill" style="width:40px;height:40px">${img(x.art)}</div><div><b style="font-size:15px">${esc(x.t)}</b><span>${esc(x.g)}</span></div></a>`; }).join("")}</div>`;
@@ -2607,20 +2909,17 @@ function wardHub(z){
   const { st } = questState(z), qn = QUESTS[z].stages.filter((_, i) => st[i]).length;
   let mid = "";
   if (z === "c") mid = `
-    <section class="panel stack"><div class="row" style="justify-content:space-between"><b>我的病人群</b><span class="hint">點床位或機動病人，看代表疾病</span></div>
+    <section class="panel stack"><div class="row" style="justify-content:space-between"><h3 class="bh">練習：我的病人群</h3><span class="hint">點床位或機動病人，看代表疾病</span></div>
       <div class="ward">${CWARD.map((b, i) => `<button class="bed" data-t="${b[2]}" style="--d:${i * .3}s"><span class="bno">${b[0]} 床</span><span class="bimg">${img("bed")}<i class="zz">z</i></span><small>${esc(b[1])}</small></button>`).join("")}</div>
       <div class="label" style="margin-top:4px">機動病人（人數不限）</div>
       <div class="waitrow">${CWAIT.map((w, i) => `<button class="walker" data-t="${w[2]}" style="--d:${i * .25}s">${img("stand")}<span><b>${esc(w[0])}</b>${esc(w[1])}</span></button>`).join("")}</div>
       <div id="wpick" aria-live="polite"></div></section>
-    <section class="panel stack"><h3 class="bh">排序五階：同時有事時誰先</h3><div class="wladder">${LADDER.map((l, i) => `<details class="wrung" style="--i:${i}"><summary><span class="rn">${i + 1}</span><b>${l[0]}</b></summary><p>${esc(l[1])}</p></details>`).join("")}</div>
-      <a class="btn" href="#ws-c" style="text-decoration:none;justify-self:start;background:var(--z-treat)">情境排序挑戰 ›</a></section>`;
+      <a class="btn" href="#ws-c" style="text-decoration:none;justify-self:start;background:var(--z-treat)">情境排序挑戰：五件事同時發生 ›</a></section>`;
   if (z === "o") mid = `
     <a class="extra pop" href="#otier"><div class="ill">${img("bed")}</div><div><b>10 床分層小遊戲</b><span>把 10 床分成紅、黃、綠，最佳成績 ${store.get("otier-best", 0)} / 10</span></div></a>
-    <section class="panel stack"><h3 class="bh">四件事同時卡住</h3><div class="stuck">${OSTUCK.map(s => `<details class="wrung"><summary><b>${esc(s[0])}</b></summary><p><b>判斷：</b>${esc(s[1])}</p><p><b>預先準備：</b>${esc(s[2])}</p></details>`).join("")}</div>
-      <div class="order">${["病人惡化", "有時間窗的治療", "交接與查房重點", "返家衛教", "紀錄與補物"].map((s, i) => `<span style="--i:${i}">${s}</span>`).join("<i aria-hidden=\"true\">›</i>")}</div>
-      <p class="hint" style="margin:0">同一層級時，先做「做完能解開最多卡住的事」。忙不過來就開口：哪床、卡什麼、需要什麼。</p>
-      <a class="btn" href="#ws-o" style="text-decoration:none;justify-self:start;background:var(--z-obs)">情境排序挑戰 ›</a></section>`;
-  if (z === "p") mid = `
+    <section class="panel stack"><h3 class="bh">練習</h3><p class="hint" style="margin:0">先讀上面的判斷技巧，再用遊戲練手感。</p>
+      <a class="btn" href="#ws-o" style="text-decoration:none;justify-self:start;background:var(--z-obs)">情境排序挑戰：上午 9 點同時卡住 ›</a></section>`;
+  if (z === "p") mid = bodyMap("p") + `
     <section class="panel stack"><h3 class="bh">PAT 小兒評估三角：點三個邊</h3>${patWidget()}</section>
     <section class="panel stack"><div class="row" style="justify-content:space-between"><h3 class="bh">家長最常問</h3><a class="hint" href="#wt-family">看全部 8 張 ›</a></div>${famCards(WT_BY.family.fam.slice(0, 4))}
       <a class="btn" href="#ws-p" style="text-decoration:none;justify-self:start;background:var(--z-peds)">情境排序挑戰 ›</a></section>`;
@@ -2633,10 +2932,11 @@ function wardHub(z){
   if (z === "p") mid += `<a class="extra" href="#special"><div class="ill">${img("shield")}</div><div><b>性侵採證、家暴兒虐流程</b><span>依本院流程圖，在「特殊教學」區</span></div></a>`;
   $("view").innerHTML = mascot(z) + `
     <a class="qbanner" href="#${z}quest" style="--zz:var(${Z.color})"><div class="ill" style="width:52px;height:52px;background:rgba(255,255,255,.92)">${img("map")}</div><div><b>${Z.quest}</b><span>已過 ${qn} / ${QUESTS[z].stages.length} 關｜主題已讀 ${nDone} / ${T.length}</span></div><span class="go">開始闖關</span></a>
-    ${mid}
-    ${WGROUPS[z].map(g => `<div class="sec-h"><h2>${g}</h2></div><div class="mods">${T.filter(x => x.g === g).map((x, i) => `<a class="mod wmod" href="#wt-${x.id}" style="--i:${i}">${img(x.art)}<b>${esc(x.t)}${done[x.id] ? " ✓" : ""}</b><span>${esc(x.goal)}</span></a>`).join("")}</div>`).join("")}
+    ${z === "c" || z === "o" ? wardLists(z) + mid : mid}
+    ${z === "c" || z === "o" ? "" : WGROUPS[z].map(g => `<div class="sec-h"><h2>${g}</h2></div><div class="mods">${T.filter(x => x.g === g).map((x, i) => `<a class="mod wmod" href="#wt-${x.id}" style="--i:${i}">${img(x.art)}<b>${esc(x.t)}${done[x.id] ? " ✓" : ""}</b><span>${esc(x.goal)}</span></a>`).join("")}</div>`).join("")}
     <p class="foot">內容為通用護理原則整理；實際流程、藥物、數值與通報方式依本院 SOP 與醫囑。</p>`;
   $("view").onclick = e => {
+    if (bmClick(e)) return;
     const b = e.target.closest("[data-t]");
     if (b && $("wpick")) { document.querySelectorAll(".bed,.walker").forEach(x => x.classList.toggle("on", x === b)); const x = WT_BY[b.dataset.t];
       $("wpick").innerHTML = `<a class="extra pop" href="#wt-${x.id}"><div class="ill">${img(x.art)}</div><div><b>${esc(x.t)}</b><span>${esc(x.goal)}｜紅旗：${esc(x.red[0])}</span></div></a>`; return; }
@@ -3005,7 +3305,8 @@ function team(){
   setBar("團體演練", "一台主持，全組一起玩", "home", "--z-spec");
   const best = store.get("team-best", {});
   $("view").innerHTML = `<section class="hello" style="--zz:var(--z-spec)"><div><h2>團體演練</h2><p>用一台電腦或投影主持，2–8 人一組（ACLS 建議 6 人）。每人抽角色卡，依情境討論、行動，主持人勾選團隊實際做到的事，最後依角色回饋。</p></div><span class="hbob">${img("fireext")}</span></section>
-    <div class="sec-h"><h2>ACLS 急救團隊（急救室場景）</h2><a href="#room">急救室配置圖 ›</a></div>
+    <a class="qbanner" href="#drill" style="--zz:var(--z-resus)"><div class="ill" style="width:52px;height:52px;background:rgba(255,255,255,.92)">${img("zResus")}</div><div><b>多人連線：大型面板＋每人一支手機</b><span>院內 VF 心跳停止，6 個角色、閉環指令、計時與回饋</span></div><span class="go">建立或加入房間</span></a>
+    <div class="sec-h"><h2>ACLS 急救團隊（急救室場景，一台主持）</h2><a href="#room">急救室配置圖 ›</a></div>
     <div class="mods">${TEAM.filter(s => s.scene).map((s, i) => `<a class="mod wmod" href="#tm-${s.id}" style="--i:${i}">${img(s.art)}<b>${esc(s.t)}</b><span>${esc(s.brief)}${best[s.id] ? `｜最佳 ${best[s.id]} 分` : ""}</span></a>`).join("")}</div>
     <div class="sec-h"><h2>000 火災（依急診室火災應變計畫）</h2></div>
     <div class="mods">${TEAM.filter(s => !s.scene).map((s, i) => `<a class="mod wmod" href="#tm-${s.id}" style="--i:${i}">${img(s.art)}<b>${esc(s.t)}</b><span>${esc(s.brief)}${best[s.id] ? `｜最佳 ${best[s.id]} 分` : ""}</span></a>`).join("")}</div>
@@ -3153,14 +3454,15 @@ const NAV = [
   ["", [["home", "首頁", "hospital"], ["quest", "成長地圖", "map"], ["news", "公告", "record"]]],
   ["學習區", [["treat", "治療區", "zTreat", "--z-treat"], ["obs", "留觀區", "zObs", "--z-obs"], ["peds", "兒科", "baby", "--z-peds"], ["resus", "急救區", "zResus", "--z-resus"], ["triage", "檢傷區", "zTriage", "--z-triage"], ["leader", "Leader", "zLeader", "--z-leader"]]],
   ["教學與演練", [["special", "特殊教學", "police", "--z-spec"], ["team", "團體演練", "fireext", "--z-spec"], ["pgy", "PGY 新人專區", "pgy"]]],
-  ["其他", [["works", "作品發表", "works"], ["games", "遊戲區", "games"]]],
+  ["其他", [["badges", "我的勳章", "works"], ["works", "作品發表", "works"], ["games", "遊戲區", "games"]]],
 ];
 function navKey(r){
   const m = r.match(/^([a-z]+)-(.+)$/), p = m ? m[1] : r;
   if (p === "wt") { const x = WT_BY[m[2]]; return x ? WZ[x.z].home : "home"; }
+  if (p === "jt") { const x = JT_BY[m[2]]; return x ? WZ[x.z].home : "home"; }
   const map = { cquest: "treat", cqs: "treat", oquest: "obs", oqs: "obs", otier: "obs", pquest: "peds", pqs: "peds", squest: "special", sqs: "special", codes: "special", vsign: "special",
     rt: "resus", room: "resus", rqs: "resus", rquest: "resus", rbook: "resus", rdrug: "resus", tm: "team", ws: { c: "treat", o: "obs", p: "peds" }[m && m[2]] || "home",
-    tqs: "triage", tquest: "triage", ta: "triage", lc: "leader", lw: "leader", lq: "leader", lqs: "leader", lquest: "leader", rush: "games", flash: "games" };
+    tqs: "triage", tquest: "triage", ta: "triage", lc: "leader", lw: "leader", lq: "leader", lqs: "leader", lquest: "leader", rush: "games", flash: "games", drill: "team" };
   if (map[p]) return map[p];
   if (TABS.triage.some(t => t[0] === r) || ["tbook", "taudit", "texam", "tnote", "tassess"].includes(r)) return "triage";
   if (TABS.leader.some(t => t[0] === r) || ["lsjt", "llog", "lnote", "lassess"].includes(r)) return "leader";
@@ -3183,11 +3485,11 @@ addEventListener("hashchange", () => setTimeout(drawSide));
 setTimeout(drawSide);
 /* ---------- 急診成長地圖（年資進程） ---------- */
 const CAREER = [
-  { y: "新進", k: "treat", t: "治療區・留觀區", c: "--z-treat", a: "zTreat", d: "進急診先從治療區、留觀區開始：常見疾病的流程、技術、知識，最後學會管理 5 床＋機動病人、留觀 10 床的先後。", live: true, links: [["治療區", "#treat"], ["留觀區", "#obs"], ["治療區闖關", "#cquest"], ["留觀區闖關", "#oquest"], ["PGY 新人專區", "#pgy"]], quest: ["c", "o"] },
-  { y: "第 1 年", k: "peds", t: "兒科", c: "--z-peds", a: "baby", d: "挑戰兒科區：PAT 一眼看出重症、常見症狀與流行疾病、責任醫院任務（婦產科跟診、性侵採證、家暴兒虐），以及家長說明。", live: true, links: [["兒科闖關地圖", "#pquest"], ["兒科區", "#peds"]], quest: "p" },
-  { y: "第 2 年", k: "resus", t: "急救區", c: "--z-resus", a: "zResus", d: "挑戰急救區前，要先完成 ICU 訓練及擬真訓練（急救室前訓練 5 堂），再闖 ACLS 關卡。", live: true, links: [["急救區（人體破點）", "#resus"], ["急救室培訓手冊", "#rbook"], ["闖關地圖", "#rquest"]], quest: "r", pre: [["icu", "ICU 訓練"], ["s1", "擬真訓練：急救室前訓練 第 1 堂"], ["s2", "擬真訓練：急救室前訓練 第 2 堂"], ["s3", "擬真訓練：急救室前訓練 第 3 堂"], ["s4", "擬真訓練：急救室前訓練 第 4 堂"], ["s5", "擬真訓練：急救室前訓練 第 5 堂"]] },
-  { y: "第 3–4 年", k: "triage", t: "檢傷", c: "--z-triage", a: "zTriage", d: "TTAS 五級檢傷：講義、判定查詢、情境練習，11 關闖關到模擬筆試。", live: true, links: [["檢傷闖關地圖", "#tquest"], ["檢傷區", "#triage"]], quest: "t" },
-  { y: "第 5–6 年", k: "leader", t: "Leader", c: "--z-leader", a: "zLeader", d: "小組長訓練：角色職責、異常事件、人力調派，10 關闖關到情境判斷測驗。", live: true, links: [["Leader 闖關地圖", "#lquest"], ["Leader 區", "#leader"]], quest: "l" },
+  { y: "新進", k: "treat", t: "治療區・留觀區", c: "--z-treat", a: "zTreat", d: "進急診先從治療區、留觀區開始：常見疾病的流程、技術、知識，最後學會管理 5 床＋機動病人、留觀 10 床的先後。", live: true, links: [["治療區", "#treat"], ["留觀區", "#obs"], ["治療區", "#cquest"], ["留觀區", "#oquest"], ["PGY 新人專區", "#pgy"]], quest: ["c", "o"] },
+  { y: "第 1 年", k: "peds", t: "兒科", c: "--z-peds", a: "baby", d: "挑戰兒科區：PAT 一眼看出重症、常見症狀與流行疾病、責任醫院任務（婦產科跟診、性侵採證、家暴兒虐），以及家長說明。", live: true, links: [["兒科", "#pquest"], ["兒科區", "#peds"]], quest: "p" },
+  { y: "第 2 年", k: "resus", t: "急救區", c: "--z-resus", a: "zResus", d: "挑戰急救區前，要先完成 ICU 訓練及擬真訓練（急救室前訓練 5 堂），再闖 ACLS 關卡。", live: true, links: [["急救區（人體破點）", "#resus"], ["急救室培訓手冊", "#rbook"], ["急救區", "#rquest"]], quest: "r", pre: [["icu", "ICU 訓練"], ["s1", "擬真訓練：急救室前訓練 第 1 堂"], ["s2", "擬真訓練：急救室前訓練 第 2 堂"], ["s3", "擬真訓練：急救室前訓練 第 3 堂"], ["s4", "擬真訓練：急救室前訓練 第 4 堂"], ["s5", "擬真訓練：急救室前訓練 第 5 堂"]] },
+  { y: "第 3–4 年", k: "triage", t: "檢傷", c: "--z-triage", a: "zTriage", d: "TTAS 五級檢傷：講義、判定查詢、情境練習，11 關闖關到模擬筆試。", live: true, links: [["檢傷", "#tquest"], ["檢傷區", "#triage"]], quest: "t" },
+  { y: "第 5–6 年", k: "leader", t: "Leader", c: "--z-leader", a: "zLeader", d: "小組長訓練：角色職責、異常事件、人力調派，10 關闖關到情境判斷測驗。", live: true, links: [["Leader ", "#lquest"], ["Leader 區", "#leader"]], quest: "l" },
 ];
 function quest(){
   setBar("急診成長地圖", "依年資一站一站往上", "home", "--z-triage");
@@ -3205,11 +3507,868 @@ function quest(){
       return `<section class="cst ${state}" style="--cc:var(${s.c})"><div class="cyr"><span>${s.y}</span></div>
         <div class="ccard"><div class="chead"><div class="ill">${img(s.a)}</div><div><b>${esc(s.t)}</b><span class="ctag">${state === "now" ? "目前挑戰" : state === "past" ? "已走過" : s.live ? "已開放" : "建置中"}</span></div></div>
           <p>${esc(s.d)}</p>${prog}
-          ${s.links.length ? `<div class="row">${s.links.map((l, j) => `<a class="btn ${j ? "ghost" : ""}" style="text-decoration:none;${j ? "" : `background:var(${s.c})`}" href="${esc(l[1])}" ${l[1].startsWith("#") ? "" : 'target="_blank" rel="noopener"'}>${esc(l[0])}</a>`).join("")}</div>` : ""}</div></section>`;
+          ${s.links.length ? (() => { const isQ = l => /quest$/.test(l[1]), Q = s.links.filter(isQ), L = s.links.filter(l => !isQ(l));
+            return `<div class="cgo">${Q.length ? `<div class="cgrp"><span class="cgl">⚑ 闖關</span><div class="row">${Q.map(l => `<a class="cbtn q" href="${esc(l[1])}">${esc(l[0].replace(/闖關地圖$|闖關$/, "")) || "闖關"}闖關地圖 →</a>`).join("")}</div></div>` : ""}
+              <div class="cgrp"><span class="cgl">❏ 學習頁</span><div class="row">${L.map(l => `<a class="cbtn" href="${esc(l[1])}">${esc(l[0])}</a>`).join("")}</div></div></div>`; })() : ""}</div></section>`;
     }).join("")}</div>
     <p class="foot">年資進程為單位一般安排，實際依個人能力與單位排班調整。</p>`;
   $("view").onclick = e => { const b = e.target.closest("[data-me]"); if (b) { store.set("career-me", +b.dataset.me); quest(); } };
   $("view").onchange = e => { const k = e.target.dataset.pre; if (!k) return; const p = store.get("resus-pre", {}); p[k] = e.target.checked; store.set("resus-pre", p); const y = scrollY; quest(); scrollTo(0, y); };
+}
+
+/* ---------- 人型疾病圖：急救區（成人）、兒科（兒童） ----------
+   每個部位：可能疾病 → 可能表現、處置、給藥、照護。給藥欄：[藥物, 劑量, 注意]。
+   劑量依常用指引整理（AHA 2020/2025、PALS、ISPAD、Surviving Sepsis 等），實際依本院藥典與醫囑。 */
+const BMAP = {
+  r: { fig: "adult", color: "--z-resus", regions: [
+    { x: 50, y: 10, t: "頭部・神經", dz: [
+      { n: "急性缺血性中風", rt: "cva",
+        cue: ["臉歪、單側手腳無力、言語不清（FAST）", "最後正常時間（LKW）4.5 小時內可評估靜脈血栓溶解", "大血管阻塞可在 24 小時內評估動脈取栓"],
+        act: ["立即啟動中風小組，記錄最後正常時間", "先測血糖，排除低血糖", "NIHSS、GCS；到院 25 分鐘內完成腦部 CT", "兩條 IV（避開患側）；不必等抽血報告才溶栓（疑凝血異常除外）", "血壓需 < 185/110 才能溶栓"],
+        drug: [["Alteplase（rt-PA）", "0.9 mg/kg（最大 90 mg）：10% 於 1 分鐘推注，其餘 60 分鐘滴注", "到院至給藥目標 60 分鐘內"], ["Labetalol", "10–20 mg IV，1–2 分鐘推注，可重複一次", "溶栓前降壓"], ["Nicardipine", "5 mg/h 起，每 5–15 分鐘加 2.5 mg/h，最大 15 mg/h", "溶栓前後控制血壓"]],
+        care: ["溶栓後神經學評估：前 2 小時每 15 分鐘、之後 6 小時每 30 分鐘、再每小時到 24 小時", "溶栓後血壓維持 < 180/105", "觀察出血與血管性水腫（舌頭、嘴唇腫）", "24 小時內避免不必要的侵入性管路", "吞嚥篩檢通過前禁食"] },
+      { n: "自發性顱內出血", rt: "ich",
+        cue: ["突發劇烈頭痛、嘔吐、意識下降", "血壓常很高", "服用抗凝血劑者風險高"],
+        act: ["GCS ≤ 8 準備插管保護呼吸道", "腦部 CT 確認", "收縮壓目標約 140 mmHg，避免降到 130 以下", "逆轉抗凝血劑；會診神經外科"],
+        drug: [["Nicardipine", "5 mg/h 起，依血壓調整，最大 15 mg/h", "目標 SBP 約 140"], ["4F-PCC＋Vitamin K", "PCC 依 INR 與體重；Vitamin K 10 mg IV 緩慢給", "Warfarin 相關出血"], ["Idarucizumab", "5 g IV", "Dabigatran 相關出血"]],
+        care: ["床頭抬高 30 度、頭頸保持正中", "GCS、瞳孔每 15–30 分鐘", "觀察 Cushing 三徵：血壓升高、心跳變慢、呼吸不規則", "避免用力、劇咳、躁動"] },
+      { n: "癲癇重積",
+        cue: ["抽搐持續 ≥ 5 分鐘", "兩次發作之間意識沒有恢復"],
+        act: ["計時、側躺、給氧、抽吸", "立即測血糖", "5 分鐘給第一線 benzodiazepine；20 分鐘仍抽給第二線", "準備插管"],
+        drug: [["Lorazepam", "0.1 mg/kg IV（每劑最大 4 mg），5 分鐘後可重複一次", "注意呼吸抑制"], ["Diazepam", "0.15–0.2 mg/kg IV（每劑最大 10 mg），可重複一次", ""], ["Midazolam", "10 mg IM（體重 > 40 kg）", "沒有 IV 時"], ["Levetiracetam", "60 mg/kg IV（最大 4500 mg），約 10–15 分鐘滴注", "第二線；或 Fosphenytoin 20 mg PE/kg、Valproate 40 mg/kg"], ["50% 葡萄糖", "50 mL IV", "低血糖時；營養不良或酒癮者先給 Thiamine"]],
+        care: ["不塞東西入口、不壓制肢體", "記錄發作型態、開始與結束時間", "抽完評估意識、外傷、舌咬傷", "床欄拉起、防跌"] },
+    ] },
+    { x: 50, y: 21, t: "呼吸道", dz: [
+      { n: "呼吸道阻塞／需要插管", rt: "endo",
+        cue: ["吸氣喘鳴、無法說話、SpO₂ 持續下降", "GCS ≤ 8、無法保護呼吸道", "呼吸衰竭、疲憊"],
+        act: ["抬下顎、口咽或鼻咽呼吸道、BVM 輔助", "預給氧 3 分鐘", "RSI 備物：抽吸、氧氣、呼吸道器材、藥物、監視器（SOAP-ME）", "插管後以波形 ETCO₂ 確認位置"],
+        drug: [["Ketamine", "1–2 mg/kg IV", "誘導；血壓偏低者較適合"], ["Etomidate", "0.3 mg/kg IV", "誘導"], ["Succinylcholine", "1.5 mg/kg IV", "高血鉀、燒傷超過 24 小時、神經肌肉疾病禁用"], ["Rocuronium", "1.2 mg/kg IV", "RSI 劑量"]],
+        care: ["記錄管路刻度、固定、照胸部 X 光", "插管後給鎮靜與止痛", "持續監測 ETCO₂", "抽痰無菌技術"] },
+      { n: "過敏反應／過敏性休克",
+        cue: ["接觸過敏原後數分鐘到數小時發作", "只有皮膚症狀（蕁麻疹、癢、潮紅）：過敏反應", "合併組織腫脹（嘴唇、舌頭、喉頭）、喘鳴、呼吸困難、血壓下降或意識改變：過敏性休克"],
+        act: ["停止可疑藥物或輸注", "過敏反應：本院立即給 Vena＋Oradexon，持續觀察是否進展", "出現組織腫脹、喘鳴、呼吸困難或血壓下降：立即 Bosmin 肌肉注射，不可延誤", "平躺抬腿，呼吸困難可半坐；給氧、輸液", "反覆注射仍不穩定：依醫囑改 Bosmin 靜脈滴注"],
+        drug: [["Vena（Diphenhydramine）", "成人 1 支（30 mg）IV／IM，依醫囑", "本院過敏反應立即給；會嗜睡"], ["Oradexon（Dexamethasone）", "依醫囑", "本院過敏反應立即給；作用較慢，不能取代 Bosmin"], ["Bosmin（Epinephrine 1 mg/mL）", "0.01 mg/kg IM（成人最大 0.5 mg），大腿前外側，每 5–15 分鐘可重複", "組織腫脹、喘鳴、低血壓時立即給"], ["生理食鹽水", "1–2 L（約 20 mL/kg）快速輸注", "低血壓時"]],
+        care: ["不要讓病人突然坐起或站起", "觀察雙相反應 4–6 小時以上", "記錄並標示過敏原", "衛教自備腎上腺素筆"] },
+    ] },
+    { x: 37, y: 33, t: "胸部", dz: [
+      { n: "張力性氣胸", rt: "chest",
+        cue: ["呼吸窘迫、單側呼吸音消失", "低血壓、頸靜脈怒張", "氣管偏移是晚期徵象"],
+        act: ["臨床診斷，不等 X 光", "針刺減壓：成人第 4／5 肋間腋中線前方，或第 2 肋間鎖骨中線", "接著放置胸管"],
+        drug: [],
+        care: ["備胸管組與引流瓶", "觀察水封瓶波動、氣泡、引流量與顏色", "引流瓶低於胸部、管路不打折", "皮下氣腫範圍做標記"] },
+      { n: "急性肺水腫／心衰竭",
+        cue: ["端坐呼吸、粉紅色泡沫痰", "雙側囉音、血壓常偏高", "下肢水腫、體重增加"],
+        act: ["坐姿、給氧", "非侵襲性正壓通氣（BiPAP／CPAP）", "硝化甘油降低前負荷", "利尿劑"],
+        drug: [["Nitroglycerin", "0.4 mg 舌下，每 5 分鐘可重複；或靜脈滴注依血壓調整", "SBP < 90、48 小時內用過 PDE5 抑制劑時禁用"], ["Furosemide", "40 mg IV 起；長期服用者約為平時劑量 1–2.5 倍", "記錄尿量、監測血鉀"]],
+        care: ["輸出入量", "監測血鉀", "限水依醫囑", "觀察意識與呼吸肌疲乏"] },
+      { n: "主動脈剝離",
+        cue: ["突發撕裂般胸背痛", "雙臂血壓差 > 20 mmHg、脈搏不對稱", "合併神經學症狀或腹痛"],
+        act: ["量雙臂血壓", "先控心跳再降血壓：HR < 60、SBP 100–120", "止痛；緊急電腦斷層血管攝影；會診心臟外科"],
+        drug: [["Esmolol", "0.5 mg/kg IV 推注，續 0.05–0.3 mg/kg/min", "先用 β 阻斷劑"], ["Labetalol", "20 mg IV，每 10 分鐘可給 20–80 mg（總量最大 300 mg）", ""], ["Morphine", "依醫囑", "止痛也能降低交感張力"]],
+        care: ["每 5–15 分鐘量血壓、心跳", "四肢脈搏與神經學", "避免用力"] },
+      { n: "肺栓塞",
+        cue: ["突發呼吸困難、胸痛、心跳快、SpO₂ 低", "危險因子：近期手術、臥床、癌症、單側腳腫"],
+        act: ["給氧", "高度懷疑時即開始抗凝", "大面積肺栓塞（休克）考慮血栓溶解"],
+        drug: [["Heparin", "80 U/kg IV 推注，續 18 U/kg/h", "依 aPTT 調整"], ["Alteplase", "100 mg IV，2 小時滴注", "大面積肺栓塞"]],
+        care: ["觀察出血", "不按摩下肢", "急救設備備用"] },
+    ] },
+    { x: 58, y: 34, t: "心臟", dz: [
+      { n: "STEMI／急性冠心症", rt: "ami",
+        cue: ["胸悶壓迫感超過 20 分鐘，冒冷汗", "放射到下巴、左手或背部", "老人、女性、糖尿病可能只有喘、疲倦、上腹痛"],
+        act: ["到院 10 分鐘內完成 12 導程心電圖", "STEMI 啟動心導管室：到院至打通血管 ≤ 90 分鐘", "SpO₂ < 90% 才給氧", "抽心肌酵素、兩條 IV"],
+        drug: [["Aspirin", "160–325 mg 嚼碎", "過敏、活動性出血除外"], ["Nitroglycerin", "0.4 mg 舌下，每 5 分鐘，最多 3 次", "SBP < 90、右心室梗塞、48 小時內用過 PDE5 抑制劑時禁用"], ["P2Y12 抑制劑", "Clopidogrel 600 mg 或 Ticagrelor 180 mg 口服", "依本院 STEMI 流程"], ["Heparin", "依體重推注", "依心導管室流程"]],
+        care: ["連續心電監視，除顫器備用", "疼痛分數與心電圖變化", "下壁梗塞加做右側導程", "心導管後：穿刺部位與遠端脈搏"] },
+      { n: "心跳停止", rt: "acls",
+        cue: ["無反應、無正常呼吸、摸不到脈搏"],
+        act: ["立即 CPR：每分鐘 100–120 下、深度 5–6 公分、完全回彈", "VF／無脈性 VT 立即電擊", "每 2 分鐘換手並檢查心律", "找可逆原因 Hs & Ts"],
+        drug: [["Epinephrine", "1 mg IV／IO，每 3–5 分鐘", "非電擊心律儘早給"], ["Amiodarone", "300 mg IV 推注，第二劑 150 mg", "VF／無脈性 VT 電擊後仍持續"], ["Lidocaine", "1–1.5 mg/kg，之後 0.5–0.75 mg/kg", "Amiodarone 的替代"]],
+        care: ["波形 ETCO₂ 持續 < 10 mmHg 表示 CPR 品質需改善", "紀錄員計時", "ROSC 後：SpO₂ 92–98%、MAP ≥ 65、12 導程、體溫控制"] },
+      { n: "不穩定心搏過緩／過速",
+        cue: ["心跳 < 50 或 > 150", "合併低血壓、意識改變、胸痛、休克"],
+        act: ["過緩：Atropine、經皮節律器", "過速且不穩定：同步電擊", "穩定、窄 QRS、規則：迷走神經刺激、Adenosine"],
+        drug: [["Atropine", "1 mg IV，每 3–5 分鐘，最大 3 mg", "心搏過緩"], ["Epinephrine 滴注", "2–10 µg/min", "Atropine 無效時"], ["Adenosine", "6 mg 快速推注並立即沖 20 mL 生理食鹽水；第二劑 12 mg", "推注前告知病人會短暫不舒服"]],
+        care: ["貼上電擊貼片", "同步電擊前確認 SYNC 標記，並給予鎮靜", "保留心律條紀錄"] },
+    ] },
+    { x: 50, y: 46, t: "上腹", dz: [
+      { n: "上消化道出血", rt: "egd",
+        cue: ["吐血或咖啡色嘔吐物、黑便", "心跳快、姿勢性低血壓", "肝硬化病人要想到靜脈曲張出血"],
+        act: ["兩條大號 IV、備血", "禁食；大量吐血時保護呼吸道", "安排 12–24 小時內胃鏡"],
+        drug: [["PPI（Pantoprazole／Esomeprazole）", "80 mg IV 推注，後續依醫囑", ""], ["Octreotide", "50 µg IV 推注，續 50 µg/h", "疑靜脈曲張出血"], ["Ceftriaxone", "1 g IV 每日", "肝硬化合併出血，預防感染"], ["輸血", "Hb < 7 g/dL 時（心臟病人約 < 8）", "限制性輸血策略"]],
+        care: ["記錄嘔吐物、糞便的量與顏色", "每 15–30 分鐘生命徵象、計算休克指數", "側躺防吸入", "輸血前雙人核對，開始 15 分鐘內觀察反應"] },
+    ] },
+    { x: 35, y: 51, t: "腎臟・代謝", dz: [
+      { n: "高血鉀", rt: "hd",
+        cue: ["洗腎病人錯過透析、腎衰竭、服用 ACEI 或保鉀利尿劑", "肌肉無力", "心電圖尖 T 波、QRS 變寬"],
+        act: ["立即接心電監視", "三步驟：先穩定心肌（鈣）→ 把鉀移入細胞（胰島素＋葡萄糖、β2 致效劑）→ 排出體外（利尿、結合劑、透析）"],
+        drug: [["10% Calcium gluconate", "10–30 mL IV，5–10 分鐘推注，可重複", "心電圖有變化時優先"], ["Regular insulin＋50% 葡萄糖", "Insulin 10 U IV＋50% 葡萄糖 50 mL", "血糖 > 250 mg/dL 可不給葡萄糖；之後 1–6 小時監測血糖"], ["Ventolin（Salbutamol）吸入", "10–20 mg 霧化", ""], ["Sodium bicarbonate", "依醫囑", "合併代謝性酸中毒時"]],
+        care: ["打胰島素後每小時測血糖", "複測血鉀", "聯絡透析室", "持續心律監測"] },
+      { n: "糖尿病酮酸中毒（DKA）",
+        cue: ["口渴、多尿、腹痛嘔吐", "深快呼吸（Kussmaul）、水果味", "血糖高、酮體陽性、代謝性酸中毒"],
+        act: ["先補液", "血鉀 ≥ 3.3 mEq/L 才開始胰島素", "血糖降到約 250 mg/dL 改加葡萄糖的輸液"],
+        drug: [["生理食鹽水", "第 1 小時 1–1.5 L", "依心肺功能調整"], ["Regular insulin", "0.1 U/kg/h 連續滴注（或先推注 0.1 U/kg）", "K < 3.3 先補鉀、暫不給胰島素"], ["KCl", "K 3.3–5.3 mEq/L 時，每公升輸液加 20–30 mEq", ""]],
+        care: ["血糖每小時、血鉀每 2–4 小時", "輸出入量、意識", "找誘因：感染、停藥"] },
+      { n: "低血糖",
+        cue: ["冒冷汗、心悸、意識混亂、怪異行為、抽搐", "任何意識改變都要先測血糖"],
+        act: ["能吞嚥：口服糖 15–20 g", "不能吞嚥：靜脈葡萄糖", "15 分鐘後複測"],
+        drug: [["50% 葡萄糖", "25 g（50 mL）IV", ""], ["Glucagon", "1 mg IM／SC", "沒有 IV 時"]],
+        care: ["口服 sulfonylurea 類降血糖藥可能反覆低血糖，需延長觀察", "恢復後進食", "衛教低血糖處理"] },
+    ] },
+    { x: 50, y: 58, t: "骨盆", dz: [
+      { n: "急產", rt: "labor",
+        cue: ["規則宮縮、有想解便感", "會陰膨出、看到胎頭"],
+        act: ["通知產科與兒科，備接生包與新生兒急救設備", "控制胎頭娩出速度，檢查臍帶繞頸", "新生兒擦乾、保暖、刺激"],
+        drug: [["Oxytocin", "胎兒娩出後 10 IU IM（或依醫囑靜脈滴注）", "預防產後出血"]],
+        care: ["記錄娩出時間", "新生兒 1、5 分鐘 Apgar", "新生兒有活力時延遲斷臍 30–60 秒", "子宮按摩、觀察出血量"] },
+      { n: "產後大出血",
+        cue: ["產後出血 ≥ 1000 mL，或合併休克徵象", "子宮摸起來軟（最常見原因是子宮收縮不良）"],
+        act: ["雙手子宮按摩", "兩條大號 IV、備血、必要時啟動大量輸血", "量化失血量；找 4T：收縮、組織、裂傷、凝血"],
+        drug: [["Oxytocin", "10 IU IM／IV，或 20–40 IU 加入 1 L 輸液滴注", "第一線"], ["Tranexamic acid", "1 g IV，10 分鐘以上；產後 3 小時內", "30 分鐘後仍出血可再給 1 g"]],
+        care: ["秤紗布重量量化失血", "每 5–15 分鐘生命徵象", "導尿監測尿量", "保暖"] },
+      { n: "骨盆骨折出血",
+        cue: ["高能量外傷，骨盆疼痛", "兩腿長度不一、旋轉", "低血壓"],
+        act: ["骨盆固定帶綁在大轉子高度", "不要反覆擠壓骨盆檢查", "平衡輸血，準備血管栓塞或手術"],
+        drug: [["Tranexamic acid", "1 g IV 10 分鐘，接著 1 g 8 小時滴注", "受傷 3 小時內"]],
+        care: ["尿道口出血或陰囊血腫時，先不要放導尿管", "觀察下肢末梢循環", "保暖"] },
+    ] },
+    { x: 38, y: 78, t: "四肢・全身", dz: [
+      { n: "出血性休克（多重外傷）", rt: "trauma",
+        cue: ["心跳快、休克指數 > 1", "皮膚濕冷、意識改變", "血壓下降是晚期徵象"],
+        act: ["先止血：直接加壓、止血帶", "XABCDE 初級評估、兩條大號 IV、FAST", "沒有頭部外傷時允許性低血壓 SBP 80–90", "1:1:1 平衡輸血、預防低體溫"],
+        drug: [["Tranexamic acid", "1 g IV 10 分鐘，接著 1 g 8 小時滴注", "受傷 3 小時內"]],
+        care: ["止血帶記錄上綁時間", "保溫：毯子、加溫輸液", "輸血反應觀察"] },
+      { n: "敗血性休克",
+        cue: ["感染合併低血壓（MAP < 65）", "乳酸升高、意識改變、尿少"],
+        act: ["抽兩套血液培養與乳酸", "1 小時內給抗生素", "低血壓或乳酸 ≥ 4 時，3 小時內給 30 mL/kg 晶體輸液", "輸液後仍低血壓：升壓劑"],
+        drug: [["晶體輸液", "30 mL/kg，3 小時內", "心衰竭、洗腎病人分次給並評估"], ["廣效抗生素", "依醫囑，1 小時內", "先培養、但不延誤"], ["Norepinephrine", "依醫囑起始，依 MAP 調整", "目標 MAP ≥ 65；宜由中心靜脈給"]],
+        care: ["每 15 分鐘生命徵象", "尿量 ≥ 0.5 mL/kg/h", "複測乳酸", "觀察升壓劑外滲"] },
+      { n: "有機磷中毒",
+        cue: ["農藥接觸或口服", "分泌物多：流口水、流淚、支氣管分泌物", "瞳孔縮小、心跳慢、肌肉顫動"],
+        act: ["工作人員先穿防護裝備", "脫除衣物、清洗皮膚", "保護呼吸道；Atropine 給到肺部乾燥", "Pralidoxime（PAM）依醫囑，以 IVD 滴注、不快速推注"],
+        drug: [["Atropine", "1–3 mg IV 推注，每 5 分鐘加倍，直到肺部乾燥、HR > 80、SBP > 80", "以分泌物乾為目標，不是瞳孔放大"], ["Pralidoxime（PAM 500 mg/20 mL）", "劑量依醫囑（常用起始 30 mg/kg）。本院：加入 NS 125 mL，濃度 10–20 mg/mL，15–30 分鐘 IVD，速率不超過 200 mg/min", "快速 IV 推注可能引起心跳過速、喉頭痙攣、肌肉僵直"]],
+        care: ["衣物裝袋密封", "頻繁抽痰", "監測意識與呼吸肌無力（中間症候群）", "毒藥物諮詢中心 02-2871-7121"] },
+    ] },
+  ],
+  patho: [
+    { t: "休克的四種類型", k: "低血容（出血、脫水）、心因（心肌梗塞、心衰竭）、阻塞（張力性氣胸、心包填塞、肺栓塞）、分布（敗血、過敏、神經性）。", how: ["休克指數 HR ÷ SBP > 1", "微血管回填 > 2 秒、皮膚濕冷斑駁", "尿量 < 0.5 mL/kg/h、乳酸 > 2", "頸靜脈怒張想阻塞或心因；扁塌想低血容或分布"] },
+    { t: "氧輸送", f: "DO₂ = 心輸出量 × 動脈含氧量", k: "動脈含氧量主要由血紅素和 SpO₂ 決定。SpO₂ 正常，但貧血或心輸出量低，組織還是缺氧。", how: ["休克要同時顧心輸出量（輸液、強心）和含氧量（給氧、輸血）", "看意識、尿量、乳酸，判斷組織有沒有得到氧"] },
+    { t: "腦灌流壓", f: "CPP = MAP − ICP", k: "正常顱內壓約 5–15 mmHg。血壓太低或顱內壓太高，腦灌流都會不足。", how: ["頭部外傷避免低血壓與低血氧", "顱內壓升高晚期：Cushing 三徵、瞳孔不等大", "床頭抬高 30 度、頭頸正中，幫助靜脈回流"] },
+    { t: "呼吸衰竭與血氣判讀", k: "第一型（低血氧）：PaO₂ < 60 mmHg；第二型（高碳酸）：PaCO₂ > 50 mmHg 且 pH < 7.35。", how: ["四步驟：pH 酸或鹼 → PaCO₂ 是否呼吸性 → HCO₃⁻ 是否代謝性 → 代償是否合理", "代謝性酸中毒算陰離子間隙", "COPD 二氧化碳滯留：給氧目標 SpO₂ 88–92%"] },
+    { t: "高血鉀的心電圖", k: "尖而高的 T 波 → PR 延長、P 波變平 → QRS 變寬 → 正弦波 → 心室顫動或心搏停止。", how: ["心電圖變化不一定和血鉀數值平行", "有心電圖變化就先給鈣，再降鉀"] },
+    { t: "創傷致死三角", k: "低體溫、酸中毒、凝血病變互相惡化。", how: ["保溫：毯子、加溫輸液、提高室溫", "儘早止血與平衡輸血", "避免大量晶體輸液稀釋凝血因子"] },
+  ],
+  qa: [
+    ["心跳停止時，波形 ETCO₂ 持續 < 10 mmHg 代表？", ["CPR 品質需改善，或預後差", "已經恢復自發循環", "換氣過度", "插管位置一定正確"], 0, "ETCO₂ 反映 CPR 時的心輸出量；突然上升到 35–40 mmHg 常是 ROSC。"],
+    ["疑似 STEMI 病人到院，12 導程心電圖應在幾分鐘內完成？", ["10 分鐘", "30 分鐘", "60 分鐘", "90 分鐘"], 0, "到院 10 分鐘內；到院至打通血管目標 ≤ 90 分鐘。"],
+    ["高血鉀合併 QRS 變寬，第一個給的是？", ["Furosemide", "Calcium gluconate", "鉀離子結合劑", "Sodium bicarbonate"], 1, "鈣穩定心肌細胞膜，作用最快，但不會降低血鉀。"],
+    ["病人打完抗生素出現蕁麻疹，給了 Vena＋Oradexon 後，嘴唇開始腫、出現喘鳴。下一步？", ["再追加一次 Vena", "立即 Bosmin 肌肉注射（大腿前外側）", "Bosmin 1 mg 靜脈推注", "等類固醇發揮作用"], 1, "已進展為過敏性休克，Bosmin 肌肉注射不可延誤；1 mg 靜脈推注是心跳停止的劑量，容易引起致命心律不整。"],
+    ["主動脈剝離控制血壓的順序？", ["先降血壓再控心跳", "先用 β 阻斷劑控心跳，再降血壓", "只要止痛", "給 Nitroglycerin 就好"], 1, "先擴張血管會反射性心跳加快，增加主動脈壁剪力。"],
+    ["急性缺血性中風要給靜脈血栓溶解，血壓須低於？", ["140/90", "160/100", "185/110", "200/120"], 2, "給藥前 < 185/110，給藥後 24 小時維持 < 180/105。"],
+    ["DKA 什麼情況下暫不給胰島素？", ["血糖 > 600 mg/dL", "血鉀 < 3.3 mEq/L", "pH < 7.1", "意識不清"], 1, "胰島素會把鉀推進細胞，血鉀太低時可能引起致命心律不整，先補鉀。"],
+    ["敗血性休克的抗生素應在多久內給？", ["1 小時內", "3 小時內", "6 小時內", "住院後再給"], 0, "先抽血液培養，但不延誤抗生素。"],
+    ["有機磷中毒給 Atropine 的目標是？", ["瞳孔放大", "肺部分泌物乾、HR > 80", "肌肉顫動停止", "意識恢復"], 1, "瞳孔可能持續縮小，不作為目標；肌肉顫動要靠 PAM。"],
+    ["懷疑張力性氣胸，什麼時候減壓？", ["照完胸部 X 光確認後", "臨床診斷就立即針刺減壓", "先插管", "先給利尿劑"], 1, "張力性氣胸是臨床診斷，等 X 光會延誤。"],
+  ] },
+
+  p: { fig: "child", color: "--z-peds", regions: [
+    { x: 50, y: 13, t: "頭部・神經", dz: [
+      { n: "熱性痙攣／癲癇重積", wt: "fs",
+        cue: ["6 個月到 5 歲發燒合併抽搐", "單純型：< 15 分鐘、全身性、24 小時內沒再發", "抽搐 ≥ 5 分鐘需要用藥止抽"],
+        act: ["計時、側躺、清呼吸道、給氧", "測血糖", "5 分鐘仍在抽：benzodiazepine", "20 分鐘仍在抽：第二線藥物，準備呼吸道處置"],
+        drug: [["Midazolam", "0.2 mg/kg IM 或鼻內（最大 10 mg）", "沒有 IV 時首選"], ["Lorazepam", "0.1 mg/kg IV（最大 4 mg）", "可重複一次"], ["Diazepam", "0.2–0.3 mg/kg IV（最大 10 mg）；肛門 0.5 mg/kg（最大 20 mg）", ""], ["Levetiracetam", "60 mg/kg IV（最大 4500 mg）", "第二線"], ["Acetaminophen", "10–15 mg/kg 口服或肛塞，每 4–6 小時", "退燒讓孩子舒服，但不能預防再發"]],
+        care: ["不塞東西入口、不壓制肢體", "記錄抽搐型態、時間、眼睛偏向", "抽完評估意識是否恢復", "衛教家長：大多預後良好、居家怎麼做、何時回診"] },
+      { n: "兒童頭部外傷", wt: "phead",
+        cue: ["意識改變、反覆嘔吐", "哭鬧無法安撫、囟門膨出", "2 歲以下非前額的頭皮血腫"],
+        act: ["兒童版 GCS、瞳孔", "依 PECARN 判斷是否需要 CT", "頸椎保護", "觀察 4–6 小時"],
+        drug: [["Acetaminophen", "10–15 mg/kg", "止痛"]],
+        care: ["受傷說法與傷勢不符、延遲就醫：想到兒虐", "衛教返家觀察：叫不醒、持續嘔吐、抽搐、走路不穩要立即回診"] },
+      { n: "腦膜炎／腸病毒重症", wt: "ev",
+        cue: ["發燒合併頸部僵硬、囟門膨出、嗜睡、皮膚瘀點", "腸病毒重症前兆：嗜睡、意識不清、活力不佳、手腳無力", "肌躍型抽搐（無故驚嚇或全身肌肉突然收縮）", "持續嘔吐、持續發燒、呼吸急促或心跳加快"],
+        act: ["發燒合併瘀點：先戴口罩、飛沫隔離", "抽血液培養後儘快給抗生素；病況穩定再腰椎穿刺", "腸病毒重症前兆：立即轉急救區、依法通報"],
+        drug: [["Ceftriaxone", "100 mg/kg/day IV（最大 4 g/day）", "疑細菌性腦膜炎；依醫囑"], ["IVIG", "依醫囑", "腸病毒重症依醫師判斷"]],
+        care: ["每 15–30 分鐘意識、心跳、呼吸", "腸病毒：接觸＋飛沫隔離；酒精對腸病毒效果差，用肥皂洗手", "依法通報腸病毒感染併發重症"] },
+    ] },
+    { x: 50, y: 28, t: "呼吸道", dz: [
+      { n: "哮吼", wt: "resp",
+        cue: ["犬吠咳、吸氣喘鳴、聲音沙啞", "夜間加重；多在 6 個月到 3 歲"],
+        act: ["讓孩子坐在家長懷裡保持安靜", "評估嚴重度：休息時喘鳴、胸凹、意識", "類固醇；中重度加腎上腺素霧化"],
+        drug: [["Oradexon（Dexamethasone）", "0.15–0.6 mg/kg 口服、IM 或 IV（最大 16 mg）", "本院常用；輕度也可給"], ["Epinephrine 1 mg/mL 霧化", "0.5 mL/kg（最大 5 mL）", "中重度；給完觀察 2–4 小時防反彈"]],
+        care: ["不強迫壓舌檢查（萬一是會厭炎）", "監測 SpO₂ 與呼吸功", "衛教夜間惡化怎麼處理"] },
+      { n: "異物哽塞", wt: "fb",
+        cue: ["突然嗆咳、無法發聲、發紺", "常在進食或玩小東西時發生"],
+        act: ["還能咳：鼓勵咳嗽", "不能咳也不能哭：1 歲以下 5 次背擊＋5 次胸部按壓；1 歲以上腹部推擠（哈姆立克法）", "失去意識：開始 CPR，每次打開呼吸道先看有沒有異物"],
+        drug: [],
+        care: ["鈕扣電池卡在食道是急症，2 小時內需取出", "衛教：小物件、堅果、果凍、磁鐵"] },
+    ] },
+    { x: 38, y: 38, t: "胸・肺", dz: [
+      { n: "細支氣管炎（RSV）", wt: "resp",
+        cue: ["2 歲以下，流鼻水、咳嗽後開始喘", "餵食減少、尿布變少", "2 個月以下或早產兒可能呼吸暫停"],
+        act: ["支持療法為主：吸鼻、維持水分", "SpO₂ < 90% 給氧", "呼吸窘迫用高流量鼻導管"],
+        drug: [["—", "不常規使用支氣管擴張劑、類固醇、抗生素", "依 AAP 指引"]],
+        care: ["餵食前先吸鼻", "觀察呼吸暫停", "接觸＋飛沫隔離", "記錄尿布數"] },
+      { n: "氣喘急性發作",
+        cue: ["喘鳴、吐氣延長、胸凹、說話斷續", "喘鳴聲變小、呼吸音變弱反而危險（silent chest）"],
+        act: ["給氧", "Ventolin 吸入每 20 分鐘一次，共 3 次（本院兒童呼吸治療以 Ventolin 為主）", "全身性類固醇；嚴重時加硫酸鎂"],
+        drug: [["Ventolin（Salbutamol）", "霧化 2.5 mg（< 20 kg）／5 mg（≥ 20 kg），或定量噴霧 4–8 下加吸藥輔助器，每 20 分鐘 ×3", ""], ["Ipratropium", "霧化 250 µg（< 20 kg）／500 µg，第 1 小時 ×3", "中重度"], ["Prednisolone", "1–2 mg/kg 口服（最大 40–60 mg）", "或 Oradexon（Dexamethasone）0.6 mg/kg（最大 16 mg）"], ["Magnesium sulfate", "25–75 mg/kg IV，20 分鐘（最大 2 g）", "嚴重、對初始治療反應差"]],
+        care: ["每次治療後評估呼吸音、胸凹、SpO₂", "心跳快、手抖是 Ventolin 的副作用", "衛教吸入技巧與吸藥輔助器"] },
+      { n: "肺炎",
+        cue: ["發燒、咳嗽、呼吸快、胸凹、呻吟", "局部囉音"],
+        act: ["依呼吸窘迫程度給氧", "脫水時補液", "抗生素依醫囑"],
+        drug: [["Amoxicillin", "高劑量 90 mg/kg/day，分 2 次", "門診常用；依醫囑"]],
+        care: ["呼吸次數數滿 1 分鐘", "呻吟、SpO₂ < 90%、喝不下：需要住院"] },
+    ] },
+    { x: 61, y: 40, t: "心臟・循環", dz: [
+      { n: "休克（脫水、敗血）",
+        cue: ["心跳快、微血管回填 > 2 秒", "手腳冰冷、皮膚斑駁、尿少、活力差", "血壓下降是晚期"],
+        act: ["給氧；兩條 IV，打不上就骨內針（IO）", "等張晶體輸液 10–20 mL/kg 推注，每次後再評估", "敗血性休克 1 小時內給抗生素", "測血糖"],
+        drug: [["生理食鹽水／乳酸林格氏液", "10–20 mL/kg，5–20 分鐘推注；第 1 小時可達 40–60 mL/kg", "心因性休克改 5–10 mL/kg 慢慢給"], ["Epinephrine 或 Norepinephrine 滴注", "0.05–0.3 µg/kg/min 起，依醫囑調整", "輸液後仍休克時"], ["50% 葡萄糖（D50W）", "低血糖合併意識改變時：本院 20 mL IV 優先（依醫囑）", "先測血糖；不嚴重時依醫囑用含糖點滴"]],
+        care: ["每次推注後評估心跳、微血管回填、意識、尿量（目標 1 mL/kg/h）", "出現囉音或肝臟變大：停止推注、通知醫師", "保暖"] },
+      { n: "心跳停止（PALS）",
+        cue: ["無反應、無呼吸或只有喘息、摸不到脈搏", "嬰兒心跳 < 60 合併灌流不足，也要開始壓胸"],
+        act: ["壓胸深度約胸廓前後徑 1/3（嬰兒約 4 公分、兒童約 5 公分）", "雙人 15:2", "可電擊心律立即電擊"],
+        drug: [["Epinephrine", "0.01 mg/kg IV／IO（0.1 mg/mL 取 0.1 mL/kg），最大 1 mg，每 3–5 分鐘", ""], ["Amiodarone", "5 mg/kg IV／IO（最大 300 mg），最多 3 劑", "VF／無脈性 VT"], ["電擊", "第 1 次 2 J/kg、第 2 次 4 J/kg，之後 ≥ 4 J/kg（最大 10 J/kg 或成人劑量）", ""]],
+        care: ["用身長帶或年齡估體重", "預先算好藥量，貼在床邊", "家長可在場陪伴，安排專人說明"] },
+      { n: "陣發性上心室心搏過速（SVT）",
+        cue: ["嬰兒心跳常 > 220、兒童 > 180", "心跳不隨活動或哭鬧改變、看不清 P 波", "嬰兒餵食差、躁動、冒汗"],
+        act: ["穩定：迷走神經刺激（嬰兒冰袋敷臉、兒童吹吸管）→ Adenosine", "不穩定：同步電擊"],
+        drug: [["Adenosine", "0.1 mg/kg 快速推注（最大 6 mg），第二劑 0.2 mg/kg（最大 12 mg）", "三通快推，立即沖生理食鹽水"], ["同步電擊", "0.5–1 J/kg，無效改 2 J/kg", ""]],
+        care: ["給藥時錄心律條", "冰袋敷臉不可蓋住口鼻，限 15–30 秒"] },
+    ] },
+    { x: 50, y: 51, t: "腹部", dz: [
+      { n: "腸胃炎脫水", wt: "dehy",
+        cue: ["嘔吐、腹瀉、尿少", "哭沒有眼淚、口乾、眼窩凹陷、嗜睡"],
+        act: ["評估脫水程度", "輕中度口服補液：少量多次，嘔吐後休息 10–15 分鐘再試", "重度靜脈輸液"],
+        drug: [["口服電解質液（ORS）", "輕度 50 mL/kg、中度 100 mL/kg，4 小時內少量多次", "每 1–2 分鐘一湯匙"], ["生理食鹽水", "重度：20 mL/kg 推注，可重複", ""]],
+        care: ["記錄嘔吐、腹瀉次數與尿布", "量體重作為基準", "接觸隔離、手部衛生", "衛教返家脫水徵象"] },
+      { n: "腸套疊", wt: "intus",
+        cue: ["6 個月到 3 歲，陣發性劇烈哭鬧、雙腿縮起", "間歇期安靜或嗜睡", "嘔吐；果醬樣血便是晚期"],
+        act: ["禁食、建立靜脈管路", "腹部超音波", "空氣或水灌腸復位；腹膜炎或休克轉手術"],
+        drug: [["止痛", "依醫囑", ""]],
+        care: ["觀察腹脹、膽汁性嘔吐、休克", "復位後觀察復發（多在 24 小時內）"] },
+      { n: "闌尾炎",
+        cue: ["肚臍周圍痛轉移到右下腹", "發燒、嘔吐、食慾差", "幼兒表現不典型、穿孔率較高"],
+        act: ["禁食、輸液、止痛（止痛不影響診斷）", "超音波", "抗生素與手術依醫囑"],
+        drug: [["Morphine", "0.05–0.1 mg/kg IV", "依醫囑"], ["Acetaminophen", "15 mg/kg 口服或 IV", ""]],
+        care: ["疼痛評估：FLACC 或臉譜量表", "觀察腹膜炎徵象"] },
+    ] },
+    { x: 41, y: 60, t: "泌尿・代謝", dz: [
+      { n: "小嬰兒發燒／尿路感染", wt: "puti",
+        cue: ["3 個月以下發燒（肛溫 ≥ 38°C）", "嬰幼兒發燒找不到原因，要想到尿路感染"],
+        act: ["28 天以下：完整敗血症評估（血、尿、腦脊髓液）並住院", "29–60 天：依風險分層評估", "尿液培養用導尿或恥骨上穿刺；尿袋不能做培養"],
+        drug: [["抗生素", "依年齡與醫囑", "新生兒與較大嬰兒的用藥不同"]],
+        care: ["退燒藥不會改變評估的必要性", "記錄活力、餵食量、尿量"] },
+      { n: "低血糖",
+        cue: ["嬰兒嗜睡、餵食差、抖動、冒汗", "腸胃炎吃不下、糖尿病童"],
+        act: ["任何意識改變都先測血糖", "能吃就先進食：果汁、含糖飲料、餵奶或正餐", "不嚴重、但吃得不夠：依醫囑先給含糖點滴（D5W、台五、台三）", "意識改變或無法進食：依醫囑 D50W 20 mL IV 優先", "15 分鐘後複測血糖"],
+        drug: [["含糖點滴（D5W、台五、台三）", "依醫囑", "低血糖不嚴重、可清醒但進食不足時"], ["50% 葡萄糖（D50W）", "意識改變或無法進食時：本院 20 mL IV 優先（依醫囑，必要時至 40 mL）", "推注前確認回血，觀察注射部位有無外滲、靜脈炎；15 分鐘後複測血糖"], ["Glucagon", "0.5 mg IM（< 25 kg）／1 mg（≥ 25 kg）", "沒有 IV 時"]],
+        care: ["找原因：飢餓、感染、代謝疾病、誤食降血糖藥", "恢復後進食"] },
+      { n: "兒童 DKA",
+        cue: ["多喝多尿、體重減輕", "腹痛嘔吐、深快呼吸、嗜睡", "第一次表現常就是 DKA"],
+        act: ["補液要謹慎：生理食鹽水 10–20 mL/kg", "輸液開始約 1 小時後才給胰島素，不推注", "監測腦水腫"],
+        drug: [["生理食鹽水", "10–20 mL/kg，第 1 小時", ""], ["Regular insulin", "0.05–0.1 U/kg/h 連續滴注，不推注", "輸液開始約 1 小時後"], ["Mannitol 或 3% NaCl", "Mannitol 0.5–1 g/kg 或 3% NaCl 2.5–5 mL/kg，10–15 分鐘", "腦水腫時，依醫囑"]],
+        care: ["每小時神經學評估：頭痛、心跳變慢、血壓上升、意識下降、躁動是腦水腫警訊", "血糖每小時、電解質每 2–4 小時", "輸出入量"] },
+    ] },
+    { x: 40, y: 82, t: "皮膚・全身", dz: [
+      { n: "過敏反應／過敏性休克",
+        cue: ["只有皮膚症狀（蕁麻疹、癢）：過敏反應", "合併嘴唇或舌頭腫、喘鳴、呼吸困難、嘔吐、活力變差、血壓下降：過敏性休克", "常見誘因：食物（蛋、花生、海鮮）、藥物、蜂螫"],
+        act: ["過敏反應：本院立即給 Vena＋Oradexon，持續觀察是否進展", "出現組織腫脹、喘鳴、呼吸困難或活力變差：立即 Bosmin 肌肉注射，不可延誤", "平躺抬腿，或讓孩子用舒服的姿勢坐", "給氧、輸液"],
+        drug: [["Vena（Diphenhydramine）", "1 mg/kg IV／IM（最大 30 mg），依醫囑", "本院過敏反應立即給；會嗜睡"], ["Oradexon（Dexamethasone）", "0.15–0.6 mg/kg（最大 16 mg），依醫囑", "本院過敏反應立即給；不能取代 Bosmin"], ["Bosmin（Epinephrine 1 mg/mL）", "0.01 mg/kg IM（兒童最大 0.3 mg、青少年 0.5 mg），大腿前外側，每 5–15 分鐘可重複", "組織腫脹、喘鳴、活力變差時立即給"], ["生理食鹽水", "20 mL/kg", "低血壓時"]],
+        care: ["觀察 4–6 小時雙相反應", "衛教避開過敏原、腎上腺素筆使用"] },
+      { n: "川崎症", wt: "kd",
+        cue: ["發燒 ≥ 5 天，加上 4 項：雙眼結膜充血（無分泌物）、嘴唇紅裂或草莓舌、多形性皮疹、手腳紅腫（後期脫皮）、單側頸部淋巴結腫大", "卡介苗接種處紅腫"],
+        act: ["心臟超音波評估冠狀動脈", "IVIG＋Aspirin"],
+        drug: [["IVIG", "2 g/kg，10–12 小時滴注", "前 1 小時每 15 分鐘量生命徵象，觀察輸注反應"], ["Aspirin", "依醫囑（先高劑量，退燒後改低劑量）", "得流感或水痘時注意雷氏症候群"]],
+        care: ["打完 IVIG 後 11 個月內暫緩麻疹、水痘等活性疫苗", "衛教回診追蹤心臟超音波"] },
+      { n: "燒燙傷", wt: "pburn",
+        cue: ["範圍：兒童頭部比例較大，用兒童九法則，或手掌法（病人手掌含手指約 1%）", "臉、手、會陰、環狀燒傷，或可能有吸入傷"],
+        act: ["流動冷水沖 20 分鐘（受傷 3 小時內都有效）", "移除飾品、保鮮膜覆蓋、止痛", "≥ 10% TBSA：靜脈輸液（Parkland 公式）"],
+        drug: [["乳酸林格氏液（Parkland）", "4 mL × 體重 kg × %TBSA；一半在受傷後 8 小時內，另一半在之後 16 小時", "< 30 kg 另加維持液；目標尿量 1 mL/kg/h"], ["Morphine／Fentanyl", "依醫囑", "換藥前止痛"]],
+        care: ["沖水時注意保暖、防失溫", "對稱浸泡燙傷、香菸形狀燙傷要想到兒虐", "不刺破水泡、不塗牙膏或醬油"] },
+    ] },
+  ],
+  patho: [
+    { t: "兒童怎麼代償休克", f: "心輸出量 = 心跳 × 每搏量", k: "兒童的每搏量不容易增加，主要靠心跳變快；周邊血管收縮可以撐住血壓，所以低血壓出現時已經失代償。", how: ["早期：心跳快、微血管回填延長、手腳冰冷、活力變差", "PALS 低血壓：新生兒 SBP < 60；1 個月到 1 歲 < 70；1–10 歲 < 70 + 2 × 年齡；10 歲以上 < 90"] },
+    { t: "兒童呼吸道的特點", k: "舌頭相對大、枕部大（平躺時頸部前屈）、喉頭較高較前、會厭較軟；嬰兒主要用鼻子呼吸。呼吸道細，少量水腫就讓阻力大增（阻力與半徑四次方成反比）。", how: ["嬰兒平躺在肩下墊毛巾，讓呼吸道對齊", "鼻塞就會喘：餵食前先吸鼻", "觀察鼻翼搧動、胸凹、呻吟、點頭呼吸"] },
+    { t: "體重與劑量", f: "1–10 歲體重 ≈（年齡 + 4）× 2 kg", k: "兒童藥物依體重計算，但不超過成人劑量。最好用實際體重或身長帶。", how: ["每次給藥雙人核對：mg/kg、總量、濃度、體積", "常用急救藥量可預先算好貼在床邊"] },
+    { t: "脫水程度評估", k: "輕度（< 5%）口稍乾；中度（5–9%）眼窩凹陷、哭沒眼淚、微血管回填延長、尿少；重度（≥ 10%）嗜睡、四肢冰冷、脈搏弱、微血管回填 > 3 秒。", how: ["最可靠的三個徵象：微血管回填延長、皮膚張力差、呼吸型態異常（深快）", "以最近的體重變化估算最準"] },
+    { t: "生命徵象正常範圍（清醒）", table: { head: ["年齡", "心跳（次/分）", "呼吸（次/分）"], rows: [["新生兒", "100–205", "—"], ["嬰兒（< 1 歲）", "100–180", "30–53"], ["幼兒（1–2 歲）", "98–140", "22–37"], ["學齡前（3–5 歲）", "80–120", "20–28"], ["學齡（6–11 歲）", "75–118", "18–25"], ["青少年（12–15 歲）", "60–100", "12–20"]] }, k: "依 PALS 2020 整理。睡眠時心跳較低，發燒、哭鬧時較高。", how: ["呼吸次數數滿 1 分鐘", "心跳快要先排除發燒、疼痛、哭鬧，再想到休克"] },
+    { t: "發燒與熱性痙攣", k: "發燒是免疫反應，本身不會傷腦。熱性痙攣和年齡、體溫上升速度有關。", how: ["退燒藥是讓孩子舒服，不能預防熱性痙攣", "精神活力比體溫數字重要", "3 個月以下發燒一律要醫師評估"] },
+  ],
+  qa: [
+    ["兒童休克最早出現的徵象？", ["血壓下降", "心跳變快、微血管回填延長", "瞳孔放大", "發燒"], 1, "兒童靠心跳和血管收縮代償，血壓下降是晚期。"],
+    ["5 歲兒童的估計體重？", ["10 kg", "18 kg", "25 kg", "30 kg"], 1, "（5 + 4）× 2 = 18 kg。"],
+    ["哮吼給腎上腺素霧化後，要觀察多久？", ["15 分鐘", "30 分鐘", "2–4 小時", "不需要觀察"], 2, "作用消退後可能反彈。"],
+    ["熱性痙攣抽超過幾分鐘要給藥止抽？", ["1 分鐘", "5 分鐘", "15 分鐘", "30 分鐘"], 1, "抽搐 ≥ 5 分鐘視為需要處理的癲癇重積。"],
+    ["1 歲以下異物哽塞、不能哭也不能咳，怎麼做？", ["腹部推擠", "5 次背擊＋5 次胸部按壓", "用手指伸進口中挖", "倒立搖晃"], 1, "1 歲以下不做腹部推擠；不要盲目挖。"],
+    ["PALS 心跳停止的 Epinephrine 劑量？", ["0.1 mg/kg", "0.01 mg/kg，最大 1 mg", "固定 1 mg", "0.5 mg/kg"], 1, "0.1 mg/mL 濃度取 0.1 mL/kg。"],
+    ["輸液推注後出現肺部囉音、肝臟變大，下一步？", ["再推一次", "停止推注、通知醫師", "改成口服補液", "加快滴速"], 1, "輸液過量或心因性休克的徵象。"],
+    ["嬰兒的尿液培養檢體怎麼收集？", ["尿袋", "導尿或恥骨上穿刺", "擠尿布", "不需要培養"], 1, "尿袋污染率高，不能用來做培養。"],
+    ["兒童 DKA 的胰島素什麼時候開始？", ["到院立刻推注", "輸液開始約 1 小時後連續滴注，不推注", "血糖降到 200 才給", "不需要胰島素"], 1, "太快降血糖與滲透壓會增加腦水腫風險。"],
+    ["川崎症打完 IVIG 後，何者正確？", ["隔天就可以打活性疫苗", "11 個月內暫緩麻疹、水痘等活性疫苗", "不需要追蹤心臟", "停用所有退燒藥"], 1, "IVIG 中的抗體會降低活性疫苗效果。"],
+  ] },
+};
+const FIG = {
+  adult: `<svg viewBox="0 0 240 440" aria-hidden="true"><defs><linearGradient id="figA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--fig1)"/><stop offset="1" stop-color="var(--fig2)"/></linearGradient></defs><g fill="url(#figA)" stroke="var(--figline)" stroke-width="2.5" stroke-linejoin="round">
+    <circle cx="120" cy="46" r="31"/><rect x="105" y="74" width="30" height="24" rx="8"/>
+    <path d="M70 106 Q120 90 170 106 L178 250 Q120 268 62 250 Z"/>
+    <path d="M70 108 L40 208 L52 212 L80 138 Z"/><path d="M170 108 L200 208 L188 212 L160 138 Z"/>
+    <circle cx="45" cy="220" r="11"/><circle cx="195" cy="220" r="11"/>
+    <path d="M70 250 L86 420 L112 420 L118 270 Z"/><path d="M170 250 L154 420 L128 420 L122 270 Z"/></g>
+    <g class="figorg"><path d="M98 132 q-16 22 -6 52 q14 6 22 -6 q2 -30 -6 -46Z"/><path d="M142 132 q16 22 6 52 q-14 6 -22 -6 q-2 -30 6 -46Z"/><path d="M128 150 q14 -6 18 8 q2 14 -14 22 q-10 -8 -4 -30Z" class="figheart"/><path d="M102 196 q18 -10 40 0 q4 14 -18 18 q-24 -4 -22 -18Z"/></g>
+    <path d="M120 116 L120 245" stroke="var(--figline)" stroke-width="1.5" stroke-dasharray="3 6" fill="none"/></svg>`,
+  child: `<svg viewBox="0 0 240 400" aria-hidden="true"><defs><linearGradient id="figC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--fig1)"/><stop offset="1" stop-color="var(--fig2)"/></linearGradient></defs><g fill="url(#figC)" stroke="var(--figline)" stroke-width="2.5" stroke-linejoin="round">
+    <circle cx="120" cy="58" r="44"/><rect x="108" y="98" width="24" height="18" rx="7"/>
+    <path d="M74 124 Q120 108 166 124 L170 246 Q120 262 70 246 Z"/>
+    <path d="M74 126 L48 206 L60 210 L86 150 Z"/><path d="M166 126 L192 206 L180 210 L154 150 Z"/>
+    <circle cx="52" cy="218" r="12"/><circle cx="188" cy="218" r="12"/>
+    <path d="M76 246 L88 380 L112 380 L117 262 Z"/><path d="M164 246 L152 380 L128 380 L123 262 Z"/></g>
+    <g class="figorg"><circle cx="104" cy="52" r="4" class="figeye"/><circle cx="136" cy="52" r="4" class="figeye"/><path d="M108 74 q12 9 24 0" fill="none" stroke="var(--figline)" stroke-width="2.5" stroke-linecap="round"/><circle cx="94" cy="66" r="6" class="figcheek"/><circle cx="146" cy="66" r="6" class="figcheek"/>
+    <path d="M100 142 q-14 18 -5 42 q12 5 18 -5 q2 -24 -5 -37Z"/><path d="M140 142 q14 18 5 42 q-12 5 -18 -5 q-2 -24 5 -37Z"/><path d="M127 156 q12 -5 15 7 q2 12 -12 18 q-8 -7 -3 -25Z" class="figheart"/></g>
+    <path d="M120 130 L120 242" stroke="var(--figline)" stroke-width="1.5" stroke-dasharray="3 6" fill="none"/></svg>`,
+};
+function bodyMap(z){
+  const M = BMAP[z];
+  return `<div class="bmall" style="--zz:var(${M.color})"><section class="panel bm"><div class="bmhead"><h3 class="bh">${z === "r" ? "人體疾病地圖" : "兒童疾病地圖"}</h3><span class="hint">點部位：看可能疾病、怎麼處理（含給藥）、怎麼照護</span></div>
+    <div class="bmwrap"><div class="bmfig ${M.fig}">${FIG[M.fig]}${M.regions.map((r, i) => `<button class="bpt" data-bm="${z}:${i}" style="left:${r.x}%;top:${r.y}%"><i aria-hidden="true"></i><span>${esc(r.t)}</span><small>${r.dz.length}</small></button>`).join("")}</div>
+      <div class="bmlist">${M.regions.map((r, i) => `<button class="bmrow" data-bm="${z}:${i}"><b>${esc(r.t)}</b><span>${r.dz.map(d => esc(d.n)).join("、")}</span><i aria-hidden="true">›</i></button>`).join("")}</div></div></section>
+    <section class="panel stack"><h3 class="bh">病生理評估</h3><p class="hint" style="margin:0">先懂「為什麼」，評估時才知道要看什麼。</p>
+      <div class="patho">${M.patho.map(p => `<article class="pcard"><b>${esc(p.t)}</b>${p.f ? `<div class="pf">${esc(p.f)}</div>` : ""}<p>${esc(p.k)}</p>${p.table ? `<div class="tblw"><table><thead><tr>${p.table.head.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${p.table.rows.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>` : ""}<div class="phow"><span>怎麼評估</span><ul>${p.how.map(h => `<li>${esc(h)}</li>`).join("")}</ul></div></article>`).join("")}</div></section>
+    <section class="panel stack"><div class="row" style="justify-content:space-between"><h3 class="bh">問答區</h3><button class="btn" data-bmq="${z}" style="background:var(${M.color})">開始測驗（${M.qa.length} 題）</button></div>
+      <div class="qalist">${M.qa.map((q, i) => `<details class="qa"><summary><span class="qn">Q${i + 1}</span>${esc(q[0])}</summary><div><b>${esc(q[1][q[2]])}</b><p>${esc(q[3])}</p></div></details>`).join("")}</div></section></div>`;
+}
+/* 跳出視窗 */
+function sheet(html, onClick){
+  let s = $("sheet");
+  if (!s) { s = document.createElement("div"); s.id = "sheet"; s.className = "sheet"; s.hidden = true; document.body.appendChild(s);
+    s.addEventListener("click", e => { if (e.target === s || e.target.closest("[data-close]")) sheetClose(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape" && !s.hidden) sheetClose(); }); }
+  s.innerHTML = `<div class="mdlcard" role="dialog" aria-modal="true">${html}</div>`; s.hidden = false; document.body.classList.add("noscroll");
+  s.querySelector(".mdlcard").onclick = e => onClick && onClick(e);
+  const f = s.querySelector("button"); if (f) f.focus();
+}
+function sheetClose(){ const s = $("sheet"); if (s) { s.hidden = true; document.body.classList.remove("noscroll"); } }
+addEventListener("hashchange", sheetClose);
+function bmOpen(key, k = 0){
+  const [z, i] = key.split(":"), M = BMAP[z], R = M.regions[+i], d = R.dz[k];
+  const link = d.rt && RT_BY[d.rt] ? `#rt-${d.rt}` : d.wt && WT_BY[d.wt] ? `#wt-${d.wt}` : "";
+  sheet(`<div class="bmsheet" style="--zz:var(${M.color})"><div class="shd"><div><small>${esc(R.t)}</small><h2>${esc(d.n)}</h2></div><button class="nbtn sclose" data-close aria-label="關閉">✕</button></div>
+    ${R.dz.length > 1 ? `<div class="dztabs" role="tablist">${R.dz.map((x, j) => `<button role="tab" aria-selected="${j === k}" data-dz="${j}">${esc(x.n)}</button>`).join("")}</div>` : ""}
+    <div class="sbody">
+      <section><h3><i>?</i>可能疾病與表現</h3><ul>${d.cue.map(c => `<li>${esc(c)}</li>`).join("")}</ul></section>
+      <section><h3><i>→</i>怎麼處理</h3><ol>${d.act.map(c => `<li>${esc(c)}</li>`).join("")}</ol></section>
+      <section><h3><i>℞</i>給藥</h3>${d.drug.length ? `<div class="dglist">${d.drug.map(r => `<div class="drug1"><b>${esc(r[0])}</b><span>${esc(r[1])}</span>${r[2] ? `<small>${esc(r[2])}</small>` : ""}</div>`).join("")}</div>` : `<p class="hint" style="margin:0">沒有特定藥物，以處置為主。</p>`}</section>
+      <section><h3><i>♡</i>怎麼照護</h3><ul>${d.care.map(c => `<li>${esc(c)}</li>`).join("")}</ul></section>
+      <p class="foot" style="margin:0">劑量依常用指引整理，實際依本院藥典、SOP 與醫囑；給藥前雙人核對。</p>
+      ${link ? `<a class="btn" style="text-decoration:none;justify-self:start;background:var(${M.color})" href="${link}">完整主題：流程、前人智慧、小測驗 ›</a>` : ""}
+    </div></div>`, e => { const t = e.target.closest("[data-dz]"); if (t) bmOpen(key, +t.dataset.dz); });
+}
+function bmClick(e){
+  const b = e.target.closest("[data-bm]"); if (b) { document.querySelectorAll(".bpt").forEach(x => x.classList.toggle("on", x.dataset.bm === b.dataset.bm)); bmOpen(b.dataset.bm); return true; }
+  const q = e.target.closest("[data-bmq]"); if (q) { bmQuiz(q.dataset.bmq); return true; }
+  return false;
+}
+function bmQuiz(z){
+  const back = z === "r" ? "resus" : "peds", M = BMAP[z];
+  window.scrollTo(0, 0);
+  miniQuiz(shuffle(M.qa), ok => `<section class="panel stack" style="text-align:center;justify-items:center"><span class="label">${ok >= Math.ceil(M.qa.length * .8) ? "很棒！" : "再看一次重點"}</span><span class="qstars">${ok} / ${M.qa.length}</span>
+    <div class="row" style="justify-content:center"><a class="btn ghost" style="text-decoration:none" href="#${back}">回${z === "r" ? "急救區" : "兒科"}</a><button class="btn" id="retry">再測一次</button></div></section>`, () => bmQuiz(z));
+}
+
+/* ---------- 治療區、留觀區：輕重緩急判斷技巧 ---------- */
+const JT = [
+  { id: "ladder", z: "c", t: "同時有事時誰先：排序五階", rule: "先保命 → 再守時 → 防意外 → 促流動 → 最後批次",
+    say: "保命、守時、防意外、促流動、批次",
+    cues: LADDER.map(l => `${l[0]}：${l[1]}`),
+    steps: ["接班或事情一多，先掃一輪：每床 10 秒看外觀與監視器", "把手上的事分到五階裡", "同一階內，先做「做完能解開最多卡住的事」", "能委派的交出去：傳送、補物、衛教單、批價", "每 30–60 分鐘或有新狀況時重新排一次"],
+    ex: { q: "同時發生：2 床 COPD SpO₂ 降到 86%；檢驗室回報 1 床 K 6.8；4 床敗血症抗生素剛開；機動區家屬來催；5 床等出院衛教。", a: "2 床（呼吸惡化）→ 1 床危險值（在 2 床旁先電話回報，請同事接監視器）→ 4 床抗生素 → 家屬 30 秒說明 → 5 床衛教。" },
+    traps: ["先做順手、離自己最近的事", "被聲音最大的家屬牽著走", "一直自己做，不開口求援"], game: "ws-c" },
+  { id: "worse", z: "c", t: "誰在惡化：看趨勢，不看單點", rule: "呼吸次數、意識、SpO₂、血壓、尿量的「變化」比單一數字重要",
+    say: "看病人、看變化，兩項變差就喊人",
+    cues: ["呼吸次數 > 24 次/分，或比上次明顯變快", "新出現的躁動、嗜睡、答非所問", "SpO₂ 下降 ≥ 3%，或需要更多氧氣才撐得住", "收縮壓 < 90，或比平常低 40 以上", "休克指數 HR ÷ SBP > 1", "病人或家屬說「跟剛剛不一樣」、你覺得「不對勁」"],
+    steps: ["每次量都和上一次比較，不只看有沒有超出正常值", "呼吸次數數滿 30 秒以上，最好 1 分鐘", "兩項以上同時變差：升級評估頻率並通知醫師", "用 SBAR 報告「變化」：原本多少、現在多少、病人看起來怎樣"],
+    ex: { q: "2 床 COPD，1 小時前 SpO₂ 92%、呼吸 22 次；現在 SpO₂ 88%、呼吸 30 次，血壓正常、意識清楚。要不要通知醫師？", a: "要。呼吸次數與血氧同時惡化，是呼吸衰竭的早期警訊；血壓正常不代表安全。立即評估呼吸功、給氧依醫囑，並通知醫師。" },
+    traps: ["只看監視器，不看病人", "血壓正常就放心", "呼吸次數用估的"], },
+  { id: "panic", z: "c", t: "接到危險值（panic value）", rule: "確認病人 → 看病人 → 回報醫師 → 處置與記錄，全程記下時間",
+    say: "先確認、看病人、馬上報",
+    cues: ["依本院危險值清單：如鉀、鈉、血糖、血紅素、心肌酵素等", "看症狀：胸悶、心悸、無力、意識改變", "鉀異常要看心電圖"],
+    steps: ["複誦確認病人姓名、項目、數值", "到床邊看病人：症狀、生命徵象、必要時心電圖", "立即回報醫師（SBAR，包含病人現況）", "依醫囑處置，記錄回報時間、對象與醫囑", "安排複測"],
+    ex: { q: "你正在 2 床處理呼吸喘，檢驗室回報 1 床 K 6.8。怎麼做？", a: "不等手上事情做完：在 2 床旁先電話回報醫師，同時請同事幫 1 床接上心電監視器。高血鉀可能引起致命心律不整。" },
+    traps: ["等醫師查房再一起講", "只記錄、沒有回報", "沒有看心電圖"], },
+  { id: "window", z: "c", t: "有時間窗的治療", rule: "時間到了就會傷害病人的事，排在保命之後第二順位",
+    say: "醫囑一開就備藥，時間寫在看板上",
+    cues: ["敗血症抗生素：1 小時內", "STEMI：到院至打通血管 90 分鐘內", "急性中風溶栓：到院 60 分鐘內", "劇痛：給止痛後 30 分鐘內再評估", "輸血：開始後 15 分鐘內觀察反應", "STAT 醫囑"],
+    steps: ["醫囑一開就備藥、備物", "把下一個時間點寫在白板或看板", "交班時交「下一個時間點」", "被耽擱時告訴 Leader 或醫師"],
+    ex: { q: "4 床敗血症的抗生素醫囑剛開，同時 5 床可以出院、等你衛教。先做哪件？", a: "先給 4 床抗生素（有時間窗），5 床衛教稍後或請同事協助，但別讓床位拖太久。" },
+    traps: ["等所有血都抽完才給抗生素（培養抽完就可以給）", "以為出院衛教一樣緊急"], },
+  { id: "reeval", z: "c", t: "機動病人什麼時候再看", rule: "依檢傷級數再評估：1 級立即、2 級 10 分鐘、3 級 30 分鐘、4 級 60 分鐘、5 級 120 分鐘",
+    say: "級數決定多久回頭看一次",
+    cues: ["已等待時間是否超過該級時限", "外觀、主訴有沒有變化", "疼痛分數、生命徵象", "暈倒、跌倒風險"],
+    steps: ["在看板標出每位機動病人的下一次評估時間", "再評估：看外觀、問主訴變化、量生命徵象", "變差就提高級數並記錄，通知醫師", "等待中提供可以做的處置：止痛、嘔吐盆、陪伴"],
+    ex: { q: "3 級頭暈病人已經等了 40 分鐘，你一直在忙躺床病人。", a: "已超過 3 級 30 分鐘的時限，立即再評估：生命徵象、神經學（有無新的無力、口齒不清），並記錄。" },
+    traps: ["以為檢傷完就不是自己的責任", "只在家屬來問時才去看"], },
+  { id: "family", z: "c", t: "家屬催促怎麼回", rule: "30 秒說清楚三件事：在等什麼、大約多久、什麼狀況要馬上叫我",
+    say: "等什麼、多久、什麼時候叫我",
+    cues: ["家屬第幾次來問", "病人外觀有沒有變化", "情緒是否升高"],
+    steps: ["先走過去看病人一眼，說不定真的變差了", "叫病人名字，讓家屬知道你知道是誰", "給具體的時間點，不只說「等一下」", "說明哪些狀況要馬上叫你", "情緒升高時請 Leader 協助，必要時請保全"],
+    ex: { q: "機動區腹痛病人的家屬第三次來問「還要等多久」。", a: "走過去看病人外觀，說：「王先生在等抽血報告，大約 20 分鐘會出來；如果肚子更痛、吐、頭暈，請馬上叫我。」" },
+    traps: ["只回「等一下」", "隔著櫃台回答，沒看病人"], },
+  { id: "help", z: "c", t: "什麼時候喊人", rule: "同時有兩件要先保命的事，或你離不開床邊時，立刻求援",
+    say: "哪床、卡什麼、需要什麼",
+    cues: ["兩床同時惡化", "需要做 CPR、插管、電擊", "病人躁動需要約束或保全", "你手上的時間窗治療會被延誤"],
+    steps: ["一句話說清楚：哪床、卡什麼、需要什麼", "找 Leader 或鄰區，必要時廣播", "交出可委派的工作：傳送、衛教、補物", "事後回報結果"],
+    ex: { q: "你在 3 床處理胸痛做心電圖，2 床病人突然叫不醒。", a: "立刻喊人：「2 床叫不醒，需要人幫忙！」請同事接手 3 床心電圖或看 2 床，你先處理最危急的一床。" },
+    traps: ["覺得求援代表能力不足", "說「幫我一下」卻沒說要幫什麼"], },
+
+  { id: "tier", z: "o", t: "10 床紅黃綠分層", rule: "接班 10 分鐘內分層：紅＝可能惡化或高風險治療中；黃＝有時間點的任務；綠＝穩定等床或待返家",
+    say: "紅先巡、黃看時間、綠批次",
+    cues: ["紅：升壓劑、BiPAP、輸血初期、神經學惡化、新出現胸痛或意識改變", "黃：待檢查、待複測、待會診、待報告", "綠：生命徵象穩定、等床位、可返家待衛教"],
+    steps: ["聽交班時就先標顏色", "紅床先巡，每小時以上評估", "黃床把時間點寫上看板，時間到就做", "綠床集中批次處理", "狀況變了就換顏色"],
+    ex: { q: "中風後 2 小時，NIHSS 由 3 分變 6 分。這床是什麼顏色？", a: "紅。神經學惡化，立即通知醫師。" },
+    traps: ["一直照床號順序巡房", "分完層就不再更新"], game: "otier" },
+  { id: "ews", z: "o", t: "早期警示：呼吸次數最早變", rule: "用早期警示分數系統化評估，分數上升就提高評估頻率並通知",
+    say: "分數升、評估頻率就升",
+    cues: ["呼吸次數（最常被忽略，也最早變化）", "SpO₂ 與需要的氧氣量", "收縮壓、心跳", "意識（新的混亂）", "體溫"],
+    steps: ["每次量生命徵象都算分數，依本院採用的早期警示量表", "分數上升：增加評估頻率", "達到通報門檻：通知醫師並記錄", "把分數交給下一班"],
+    ex: { q: "肺炎病人呼吸從 18 次變 26 次、SpO₂ 從 95% 變 92%，血壓心跳正常。", a: "分數上升，提高評估頻率並通知醫師；呼吸次數常比血壓早變。" },
+    traps: ["數字只抄不算", "呼吸次數用估的"] },
+  { id: "stuck", z: "o", t: "四件事同時卡住", rule: "病人惡化 ＞ 有時間窗的治療 ＞ 交接與查房重點 ＞ 返家衛教 ＞ 紀錄與補物",
+    say: "惡化、時間窗、交接查房、返家、紀錄",
+    cues: OSTUCK.map(s => `${s[0]}：${s[1]}`),
+    steps: ["先處理惡化的病人；查房醫師在現場就請他過來", "時間窗治療（抗生素、輸血、STAT）不延誤", "床位釋出影響整個急診：病房交接請 Leader 代交或約時間回電", "返家可批次：先請家屬批價，空檔再衛教", "紀錄與補物最後做或委派"],
+    ex: { q: "上午 9 點：5 床心衰竭喊喘 SpO₂ 89%；3 床要送 CT；7 床病房來電可以上去；醫師開始查房；9 床可返家。", a: "5 床（惡化，請查房醫師過來）→ 3 床（穩定就請傳送先送）→ 7 床（請 Leader 代交或 10 分鐘後回電）→ 給醫師每床一句話 → 9 床先批價再衛教。" },
+    traps: ["全程跟著查房，其他床沒人顧", "病房來電就放下惡化的病人去交班"], game: "ws-o" },
+  { id: "round", z: "o", t: "查房：每床一句話", rule: "查房是取得決策的時機：異常值、待決策事項、家屬問題",
+    say: "一床一句：異常、待決定、家屬問",
+    cues: ["新的異常值或生命徵象變化", "等醫師決定的事：住院、返家、會診、檢查", "家屬想問的問題"],
+    steps: ["查房前 5 分鐘整理清單", "每床一句話重點，不重讀整份病歷", "記下決策與時間，回頭執行", "不必全程跟；有惡化的病人優先"],
+    ex: { q: "8 床尿路感染，今早白血球下降、燒退，家屬想知道能不能回家。查房怎麼說？", a: "「8 床尿路感染，燒退、白血球下降，家屬問今天能否返家。」一句話帶出異常改善、待決策事項、家屬問題。" },
+    traps: ["從入院經過開始講", "查完沒記下決策"] },
+  { id: "admit", z: "o", t: "轉住院交班：時機與 SBAR", rule: "開床通知一來就寫好 SBAR，電話交班 3 分鐘內完成",
+    say: "現況、背景、評估、待辦",
+    cues: ["S：現在的狀況與主要問題", "B：重要病史、過敏、管路", "A：最近的評估與變化", "R：下一個時間點、待完成的事"],
+    steps: ["等床時就先寫好 SBAR", "交班重點放在「下一個時間點」", "手上有惡化病人：請病房稍候或請 Leader 代交", "出發前確認管路、藥物、檢查都跟著走"],
+    ex: { q: "敗血症病人要上病房，抗生素第二劑 14:00、乳酸 2 小時後複測。交班 R 要說什麼？", a: "「抗生素第二劑 14:00，乳酸 13:30 複測，尿量目標每小時 30 mL 以上。」" },
+    traps: ["只交病史，沒交待辦與時間點", "惡化中的病人急著送上樓"] },
+];
+const JT_BY = Object.fromEntries(JT.map(x => [x.id, x]));
+function careLine(x){ const f = x.flow.slice(0, 2).map(s => Array.isArray(s) ? s[0] : s); return f.join("；"); }
+function wardLists(z){
+  const Z = WZ[z], done = store.get("wt-done", {}), T = WT.filter(x => x.z === z);
+  return `<section class="panel stack"><div class="row" style="justify-content:space-between"><h3 class="bh">常見疾病與照護</h3><span class="hint">點疾病看流程、技術、知識、紅旗</span></div>
+      ${[...new Set([...WGROUPS[z], ...T.map(x => x.g)])].map(g => { const L = T.filter(x => x.g === g); return L.length ? `<div class="label">${esc(g)}</div><div class="dlist">${L.map(x => `<a class="drow" href="#wt-${x.id}">${img(x.art)}<div><b>${esc(x.t)}${done[x.id] ? `<em class="okmark">已通過</em>` : ""}</b><span>${esc(careLine(x))}</span><small>紅旗：${esc(x.red.slice(0, 2).join("、"))}</small></div><i aria-hidden="true">›</i></a>`).join("")}</div>` : ""; }).join("")}</section>
+    <section class="panel stack"><div class="row" style="justify-content:space-between"><h3 class="bh">輕重緩急判斷</h3><span class="hint">點進去看判斷技巧與練習情境</span></div>
+      <div class="jlist">${JT.filter(j => j.z === z).map((j, i) => `<a class="jrow" href="#jt-${j.id}" style="--zz:var(${Z.color})"><span class="jn">${i + 1}</span><div><b>${esc(j.t)}</b><span>${esc(j.rule)}</span></div><i aria-hidden="true">›</i></a>`).join("")}</div></section>`;
+}
+function jtopic(id){
+  const j = JT_BY[id]; if (!j) return go("home");
+  const Z = WZ[j.z]; setBar(j.t, Z.name + "｜輕重緩急判斷", Z.home, Z.color);
+  const L = JT.filter(x => x.z === j.z), nx = L[(L.indexOf(j) + 1) % L.length];
+  $("view").innerHTML = `
+    <section class="hello" style="--zz:var(${Z.color})"><div><span class="hi-eyebrow" style="background:var(--surface);color:var(--zi,var(--ink));border-color:var(--zb,var(--line))">判斷口訣</span><h2>${esc(j.say)}</h2><p>${esc(j.rule)}</p></div>${img(Z.art)}</section>
+    <section class="panel stack"><h3 class="bh">看什麼線索</h3><ul class="cues">${j.cues.map(c => `<li>${esc(c)}</li>`).join("")}</ul></section>
+    <section class="panel stack"><h3 class="bh">怎麼判斷</h3><div class="road">${j.steps.map((s, i) => `<div class="rstep" style="grid-template-columns:40px minmax(0,1fr)"><span class="no" style="background:var(${Z.color});color:#fff">${i + 1}</span><div><span style="color:var(--ink);font-size:14.5px">${esc(s)}</span></div></div>`).join("")}</div></section>
+    <section class="panel stack"><h3 class="bh">練習情境</h3><div class="qbox">${esc(j.ex.q)}</div>
+      <details class="exans"><summary>先想想看，再點開答案</summary><p>${esc(j.ex.a)}</p></details></section>
+    <section class="panel stack wisdom"><h3 class="bh">常見陷阱</h3>${j.traps.map(t => `<div class="tip">${esc(t)}</div>`).join("")}</section>
+    <div class="row">${j.game ? `<a class="btn" style="text-decoration:none;background:var(${Z.color})" href="#${j.game}">${j.game === "otier" ? "10 床分層小遊戲" : "情境排序挑戰"} ›</a>` : ""}<a class="btn ghost" style="text-decoration:none" href="#jt-${nx.id}">下一個：${esc(nx.t)} ›</a></div>
+    <p class="foot">通用原則整理；危險值、早期警示量表與交班流程依本院規定。</p>`;
+}
+
+/* ---------- 虛擬勳章 ---------- */
+const MEDAL_TIER = [["", "未獲得"], ["bronze", "銅牌"], ["silver", "銀牌"], ["gold", "金牌"]];
+const MEDAL_Q = [["c", "治療區", "zTreat", "--z-treat"], ["o", "留觀區", "zObs", "--z-obs"], ["p", "兒科", "baby", "--z-peds"], ["r", "急救區", "zResus", "--z-resus"], ["t", "檢傷", "zTriage", "--z-triage"], ["l", "Leader", "zLeader", "--z-leader"], ["s", "特殊教學", "police", "--z-spec"]];
+const ACHV = [
+  ["first", "第一步", "第一次過關", "practice", () => Object.values(store.get("daily", {})).some(d => d.pass)],
+  ["d3", "三連勤", "連續 3 天過關", "timer", () => maxStreak() >= 3],
+  ["d7", "一週不斷", "連續 7 天過關", "timer", () => maxStreak() >= 7],
+  ["d30", "月月有進步", "連續 30 天過關", "heart", () => maxStreak() >= 30],
+  ["day3", "火力全開", "同一天過 3 關", "fire", () => Object.values(store.get("daily", {})).some(d => d.pass >= 3)],
+  ["explorer", "全區探索", "7 個闖關地圖都至少過 1 關", "map", () => MEDAL_Q.every(m => qProg(m[0]).n > 0)],
+];
+function maxStreak(){ const D = store.get("daily", {}), ks = Object.keys(D).filter(k => D[k].pass).sort(); let best = 0, run = 0, prev = null;
+  ks.forEach(k => { const d = new Date(k + "T00:00:00"); run = prev && (d - prev) === 864e5 ? run + 1 : 1; best = Math.max(best, run); prev = d; }); return best; }
+function zoneTier(z){ const { n, tot, stars } = qProg(z); if (n < tot) return 0; return stars === tot * 3 ? 3 : stars >= Math.ceil(tot * 3 * .8) ? 2 : 1; }
+function medalArt(tier, art, size = 72){ const t = MEDAL_TIER[tier][0] || "none";
+  return `<span class="medal m-${t}" style="--ms:${size}px"><svg viewBox="0 0 72 86" aria-hidden="true"><path class="mrib1" d="M22 2 L34 34 L24 40 L12 6Z"/><path class="mrib2" d="M50 2 L38 34 L48 40 L60 6Z"/><circle class="mrim" cx="36" cy="52" r="30"/><circle class="mface" cx="36" cy="52" r="23"/>${tier ? `<path class="mstar" d="M36 22 l2.4 4.9 5.4.8 -3.9 3.8 .9 5.4 -4.8-2.6 -4.8 2.6 .9-5.4 -3.9-3.8 5.4-.8Z" transform="translate(0 -14) scale(1)"/>` : ""}</svg><span class="mimg">${img(art)}</span></span>`; }
+function medalState(){
+  const m = {}; MEDAL_Q.forEach(q => m["z-" + q[0]] = zoneTier(q[0])); ACHV.forEach(a => m["a-" + a[0]] = a[4]() ? 1 : 0); return m;
+}
+/* 比對已獲得的勳章，新得到的跳出恭喜視窗 */
+function checkMedals(){
+  const got = store.get("medals", null), now = medalState(), fresh = [];
+  if (got === null) { const init = {}; Object.keys(now).forEach(k => { if (now[k]) init[k] = { t: now[k], at: dayKey() }; }); store.set("medals", init); return; }
+  Object.keys(now).forEach(k => { if (now[k] > ((got[k] || {}).t || 0)) { got[k] = { t: now[k], at: dayKey() }; fresh.push(k); } });
+  if (!fresh.length) return;
+  store.set("medals", got);
+  const k = fresh[0], isZ = k[0] === "z", q = isZ ? MEDAL_Q.find(x => "z-" + x[0] === k) : null, a = isZ ? null : ACHV.find(x => "a-" + x[0] === k);
+  const tier = isZ ? now[k] : 3, name = isZ ? `${q[1]}${MEDAL_TIER[tier][1]}` : a[1], why = isZ ? (tier === 3 ? "每一關都拿到 3 顆星！" : tier === 2 ? "星星拿到八成以上，再補幾顆就是金牌。" : "全部關卡都過了！再挑戰更多星星可以升級。") : a[2];
+  setTimeout(() => { confetti(); sheet(`<div class="mgot">${medalArt(tier, isZ ? q[2] : a[3], 132)}<small>獲得新勳章</small><h2>${esc(name)}</h2><p>${esc(why)}</p>${fresh.length > 1 ? `<p class="hint">還有 ${fresh.length - 1} 面新勳章，到「我的勳章」看看。</p>` : ""}
+    <div class="row" style="justify-content:center"><a class="btn" style="text-decoration:none" href="#badges">我的勳章</a><button class="btn ghost" data-close>繼續</button></div></div>`); }, 500);
+}
+function badges(){
+  setBar("我的勳章", "闖關與每日學習的紀錄", "home", "--z-leader");
+  checkMedals();
+  const got = store.get("medals", {}), now = medalState();
+  const zoneCard = q => { const t = now["z-" + q[0]], { n, tot, stars } = qProg(q[0]);
+    const next = t === 3 ? "已拿到最高等級" : t === 0 ? `再過 ${tot - n} 關得銅牌` : t === 1 ? `星星 ${stars} / ${tot * 3}，再 ${Math.ceil(tot * 3 * .8) - stars} 顆得銀牌` : `再 ${tot * 3 - stars} 顆星得金牌`;
+    return `<a class="mcard ${t ? "" : "lock"}" href="#${q[0]}quest" style="--zz:var(${q[3]})">${medalArt(t, q[2])}<b>${esc(q[1])}</b><span class="mt">${MEDAL_TIER[t][1]}</span><small>${esc(next)}</small>${got["z-" + q[0]] ? `<em>${esc(got["z-" + q[0]].at.slice(5).replace("-", "/"))}</em>` : ""}</a>`; };
+  const achCard = a => { const ok = now["a-" + a[0]];
+    return `<div class="mcard ${ok ? "" : "lock"}">${medalArt(ok ? 3 : 0, a[3], 60)}<b>${esc(a[1])}</b><small>${esc(a[2])}</small>${got["a-" + a[0]] ? `<em>${esc(got["a-" + a[0]].at.slice(5).replace("-", "/"))}</em>` : ""}</div>`; };
+  const nGot = Object.values(now).filter(Boolean).length, nAll = Object.keys(now).length;
+  $("view").innerHTML = `
+    <section class="hello" style="--zz:var(--z-leader)"><div><h2>已收集 ${nGot} / ${nAll} 面勳章</h2><p>每個闖關地圖全部過關得銅牌，星星八成以上升銀牌，全部 3 顆星就是金牌。勳章存在這台裝置。</p></div>${medalArt(nGot ? 3 : 0, "works", 84)}</section>
+    <div class="sec-h"><h2>闖關地圖勳章</h2></div><div class="mgrid">${MEDAL_Q.map(zoneCard).join("")}</div>
+    <div class="sec-h"><h2>每日學習成就</h2></div><div class="mgrid small">${ACHV.map(achCard).join("")}</div>`;
+}
+
+/* ---------- Leader 課程：線上教材（一段一頁） ---------- */
+function lcRead(){ return store.get("lc-read", {}); }
+function lcBlockHTML(b){
+  let h = b.h ? `<h3 class="bh">${esc(b.h)}</h3>` : "";
+  if (b.q) h += `<div class="qbox">${esc(b.q)}</div>`;
+  if (b.cards) h += `<div class="cgrid">${b.cards.map(x => `<div class="cc"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join("")}</div>`;
+  if (b.steps) h += `<div class="road">${b.steps.map((s, i) => `<div class="rstep" style="grid-template-columns:40px minmax(0,1fr)"><span class="no" style="background:var(--z-leader);color:#fff">${i + 1}</span><div><span style="color:var(--ink);font-size:14.5px">${esc(s)}</span></div></div>`).join("")}</div>`;
+  if (b.compare) h += `<div class="cmp">${b.compare.map((x, i) => `<div class="cside ${i ? "r" : ""}"><b>${esc(x[0])}</b>${x[1] ? `<span>${esc(x[1])}</span>` : ""}<ul>${x[2].map(y => `<li>${esc(y)}</li>`).join("")}</ul></div>`).join("")}</div>`;
+  if (b.table) h += `<div class="tblw"><table><thead><tr>${b.table.head.map(x => `<th>${esc(x)}</th>`).join("")}</tr></thead><tbody>${b.table.rows.map(r => `<tr>${r.map(x => `<td>${esc(x)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  if (b.note) h += `<div class="note">${esc(b.note)}</div>`;
+  return h;
+}
+function lcQuiz(id){ return QUESTS.l.stages.filter(s => s[3].some(l => l[1] === "#lc-" + id) && Array.isArray(s[4])).flatMap(s => s[4]); }
+
+/* ---------- 多人連線團隊擬真：大型面板＋各角色手機（院內 VF 心跳停止） ----------
+   規則（drReduce）前後端相同；後端在帳號中心 Apps Script（drillCreate / drillJoin / drillGet / drillAct）。
+   沒有連到帳號中心時為「示範模式」：同一台電腦開多個分頁即可演練。 */
+const DR_ROLES = { L: ["Leader", "指揮、分派、閉環確認", "#6650C0"], C: ["壓胸", "高品質 CPR、2 分鐘換手", "#C63D2F"], A: ["呼吸道", "BVM、插管、ETCO₂", "#1D74A0"], D: ["電擊／監視器", "貼片、心律、電擊", "#B7790A"], M: ["給藥", "IV／IO、Epinephrine、Amiodarone", "#1B7D63"], R: ["紀錄", "計時、提醒、記錄", "#56677A"] };
+const DR_ACT = { cpr: ["C", "開始壓胸"], swap: ["C", "換手壓胸"], hold: ["C", "暫停壓胸、檢查心律"], bvm: ["A", "BVM 給氧 30:2"], ett: ["A", "插管"], etco2: ["A", "接上 ETCO₂"], pads: ["D", "貼電擊片、接監視器"], charge: ["D", "充電 200 J"], shock: ["D", "電擊（確認所有人離開）"], rhy: ["D", "報告心律"], iv: ["M", "建立 IV／IO"], epi: ["M", "給 Epinephrine 1 mg"], amio1: ["M", "給 Amiodarone 300 mg"], amio2: ["M", "給 Amiodarone 150 mg"], tepi: ["R", "報告距上次 Epi 的時間"], tcyc: ["R", "提醒 2 分鐘換手"], note: ["R", "記錄時間點"] };
+const DR_DONE = { cpr: "已開始壓胸", swap: "已換手壓胸", hold: "已暫停、檢查心律", bvm: "BVM 給氧中", ett: "插管完成", etco2: "ETCO₂ 已接上", pads: "電擊片已貼、監視器已接", charge: "已充電 200 J", shock: "已電擊", rhy: "已報告心律", iv: "IV／IO 已建立", epi: "Epinephrine 1 mg 已給", amio1: "Amiodarone 300 mg 已給", amio2: "Amiodarone 150 mg 已給", tepi: "已報告距上次 Epi 的時間", tcyc: "已提醒換手", note: "已記錄時間點" };
+const DR_RHY = { none: "未接監視器", vf: "心室顫動（VF）", pvt: "無脈性心室頻脈", asys: "心搏停止（Asystole）", pea: "無脈性電氣活動（PEA）", rosc: "恢復自發循環（ROSC）" };
+const DR_STAGE = ["等待開始", "倒下：無反應、無呼吸", "第一次電擊後：VF 持續", "第二次電擊後：VF 持續", "ROSC：恢復自發循環"];
+function drReduce(R, who, a, now){
+  const ev = (x, g, r) => { R.ev.push({ t: now, r: r || who, x, g: g || "" }); if (R.ev.length > 400) R.ev.shift(); };
+  const host = who === "H" || who === "T";
+  if (a.type === "start" && host && R.status === "wait") { R.status = "run"; R.t0 = now; R.stage = 1; R.rhythm = "none"; ev("開始演練：病人倒下，無反應、無正常呼吸", "start", "S"); }
+  else if (a.type === "end" && host && R.status === "run") { R.status = "end"; R.t1 = now; ev("結束演練", "end", "S"); }
+  else if (R.status !== "run") return;
+  else if (a.type === "rhythm" && host && DR_RHY[a.r]) { R.rhythm = a.r; if (a.r === "rosc") R.stage = 4; ev("監視器：" + DR_RHY[a.r], "rhythm", "S"); }
+  else if (a.type === "cmd" && who === "L" && DR_ROLES[a.to] && a.to !== "L") { const x = String(a.x || (DR_ACT[a.g] || [])[1] || "").slice(0, 40); if (!x) return; R.cmds.push({ id: "c" + (R.cmds.length + 1), to: a.to, g: DR_ACT[a.g] ? a.g : "", x, t: now, ack: 0, done: 0 }); ev("Leader → " + DR_ROLES[a.to][0] + "：" + x, "cmd"); }
+  else if (a.type === "ack" || a.type === "done") { const c = R.cmds.find(c => c.id === a.id); if (!c || c.to !== who) return;
+    if (a.type === "ack" && !c.ack) { c.ack = now; ev("收到：" + c.x, "ack"); }
+    if (a.type === "done" && !c.done) { if (!c.ack) c.ack = now; c.done = now; ev(DR_DONE[c.g] || "完成：" + c.x, c.g || "free"); drAuto(R, c.g, now, ev); } }
+  else if (a.type === "say" && DR_ACT[a.g] && DR_ACT[a.g][0] === who) { ev(DR_DONE[a.g], a.g); drAuto(R, a.g, now, ev); }
+  else if (a.type === "say" && a.g === "free" && a.x) ev(String(a.x).slice(0, 60), "free");
+}
+function drAuto(R, g, now, ev){
+  if (g === "shock") R.shocks = (R.shocks || 0) + 1;
+  if (g === "epi") R.epis = (R.epis || 0) + 1;
+  if (g === "amio1" || g === "amio2") R.amio = (R.amio || 0) + 1;
+  if (g === "shock") R.stage = Math.min(3, R.shocks + 1);
+  if (R.mode !== "auto") return;
+  if (g === "pads" && R.rhythm === "none") { R.rhythm = "vf"; ev("監視器：" + DR_RHY.vf, "rhythm", "S"); }
+  if (R.rhythm === "vf" && R.shocks >= 3 && R.epis >= 1 && R.amio >= 1 && g === "shock") { R.rhythm = "rosc"; R.stage = 4; ev("監視器：" + DR_RHY.rosc + "，摸得到脈搏", "rhythm", "S"); }
+}
+function drPublic(R){ const o = JSON.parse(JSON.stringify(R)); delete o.hostKey; delete o.pin; Object.values(o.seats).forEach(s => delete s.key); return o; }
+/* 示範模式：localStorage 當房間，同一台電腦多個分頁共用 */
+const DRL = {
+  load: c => { try { return JSON.parse(localStorage.getItem("drill:" + c) || "null"); } catch (e) { return null; } },
+  save: R => { try { localStorage.setItem("drill:" + R.code, JSON.stringify(R)); } catch (e) {} },
+  key: () => Math.random().toString(36).slice(2) + Date.now().toString(36),
+  call(action, b){
+    const now = Date.now();
+    if (action === "drillCreate") { let code; do code = String(1000 + Math.floor(Math.random() * 9000)); while (DRL.load(code));
+      const R = { code, mode: b.mode === "auto" ? "auto" : "teacher", scene: "vf", created: now, status: "wait", stage: 0, rhythm: "none", seats: {}, cmds: [], ev: [], hostKey: DRL.key(), pin: String(1000 + Math.floor(Math.random() * 9000)) };
+      DRL.save(R); return { ok: true, code, hostKey: R.hostKey, pin: R.pin }; }
+    const R = DRL.load(b.code); if (!R) return { ok: false, error: "找不到這個房間，請確認房間號碼" };
+    if (action === "drillGet") return { ok: true, room: drPublic(R), now };
+    if (action === "drillJoin") { const role = b.role;
+      if (role === "T") { if (String(b.pin) !== R.pin) return { ok: false, error: "教師碼不正確" }; }
+      else if (!DR_ROLES[role]) return { ok: false, error: "請選角色" };
+      const name = String(b.name || "").trim().slice(0, 12); if (!name) return { ok: false, error: "請輸入名字" };
+      const s = R.seats[role]; if (s && s.name !== name && !b.force) return { ok: false, error: `「${DR_ROLES[role] ? DR_ROLES[role][0] : "教師"}」已經有人：${s.name}`, taken: true };
+      const key = DRL.key(); R.seats[role] = { name, emp: b.emp || "", key, at: now }; DRL.save(R); return { ok: true, key, room: drPublic(R), now }; }
+    if (action === "drillAct") { let who = b.key && b.key === R.hostKey ? "H" : Object.keys(R.seats).find(k => R.seats[k].key === b.key);
+      if (!who) return { ok: false, error: "請重新加入房間" }; drReduce(R, who, b.a || {}, now); DRL.save(R); return { ok: true, room: drPublic(R), now }; }
+    return { ok: false, error: "未知動作" };
+  }
+};
+const drLive = () => !!(ACC && !/[?&]local\b/.test(location.search));
+const drApi = (action, b) => drLive() ? ACC.api(action, b) : Promise.resolve(DRL.call(action, JSON.parse(JSON.stringify(b))));
+let DRS = { code: "", seat: null, room: null, off: 0, poll: 0, tick: 0, view: "", busy: false };
+function drStop(){ clearInterval(DRS.poll); clearInterval(DRS.tick); DRS.poll = DRS.tick = 0; }
+const drSeat = c => { try { return JSON.parse(sessionStorage.getItem("drill-" + c) || "null"); } catch (e) { return null; } };
+const drSetSeat = (c, v) => { try { sessionStorage.setItem("drill-" + c, JSON.stringify(v)); } catch (e) {} };
+const drNow = () => Date.now() + DRS.off;
+const mmss = ms => { ms = Math.max(0, ms); const s = Math.floor(ms / 1000); return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`; };
+const drLast = (R, tags) => { for (let i = R.ev.length - 1; i >= 0; i--) if (tags.includes(R.ev[i].g)) return R.ev[i]; return null; };
+function drVitals(R){
+  const cpr = drLast(R, ["cpr", "swap", "hold"]), active = R.status === "run" && cpr && cpr.g !== "hold" && R.rhythm !== "rosc";
+  const rosc = R.rhythm === "rosc";
+  return { hr: rosc ? 112 : R.rhythm === "none" ? "—" : R.rhythm === "pea" ? 58 : "—", spo2: rosc ? 94 : "—", bp: rosc ? "98/60" : "—", etco2: !(drLast(R, ["etco2"])) ? "—" : rosc ? 38 : active ? 15 : 6 };
+}
+function drTimers(R){
+  const now = R.status === "end" ? R.t1 : drNow(), cpr = drLast(R, ["cpr", "swap"]), epi = drLast(R, ["epi"]);
+  return { el: R.t0 ? now - R.t0 : 0, cyc: cpr && R.rhythm !== "rosc" ? now - cpr.t : null, epi: epi ? now - epi.t : null };
+}
+/* 心律監視器（畫布，固定深色螢幕） */
+function drMonitor(cv){
+  const ctx = cv.getContext("2d"); let x = 0, t = 0, last = 0;
+  const W = () => cv.width, H = () => cv.height;
+  const fit = () => { const r = cv.getBoundingClientRect(); cv.width = Math.max(200, r.width * devicePixelRatio); cv.height = Math.max(80, r.height * devicePixelRatio); ctx.fillStyle = "#06120F"; ctx.fillRect(0, 0, W(), H()); x = 0; };
+  fit();
+  const wave = (r, t) => {
+    if (r === "vf") return Math.sin(t * 31) * .45 + Math.sin(t * 47 + 1) * .3 + Math.sin(t * 13) * .2;
+    if (r === "pvt") return Math.sin(t * 2 * Math.PI * 3) * .8;
+    if (r === "asys" || r === "none") return Math.sin(t * 3) * .02;
+    const hr = r === "rosc" ? 112 : 58, p = (t * hr / 60) % 1;
+    return p < .08 ? Math.sin(p / .08 * Math.PI) * .12 : p < .14 ? 0 : p < .16 ? -.15 : p < .19 ? 1 : p < .22 ? -.3 : p < .4 ? 0 : p < .52 ? Math.sin((p - .4) / .12 * Math.PI) * .25 : 0;
+  };
+  let py = null;
+  const step = ts => {
+    if (!cv.isConnected) return;
+    const dt = last ? Math.min(.05, (ts - last) / 1000) : .016; last = ts;
+    const R = DRS.room, r = R ? R.rhythm : "none", speed = W() / 5;
+    for (let k = 0; k < Math.max(1, Math.round(dt * speed)); k++) {
+      t += 1 / speed; x = (x + 1) % W();
+      ctx.fillStyle = "#06120F"; ctx.fillRect(x, 0, 8 * devicePixelRatio, H());
+      const y = H() / 2 - wave(r, t) * H() * .38;
+      ctx.strokeStyle = "#45E39B"; ctx.lineWidth = 2 * devicePixelRatio; ctx.beginPath();
+      if (py !== null && x > 0) { ctx.moveTo(x - 1, py); ctx.lineTo(x, y); ctx.stroke(); }
+      py = y;
+    }
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+function drMonHTML(R, small){ const v = drVitals(R);
+  return `<div class="drmon ${small ? "sm" : ""}"><canvas class="drcv" aria-label="監視器：${esc(DR_RHY[R.rhythm])}"></canvas><div class="drrhy">${esc(DR_RHY[R.rhythm])}</div>
+    <div class="drvit"><span><small>HR</small><b>${v.hr}</b></span><span><small>SpO₂</small><b>${v.spo2}</b></span><span><small>BP</small><b>${v.bp}</b></span><span><small>ETCO₂</small><b>${v.etco2}</b></span></div></div>`; }
+/* 結束回饋 */
+function drDebrief(R){
+  const t0 = R.t0 || 0, rel = t => mmss(t - t0), first = g => R.ev.find(e => e.g === g);
+  const cpr = first("cpr"), shock = first("shock"), epis = R.ev.filter(e => e.g === "epi"), swaps = R.ev.filter(e => e.g === "cpr" || e.g === "swap");
+  const done = R.cmds.filter(c => c.done), ackd = R.cmds.filter(c => c.ack), avg = arr => arr.length ? Math.round(arr.reduce((a, b) => a + b, 0) / arr.length / 1000) : null;
+  const epiGap = epis.slice(1).map((e, i) => (e.t - epis[i].t) / 1000), swapGap = swaps.slice(1).map((e, i) => (e.t - swaps[i].t) / 1000);
+  const by = {}; R.ev.forEach(e => { if (DR_ROLES[e.r]) by[e.r] = (by[e.r] || 0) + 1; });
+  const row = (k, v, ok) => `<div class="dbr ${ok === true ? "ok" : ok === false ? "bad" : ""}"><span>${k}</span><b>${v}</b></div>`;
+  return `<section class="panel stack drdeb"><h3 class="bh">演練回饋</h3><div class="dbgrid">
+    ${row("到開始壓胸", cpr ? rel(cpr.t) : "未記錄", cpr ? (cpr.t - t0) <= 10000 : false)}
+    ${row("到第一次電擊", shock ? rel(shock.t) : "未電擊", shock ? (shock.t - t0) <= 180000 : false)}
+    ${row("電擊次數", R.shocks || 0)}
+    ${row("Epinephrine", epis.length ? epis.map(e => rel(e.t)).join("、") : "未給", epis.length ? true : false)}
+    ${row("Epi 間隔", epiGap.length ? epiGap.map(s => mmss(s * 1000)).join("、") : "—", epiGap.length ? epiGap.every(s => s >= 180 && s <= 300) : null)}
+    ${row("壓胸換手間隔", swapGap.length ? swapGap.map(s => mmss(s * 1000)).join("、") : "—", swapGap.length ? swapGap.every(s => s <= 150) : null)}
+    ${row("閉環完成率", R.cmds.length ? `${done.length} / ${R.cmds.length}（${Math.round(done.length / R.cmds.length * 100)}%）` : "Leader 沒有下指令", R.cmds.length ? done.length / R.cmds.length >= .9 : false)}
+    ${row("指令到收到（平均）", avg(ackd.map(c => c.ack - c.t)) !== null ? avg(ackd.map(c => c.ack - c.t)) + " 秒" : "—")}
+    ${row("指令到完成（平均）", avg(done.map(c => c.done - c.t)) !== null ? avg(done.map(c => c.done - c.t)) + " 秒" : "—")}
+  </div><div class="label">各角色回報次數</div><div class="row">${Object.keys(DR_ROLES).map(k => `<span class="drchip" style="--rc:${DR_ROLES[k][2]}">${DR_ROLES[k][0]} ${by[k] || 0}</span>`).join("")}</div>
+  <p class="hint" style="margin:0">參考：壓胸在辨識後 10 秒內開始；每 2 分鐘換手；Epinephrine 每 3–5 分鐘；VF 儘早電擊。依 AHA 2025 與本院流程，回饋請由臨床教師帶領討論。</p></section>`;
+}
+function drFeed(R, n){ const t0 = R.t0 || R.created;
+  return `<ol class="drfeed">${R.ev.slice(-n).reverse().map(e => `<li style="--rc:${(DR_ROLES[e.r] || ["", "", "#8897A3"])[2]}"><time>${mmss(e.t - t0)}</time><span class="who">${esc(DR_ROLES[e.r] ? DR_ROLES[e.r][0] : e.r === "T" ? "教師" : e.r === "H" ? "主持" : "系統")}</span><span>${esc(e.x)}</span></li>`).join("") || `<li class="muted"><span>還沒有紀錄</span></li>`}</ol>`; }
+/* 路由：#drill、#drill-b-1234（大面板）、#drill-p-1234（角色手機）、#drill-j-1234（加入） */
+function drillRoute(arg){
+  drStop();
+  const [v, code] = String(arg || "").split("-");
+  if (v === "b" && code) return drBoard(code);
+  if (v === "p" && code) return drPlayer(code);
+  return drLanding(v === "j" ? code : "");
+}
+function drLanding(code){
+  setBar("團隊擬真（多人連線）", "院內 VF 心跳停止", "team", "--z-resus");
+  const me = ACC && ACC.cachedUser && ACC.cachedUser();
+  $("view").innerHTML = `
+    <section class="hello" style="--zz:var(--z-resus)"><div><h2>大型面板＋每人一支手機</h2><p>投影大面板建立房間，5–6 人用手機輸入房間號碼、選角色。Leader 下指令，各角色按「收到」「完成」，系統記錄時間，結束後看閉環溝通與急救時效。</p></div>${img("zResus")}</section>
+    ${drLive() ? "" : `<div class="note">示範模式：目前沒有連到帳號中心，只能在同一台電腦開多個分頁練習。正式上線後手機就能加入。</div>`}
+    <div class="drlgrid">
+      <section class="panel stack"><h3 class="bh">建立房間（投影的電腦）</h3>
+        <div class="drmode"><label><input type="radio" name="drm" value="teacher" checked><span><b>臨床教師控制心律</b><small>教師用手機依團隊表現切換 VF、ROSC 等</small></span></label>
+          <label><input type="radio" name="drm" value="auto"><span><b>系統自動推進</b><small>貼片後出現 VF；電擊 3 次、給過 Epi 與 Amiodarone 後 ROSC</small></span></label></div>
+        <button class="btn" id="drNew" style="background:var(--z-resus);justify-self:start">建立房間</button></section>
+      <section class="panel stack"><h3 class="bh">加入房間（手機）</h3>
+        <div class="bform"><label>房間號碼<input id="drCode" inputmode="numeric" maxlength="4" value="${esc(code || "")}" placeholder="4 位數字"></label>
+          <label>名字<input id="drName" maxlength="12" value="${esc(me ? me.name : "")}" placeholder="暱稱或姓名">${me ? `<small class="hint">已用員編登入：${esc(me.empId)}</small>` : ""}</label></div>
+        <div class="drroles">${Object.keys(DR_ROLES).map(k => `<button class="drrole" data-role="${k}" style="--rc:${DR_ROLES[k][2]}"><b>${DR_ROLES[k][0]}</b><small>${DR_ROLES[k][1]}</small></button>`).join("")}
+          <button class="drrole t" data-role="T" style="--rc:var(--ink-2)"><b>臨床教師</b><small>控制心律與開始、結束（需教師碼）</small></button></div>
+        <label class="bform" id="drPinW" hidden><span style="font-size:13px;font-weight:700;color:var(--ink-2)">教師碼（大面板上會顯示）</span><input id="drPin" inputmode="numeric" maxlength="4"></label>
+        <div class="bmsg err" id="drErr" hidden></div></section>
+    </div>
+    <p class="foot">演練內容依 AHA 2025 ACLS 與本院急救室配置；只做教學，不記錄病人資料。</p>`;
+  let pick = "", forceRole = "";
+  $("view").onclick = async e => {
+    if (e.target.closest("#drNew")) { const mode = (document.querySelector("[name=drm]:checked") || {}).value;
+      const r = await drApi("drillCreate", { mode }); if (!r.ok) return drErr(r.error);
+      drSetSeat(r.code, { role: "H", key: r.hostKey, pin: r.pin }); go("drill-b-" + r.code); return; }
+    const b = e.target.closest("[data-role]"); if (!b) return;
+    pick = b.dataset.role; document.querySelectorAll(".drrole").forEach(x => x.classList.toggle("on", x === b));
+    if (pick === "T") { $("drPinW").hidden = false; if (!$("drPin").value) { $("drPin").focus(); return; } }
+    await drJoin(pick, forceRole === pick);
+  };
+  $("view").oninput = e => { if (e.target.id === "drPin" && e.target.value.length === 4 && pick === "T") drJoin("T", forceRole === "T"); };
+  async function drJoin(role, force){
+    const code = $("drCode").value.trim(), name = $("drName").value.trim();
+    if (!/^\d{4}$/.test(code)) return drErr("請輸入 4 位數房間號碼");
+    if (!name) return drErr("請輸入名字");
+    const r = await drApi("drillJoin", { code, role, name, emp: me ? me.empId : "", pin: role === "T" ? $("drPin").value : "", force });
+    if (!r.ok) { if (r.taken && !force) { drErr(r.error + "。再點一次這個角色就會接手。"); forceRole = role; return; } return drErr(r.error); }
+    drSetSeat(code, { role, key: r.key }); go("drill-p-" + code);
+  }
+  function drErr(t){ $("drErr").textContent = t; $("drErr").hidden = false; }
+}
+async function drSync(code){
+  const r = await drApi("drillGet", { code }).catch(() => null);
+  if (!r || !r.ok) { if (r && !r.ok && $("drOff")) $("drOff").hidden = false; return false; }
+  DRS.room = r.room; DRS.off = r.now - Date.now(); if ($("drOff")) $("drOff").hidden = true; return true;
+}
+function drLoop(code, paint){
+  DRS.code = code; drStop();
+  const pull = async () => { if (await drSync(code)) paint(); };
+  DRS.poll = setInterval(pull, drLive() ? 2000 : 1000);
+  DRS.tick = setInterval(() => { if (DRS.room && DRS.room.status === "run") paintTimers(); }, 1000);
+  return pull();
+}
+async function drAct(a){
+  const s = drSeat(DRS.code); if (!s || DRS.busy) return;
+  DRS.busy = true;
+  try { const r = await drApi("drillAct", { code: DRS.code, key: s.key, a }); if (r && r.ok) { DRS.room = r.room; DRS.off = r.now - Date.now(); DRS.repaint && DRS.repaint(); } else if (r) toastMsg(r.error); }
+  finally { DRS.busy = false; }
+}
+function toastMsg(t){ let el = $("drToast"); if (!el) { el = document.createElement("div"); el.id = "drToast"; el.className = "drtoast"; document.body.appendChild(el); } el.textContent = t; el.hidden = false; clearTimeout(toastMsg.t); toastMsg.t = setTimeout(() => el.hidden = true, 2200); }
+function paintTimers(){
+  const R = DRS.room; if (!R) return; const T = drTimers(R);
+  document.querySelectorAll("[data-tm]").forEach(el => { const k = el.dataset.tm, v = T[k];
+    el.textContent = v === null ? "—" : mmss(v);
+    if (k === "cyc") el.closest(".drtm")?.classList.toggle("warn", v !== null && v > 120000);
+    if (k === "epi") el.closest(".drtm")?.classList.toggle("warn", v !== null && v > 300000);
+    if (k === "cyc") { const bar = document.querySelector("[data-tmbar=cyc]"); if (bar) bar.style.width = (v === null ? 0 : Math.min(v / 120000, 1) * 100) + "%"; } });
+  document.querySelectorAll("[data-wait]").forEach(el => { el.textContent = Math.round((drNow() - +el.dataset.wait) / 1000) + " 秒"; });
+}
+const drTimerHTML = () => `<div class="drtms"><div class="drtm"><small>演練時間</small><b data-tm="el">00:00</b></div><div class="drtm"><small>CPR 週期（2 分鐘換手）</small><b data-tm="cyc">—</b><i class="drbar"><u data-tmbar="cyc"></u></i></div><div class="drtm"><small>距上次 Epinephrine</small><b data-tm="epi">—</b></div></div>`;
+/* 團隊運作圖：沿用急救室 Q 版配置圖，疊上指令箭頭與對話泡泡 */
+const DR_IDX = { L: 0, C: 1, A: 2, M: 3, D: 4, R: 5 };
+function drRoomHTML(R){
+  const now = drNow(), v = drVitals(R), has = g => !!drLast(R, [g]);
+  const rh = R.rhythm === "vf" || R.rhythm === "pvt" ? "vf" : R.rhythm === "rosc" || R.rhythm === "pea" ? "sinus" : "asys";
+  const cprE = drLast(R, ["cpr", "swap", "hold"]), cpr = R.status === "run" && !!cprE && cprE.g !== "hold" && R.rhythm !== "rosc";
+  const hi = {}; Object.keys(DR_IDX).forEach(k => { const pend = R.cmds.some(c => c.to === k && !c.done), recent = R.ev.some(e => e.r === k && now - e.t < 8000); hi[DR_IDX[k]] = pend ? "miss" : recent ? "ok" : ""; });
+  const act = ["monitor"]; if (has("pads")) act.push("defib"); if (has("bvm")) act.push("bvm"); if (has("ett")) act.push("vent"); if (cpr) act.push("board"); if (has("iv") || has("epi")) act.push("cart");
+  const shock = R.ev.some(e => e.g === "shock" && now - e.t < 4000), L0 = ACLS_ROLES[0];
+  let ov = "";
+  R.cmds.filter(c => !c.done && DR_IDX[c.to] !== undefined).forEach(c => { const t = ACLS_ROLES[DR_IDX[c.to]], dx = t[3] - L0[3], dy = t[4] - L0[4], d = Math.hypot(dx, dy) || 1;
+    ov += `<line x1="${L0[3] + dx / d * 18}" y1="${L0[4] + dy / d * 18}" x2="${t[3] - dx / d * 20}" y2="${t[4] - dy / d * 20}" class="drarrow ${c.ack ? "ack" : ""}" marker-end="url(#drAh${c.ack ? "k" : ""})"/>`; });
+  Object.keys(DR_IDX).forEach(k => { const r = ACLS_ROLES[DR_IDX[k]], pend = R.cmds.filter(c => c.to === k && !c.done).pop();
+    const txt = pend ? pend.x : ""; if (!txt) return;
+    const s = txt.length > 12 ? txt.slice(0, 11) + "…" : txt, w = Math.min(s.length * 11 + 16, 160), x = Math.min(Math.max(r[3] - w / 2, 4), 416 - w), y = Math.max(r[4] - 46, 4);
+    ov += `<g class="drbub ${pend ? (pend.ack ? "ack" : "pend") : ""}"><rect x="${x}" y="${y}" width="${w}" height="20" rx="10"/><text x="${x + w / 2}" y="${y + 14}" text-anchor="middle">${esc(s)}</text></g>`; });
+  return `<div class="drroom">${roomSVG({ rhythm: rh, vit: { hr: v.hr, bp: v.bp, spo2: v.spo2, et: v.etco2 }, hi, cpr, act, shock, vent: has("ett") })}
+    <svg class="drov" viewBox="0 0 420 300" aria-hidden="true"><defs><marker id="drAh" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10Z" class="drahp"/></marker><marker id="drAhk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10Z" class="drahk"/></marker></defs>${ov}</svg></div>
+    <div class="drleg"><span><i class="lg pend"></i>待完成的指令（虛線圈）</span><span><i class="lg ok"></i>剛完成或剛回報</span><span><i class="lg arr"></i>Leader 指令方向</span></div>`;
+}
+/* 大面板播報：對話框＋語音 */
+const DR_SAY = { cpr: "開始壓胸", swap: "換手壓胸", hold: "暫停壓胸，檢查心律", bvm: "BVM 給氧中", ett: "插管完成", etco2: "ETCO₂ 已接上", pads: "電擊片已貼、監視器已接", charge: "充電 200 焦耳，所有人離開", shock: "電擊完成，繼續壓胸", rhy: "報告心律", iv: "IV 建立完成", epi: "現在給予 Epinephrine 1 mg", amio1: "現在給予 Amiodarone 300 mg", amio2: "現在給予 Amiodarone 150 mg", tcyc: "兩分鐘到，準備換手", note: "記錄時間點" };
+const drSound = () => { try { return localStorage.getItem("drill-sound") === "1"; } catch (e) { return false; } };
+let DRAC = null;
+function drBeep(hi){ try { DRAC = DRAC || new (window.AudioContext || window.webkitAudioContext)(); const o = DRAC.createOscillator(), g = DRAC.createGain(); o.frequency.value = hi ? 880 : 660; g.gain.setValueAtTime(.0001, DRAC.currentTime); g.gain.exponentialRampToValueAtTime(.25, DRAC.currentTime + .02); g.gain.exponentialRampToValueAtTime(.0001, DRAC.currentTime + .25); o.connect(g).connect(DRAC.destination); o.start(); o.stop(DRAC.currentTime + .26); } catch (e) {} }
+function drSpeak(t){ try { if (!("speechSynthesis" in window)) return; const u = new SpeechSynthesisUtterance(t.replace(/ETCO₂/g, "ETCO2").replace(/ mg/g, " 毫克")); u.lang = "zh-TW"; u.rate = 1.05; speechSynthesis.speak(u); } catch (e) {} }
+function drSayText(R, e){
+  if (e.g === "tepi") { const prev = R.ev.filter(x => x.g === "epi" && x.t <= e.t).pop(); return prev ? `距上次 Epinephrine ${Math.floor((e.t - prev.t) / 60000)} 分 ${Math.floor((e.t - prev.t) / 1000) % 60} 秒` : "還沒有給過 Epinephrine"; }
+  if (e.g === "cmd") return e.x.replace(/^Leader → /, "Leader：");
+  if (e.g === "rhythm") return e.x;
+  return DR_SAY[e.g] || "";
+}
+function drAnnounce(R, from){
+  const news = R.ev.slice(from).filter(e => e.g && e.g !== "ack" && drSayText(R, e)); if (!news.length) return;
+  const e = news[news.length - 1], text = drSayText(R, e), role = DR_ROLES[e.r], who = role ? role[0] : "監視器";
+  const ann = $("drAnn"); if (ann) { ann.innerHTML = `<span class="drannwho" style="--rc:${role ? role[2] : "#1B7D63"}">${esc(who)}</span><b>${esc(text)}</b>`; ann.hidden = false; ann.classList.remove("pop"); void ann.offsetWidth; ann.classList.add("pop"); clearTimeout(drAnnounce.t); drAnnounce.t = setTimeout(() => ann.hidden = true, 5000); }
+  const call = $("drCall"), idx = DR_IDX[e.r];
+  if (call && idx !== undefined) { const r = ACLS_ROLES[idx]; call.style.left = (r[3] / 420 * 100) + "%"; call.style.top = (r[4] / 300 * 100) + "%"; call.style.setProperty("--rc", role[2]);
+    call.innerHTML = `<small>${esc(who)}</small>${esc(text)}`; call.hidden = false; call.classList.remove("pop"); void call.offsetWidth; call.classList.add("pop"); clearTimeout(drAnnounce.c); drAnnounce.c = setTimeout(() => call.hidden = true, 4500); }
+  if (drSound()) { drBeep(e.g === "cmd"); setTimeout(() => drSpeak((e.g === "cmd" ? "" : who + "，") + text), 260); }
+}
+/* 大型面板 */
+async function drBoard(code){
+  setBar(`團隊擬真・房間 ${code}`, "大型面板（投影）", "drill", "--z-resus");
+  const seat = drSeat(code), host = seat && seat.role === "H";
+  $("view").innerHTML = `<div class="drboard"><section class="panel drtop"><div><small>房間號碼</small><b class="drcode">${esc(code)}</b></div>
+      <div class="drjoin"><small>手機加入</small><span>學習站 → 團隊擬真 → 加入房間，輸入 <b>${esc(code)}</b></span>${host && seat.pin ? `<span>教師碼 <b>${esc(seat.pin)}</b></span>` : ""}</div>
+      <div class="drctl" id="drCtl"></div><button class="nbtn drsnd" id="drSnd" aria-pressed="false">聲音：關</button></section>
+    <div class="note" id="drOff" hidden>連線中斷，正在重試…</div>
+    <div class="drbgrid"><section class="panel drmonp" id="drMonW"></section><section class="panel" id="drTm">${drTimerHTML()}<div id="drStage"></div></section></div>
+    <div class="drann" id="drAnn" hidden aria-live="polite"></div>
+    <details class="panel drmapw" open><summary>團隊運作圖（急救室站位）</summary><div class="drmapbox"><div id="drMap"></div><div class="drcall" id="drCall" hidden></div></div></details>
+    <div class="drtiles" id="drTiles"></div>
+    <div id="drDeb"></div>
+    <section class="panel stack"><h3 class="bh">時間軸</h3><div id="drFeedB"></div></section></div>`;
+  let monOn = false, seen = -1;
+  const snd = () => { const on = drSound(); $("drSnd").textContent = on ? "聲音：開" : "聲音：關"; $("drSnd").setAttribute("aria-pressed", String(on)); };
+  snd();
+  $("drSnd").onclick = e => { e.stopPropagation(); const on = !drSound(); try { localStorage.setItem("drill-sound", on ? "1" : "0"); } catch (x) {} snd(); if (on) { drBeep(true); drSpeak("聲音已開啟"); } };
+  const paint = () => { const R = DRS.room; if (!R) return;
+    if (seen >= 0 && R.ev.length > seen) drAnnounce(R, seen); seen = R.ev.length;
+    if (!monOn) { $("drMonW").innerHTML = drMonHTML(R); drMonitor($("drMonW").querySelector("canvas")); monOn = true; }
+    else { const v = drVitals(R); $("drMonW").querySelector(".drrhy").textContent = DR_RHY[R.rhythm]; $("drMonW").querySelector(".drvit").innerHTML = `<span><small>HR</small><b>${v.hr}</b></span><span><small>SpO₂</small><b>${v.spo2}</b></span><span><small>BP</small><b>${v.bp}</b></span><span><small>ETCO₂</small><b>${v.etco2}</b></span>`; }
+    $("drCtl").innerHTML = `<span class="drst ${R.status}">${R.status === "wait" ? "等待開始" : R.status === "run" ? "演練中" : "已結束"}</span><span class="hint">${R.mode === "auto" ? "系統自動推進" : "臨床教師控制心律"}</span>
+      ${host && R.status === "wait" ? `<button class="btn" data-a="start" style="background:var(--z-resus)">開始演練</button>` : ""}${host && R.status === "run" ? `<button class="btn ghost" data-a="end">結束演練</button>` : ""}
+      ${host && R.status === "run" && R.mode === "teacher" && !R.seats.T ? `<span class="hint">教師還沒加入，可在這裡切換：</span>${["vf", "pvt", "asys", "pea", "rosc"].map(r => `<button class="sbtn" data-r="${r}">${DR_RHY[r].replace(/（.*）/, "")}</button>`).join("")}` : ""}`;
+    $("drStage").innerHTML = `<div class="drstage"><small>情境</small><b>${esc(DR_STAGE[R.stage] || "")}</b><span>電擊 ${R.shocks || 0} 次・Epi ${R.epis || 0} 次・Amiodarone ${R.amio || 0} 次</span></div>`;
+    $("drTiles").innerHTML = Object.keys(DR_ROLES).map(k => { const s = R.seats[k], last = [...R.ev].reverse().find(e => e.r === k), pend = R.cmds.filter(c => c.to === k && !c.done);
+      return `<article class="drtile ${s ? "" : "empty"}" style="--rc:${DR_ROLES[k][2]}"><header><b>${DR_ROLES[k][0]}</b><span>${s ? esc(s.name) : "等待加入"}</span></header>
+        ${pend.map(c => `<div class="drpend ${c.ack ? "ack" : ""}"><span>${esc(c.x)}</span><em>${c.ack ? "已收到" : "等待收到"}・<i data-wait="${c.t}">0 秒</i></em></div>`).join("")}
+        <p>${last ? `<time>${mmss(last.t - (R.t0 || R.created))}</time> ${esc(last.x)}` : `<span class="hint">${DR_ROLES[k][1]}</span>`}</p></article>`; }).join("");
+    $("drFeedB").innerHTML = drFeed(R, 14);
+    $("drMap").innerHTML = drRoomHTML(R);
+    $("drDeb").innerHTML = R.status === "end" ? drDebrief(R) : "";
+    paintTimers(); };
+  DRS.repaint = paint;
+  $("view").onclick = e => { const a = e.target.closest("[data-a]"); if (a) return drAct({ type: a.dataset.a }); const r = e.target.closest("[data-r]"); if (r) drAct({ type: "rhythm", r: r.dataset.r }); };
+  await drLoop(code, paint);
+  if (!DRS.room) $("view").innerHTML = `<section class="panel stack"><b>找不到房間 ${esc(code)}</b><p class="hint" style="margin:0">房間保留 6 小時。請回到團隊擬真重新建立。</p><a class="btn" style="justify-self:start;text-decoration:none" href="#drill">回團隊擬真</a></section>`;
+}
+/* 角色手機 */
+async function drPlayer(code){
+  const seat = drSeat(code); if (!seat) return go("drill-j-" + code);
+  const role = seat.role, info = role === "T" ? ["臨床教師", "控制心律、開始與結束", "#56677A"] : DR_ROLES[role];
+  setBar(`${info[0]}・房間 ${code}`, info[1], "drill", "--z-resus");
+  $("view").innerHTML = `<div class="drplay" style="--rc:${info[2]}"><section class="panel drme"><span class="drbadge">${esc(info[0])}</span><div><b id="drMeName"></b><small id="drMeSt"></small></div><span class="drel"><small>演練時間</small><b data-tm="el">00:00</b></span></section>
+    <div class="note" id="drOff" hidden>連線中斷，正在重試…</div><div id="drBody"></div></div>`;
+  let monOn = false, lastKey = "";
+  const paint = () => { const R = DRS.room; if (!R) return; const me = R.seats[role];
+    $("drMeName").textContent = me ? me.name : ""; $("drMeSt").textContent = R.status === "wait" ? "等待主持人開始…" : R.status === "run" ? DR_STAGE[R.stage] : "演練結束";
+    const mine = R.cmds.filter(c => c.to === role && !c.done), sent = R.cmds.filter(c => role === "L").slice(-8).reverse();
+    const key = JSON.stringify([R.status, R.stage, R.rhythm, R.cmds.map(c => [c.id, c.ack, c.done]), R.ev.length, R.shocks, R.epis]);
+    if (key === lastKey) { const mp = document.querySelector(".drmapw .drroom"); if (mp && DRS.mapOpen) mp.parentElement.innerHTML = `<summary>團隊運作圖（急救室站位）</summary>` + drRoomHTML(R); paintTimers(); return; } lastKey = key;
+    const monNeeded = ["L", "D", "T"].includes(role);
+    let h = "";
+    if (R.status === "end") h += drDebrief(R);
+    if (monNeeded) h += `<section class="panel" id="drMonP"></section>`;
+    if (["L", "C", "M", "R", "T"].includes(role)) h += `<section class="panel">${drTimerHTML()}</section>`;
+    if (role === "L") h += `<section class="panel stack"><h3 class="bh">下指令（對方按「收到」「完成」才算閉環）</h3>
+        ${["C", "A", "D", "M", "R"].map(k => `<div class="drcgrp" style="--rc:${DR_ROLES[k][2]}"><span>${DR_ROLES[k][0]}${R.seats[k] ? `・${esc(R.seats[k].name)}` : "（未加入）"}</span><div class="row">${Object.keys(DR_ACT).filter(g => DR_ACT[g][0] === k && g !== "note").map(g => `<button class="drcmd" data-cmd="${g}" data-to="${k}" ${R.status !== "run" ? "disabled" : ""}>${DR_ACT[g][1]}</button>`).join("")}</div></div>`).join("")}
+        <div class="row"><select id="drTo">${["C", "A", "D", "M", "R"].map(k => `<option value="${k}">${DR_ROLES[k][0]}</option>`).join("")}</select><input id="drFree" maxlength="40" placeholder="其他指令，例如：找 Hs & Ts" style="flex:1 1 160px"><button class="btn" id="drSend" ${R.status !== "run" ? "disabled" : ""}>送出</button></div></section>
+      <section class="panel stack"><h3 class="bh">我下的指令</h3>${sent.length ? sent.map(c => `<div class="drsent ${c.done ? "done" : c.ack ? "ack" : ""}" style="--rc:${DR_ROLES[c.to][2]}"><b>${DR_ROLES[c.to][0]}</b><span>${esc(c.x)}</span><em>${c.done ? `✓ 完成（${Math.round((c.done - c.t) / 1000)} 秒）` : c.ack ? "已收到，執行中" : `等待收到・<i data-wait="${c.t}">0 秒</i>`}</em></div>`).join("") : `<p class="hint" style="margin:0">還沒有下指令。</p>`}</section>`;
+    else if (role === "T") h += `<section class="panel stack"><h3 class="bh">控制</h3><div class="row">${R.status === "wait" ? `<button class="btn" data-a="start" style="background:var(--z-resus)">開始演練</button>` : ""}${R.status === "run" ? `<button class="btn ghost" data-a="end">結束演練</button>` : ""}</div>
+        <div class="label">切換心律</div><div class="drrgrid">${Object.keys(DR_RHY).filter(r => r !== "none").map(r => `<button class="drcmd ${R.rhythm === r ? "on" : ""}" data-r="${r}" ${R.status !== "run" ? "disabled" : ""}>${DR_RHY[r]}</button>`).join("")}</div>
+        <p class="hint" style="margin:0">建議：貼片後切 VF；第 3 次電擊、給過 Epi 和 Amiodarone 後可切 ROSC。也可以切 Asystole 或 PEA，看團隊會不會改走不可電擊流程。</p></section>`;
+    else { h += `<section class="panel stack"><h3 class="bh">Leader 的指令</h3>${mine.length ? mine.map(c => `<div class="drin ${c.ack ? "ack" : ""}"><b>${esc(c.x)}</b><div class="row">${c.ack ? `<span class="hint">已收到，做完按完成</span>` : `<button class="btn ghost" data-ack="${c.id}">收到</button>`}<button class="btn" data-done="${c.id}" style="background:var(--rc)">完成</button></div></div>`).join("") : `<p class="hint" style="margin:0">目前沒有指令。說出口的任務，也可以用下面的按鈕回報。</p>`}</section>
+      <section class="panel stack"><h3 class="bh">我的任務回報</h3><div class="drsay">${Object.keys(DR_ACT).filter(g => DR_ACT[g][0] === role).map(g => `<button class="drcmd" data-say="${g}" ${R.status !== "run" ? "disabled" : ""}>${DR_DONE[g]}</button>`).join("")}</div>
+        ${role === "C" ? `<p class="hint" style="margin:0">每分鐘 100–120 下、深度 5–6 公分、完全回彈；暫停不超過 10 秒。</p>` : role === "A" ? `<p class="hint" style="margin:0">ETCO₂：${drVitals(R).etco2}（CPR 時 &lt; 10 mmHg 表示壓胸品質要改善）</p>` : role === "M" ? `<p class="hint" style="margin:0">Epinephrine 1 mg 每 3–5 分鐘；Amiodarone 300 mg，第二劑 150 mg。推藥後沖 20 mL 生理食鹽水、抬高肢體。</p>` : role === "D" ? `<p class="hint" style="margin:0">電擊前大聲說「我要電擊，所有人離開」，確認後再按。</p>` : `<p class="hint" style="margin:0">CPR 週期超過 2 分鐘、Epinephrine 超過 3–5 分鐘時提醒 Leader。</p>`}</section>`; }
+    h += `<details class="panel drmapw" ${DRS.mapOpen ? "open" : ""}><summary>團隊運作圖（急救室站位）</summary>${drRoomHTML(R)}</details>`;
+    h += `<section class="panel stack"><h3 class="bh">時間軸</h3>${drFeed(R, role === "R" ? 30 : 8)}</section>`;
+    const body = $("drBody"); body.innerHTML = h;
+    if (monNeeded && $("drMonP")) { $("drMonP").innerHTML = drMonHTML(R, true); drMonitor($("drMonP").querySelector("canvas")); }
+    paintTimers();
+  };
+  DRS.repaint = paint;
+  $("view").addEventListener("toggle", e => { if (e.target.classList && e.target.classList.contains("drmapw")) DRS.mapOpen = e.target.open; }, true);
+  $("view").onclick = e => {
+    const t = e.target.closest("button"); if (!t || t.disabled) return;
+    if (t.dataset.cmd) return drAct({ type: "cmd", to: t.dataset.to, g: t.dataset.cmd });
+    if (t.id === "drSend") { const x = $("drFree").value.trim(); if (x) { drAct({ type: "cmd", to: $("drTo").value, x }); $("drFree").value = ""; } return; }
+    if (t.dataset.ack) return drAct({ type: "ack", id: t.dataset.ack });
+    if (t.dataset.done) return drAct({ type: "done", id: t.dataset.done });
+    if (t.dataset.say) return drAct({ type: "say", g: t.dataset.say });
+    if (t.dataset.a) return drAct({ type: t.dataset.a });
+    if (t.dataset.r) return drAct({ type: "rhythm", r: t.dataset.r });
+  };
+  await drLoop(code, paint);
+  if (!DRS.room) $("view").innerHTML = `<section class="panel stack"><b>找不到房間 ${esc(code)}</b><a class="btn" style="justify-self:start;text-decoration:none" href="#drill">回團隊擬真</a></section>`;
 }
 
 /* ---------- 闖關地圖風景 ---------- */
@@ -3246,36 +4405,44 @@ const SCN = {
   balloon: (x, y, c) => `<g transform="translate(${x} ${y})"><path class="s-grassline" d="M0 0 q-4 10 2 22"/><ellipse class="${c}" cx="0" cy="-9" rx="8" ry="10"/></g>`,
   sun: (x, y) => `<g transform="translate(${x} ${y})"><circle class="s-sun" r="16"/>${[...Array(8)].map((_, i) => `<path class="s-sunray" transform="rotate(${i * 45})" d="M0 -22 v-7"/>`).join("")}</g>`,
 };
-function qScene(z, Z, H, top, total){
+function qScene(z, Z, H, top, total, W, A){
   const bands = []; Z.stages.forEach((s, i) => { if (!bands.length || bands[bands.length - 1].name !== s[0]) bands.push({ name: s[0], i0: i }); });
   bands.forEach((b, k) => { b.y0 = k ? b.i0 * H + top - 18 : 0; b.y1 = k < bands.length - 1 ? bands[k + 1].i0 * H + top - 18 : total; b.kind = sceneOf(b.name, z, k); });
-  const W = 210, side = r => (r() < .5 ? -1 : 1) * (128 + r() * 70);
+  const lo = Math.min(A + 46, W - 58), side = r => (r() < .5 ? -1 : 1) * (lo + r() * Math.max(10, W - 14 - lo)), sc = Math.max(1, Math.round(W / 230)), E = W - 58;
   let out = "";
   bands.forEach((b, k) => {
     const r = rng(k * 97 + z.charCodeAt(0) * 13), y0 = b.y0, y1 = b.y1, h = y1 - y0, a = 9 + r() * 6;
-    const wave = `M-${W} ${y0 + a} Q-157 ${y0 - a} -105 ${y0 + a} T0 ${y0 + a} T105 ${y0 + a} T${W} ${y0 + a} L${W} ${y1 + 40} L-${W} ${y1 + 40}Z`;
+    let wave = `M-${W} ${y0 + a} Q${-W + 52} ${y0 - a} ${-W + 105} ${y0 + a}`; for (let x = -W + 210; x <= W + 105; x += 105) wave += ` T${x} ${y0 + a}`;
+    wave += ` L${W + 105} ${y1 + 40} L-${W} ${y1 + 40}Z`;
     out += `<path class="g-${b.kind}" d="${k ? wave : `M-${W} 0 H${W} V${y1 + 40} H-${W}Z`}"/>`;
     const ys = n => [...Array(n)].map((_, j) => y0 + 30 + (h - 40) * (j + r() * .6) / n);
-    const L = (fn, n) => ys(n).forEach(y => { out += fn(side(r), y); });
+    const L = (fn, n) => ys(n * sc).forEach(y => { out += fn(side(r), y); });
+    const LR = () => r() < .5 ? -E : E;
     switch (b.kind) {
-      case "village": L((x, y) => r() < .55 ? SCN.house(x, y, .9 + r() * .3) : SCN.tree(x, y, .8 + r() * .4), 4); L((x, y) => SCN.grass(x, y), 4); if (!k) out += SCN.cloud(-150, 26, .9) + SCN.cloud(140, 44, .7); break;
-      case "valley": out += SCN.hill(-W, y0 + h * .55, 90, h * .55) + SCN.hill(W, y0 + h * .5, 90, h * .55, "s-hill2");
-        out += `<path class="s-river" d="M-${W} ${y0 + h * .78} C-80 ${y0 + h * .6}, 60 ${y0 + h * .98}, ${W} ${y0 + h * .7}"/>`; L((x, y) => SCN.flower(x, y), 4); break;
-      case "canyon": L((x, y) => SCN.rock(x, y, .9 + r() * .5), 3); out += `<path class="s-river" d="M-${W} ${y0 + h * .5} C-60 ${y0 + h * .3}, 40 ${y0 + h * .8}, ${W} ${y0 + h * .55}"/>`; break;
-      case "plains": L((x, y) => r() < .35 ? SCN.tree(x, y, .8) : SCN.grass(x, y), 6); L((x, y) => SCN.flower(x, y), 3); if (!k) out += SCN.sun(150, 34); break;
+      case "village": L((x, y) => r() < .55 ? SCN.house(x, y, .9 + r() * .3) : SCN.tree(x, y, .8 + r() * .4), 4); L((x, y) => SCN.grass(x, y), 4); if (!k) out += SCN.cloud(-E, 26, .9) + SCN.cloud(E - 10, 44, .7); break;
+      case "valley": out += SCN.hill(-W, y0 + h * .55, 90 * sc, h * .55) + SCN.hill(W, y0 + h * .5, 90 * sc, h * .55, "s-hill2");
+        out += `<path class="s-river" d="M-${W} ${y0 + h * .78} C${-W * .4} ${y0 + h * .6}, ${W * .3} ${y0 + h * .98}, ${W} ${y0 + h * .7}"/>`; L((x, y) => SCN.flower(x, y), 4); break;
+      case "canyon": L((x, y) => SCN.rock(x, y, .9 + r() * .5), 3); out += `<path class="s-river" d="M-${W} ${y0 + h * .5} C${-W * .3} ${y0 + h * .3}, ${W * .2} ${y0 + h * .8}, ${W} ${y0 + h * .55}"/>`; break;
+      case "plains": L((x, y) => r() < .35 ? SCN.tree(x, y, .8) : SCN.grass(x, y), 6); L((x, y) => SCN.flower(x, y), 3); if (!k) out += SCN.sun(E - 30, 34); break;
       case "forest": L((x, y) => r() < .5 ? SCN.pine(x, y, .9 + r() * .4) : SCN.tree(x, y, .9 + r() * .3), 7); break;
-      case "castle": out += SCN.castle(r() < .5 ? -150 : 150, y0 + h * .7, 1); L((x, y) => SCN.pennant(x, y), 2); break;
-      case "arena": out += SCN.fence(-W + 6, y0 + h * .55, 70) + SCN.fence(W - 76, y0 + h * .65, 70); L((x, y) => SCN.pennant(x, y), 3); break;
-      case "highland": out += SCN.mount(-150, y0 + h * .7, 1.1) + SCN.mount(155, y0 + h * .85, .9); L((x, y) => SCN.pine(x, y, .7), 2); break;
-      case "sunrise": out += SCN.sun(-140, y0 + 50) + SCN.cloud(140, y0 + 40, .8); L((x, y) => SCN.flower(x, y), 4); break;
-      case "city": case "city2": { let x = -W + 4; const hs = b.kind === "city" ? [70, 46, 92] : [56, 84, 40]; hs.forEach((hh, j) => { out += SCN.bldg(x, y0 + h * .62, 26, hh, j === 2 && b.kind === "city"); x += 30; }); x = W - 92; [58, 96, 44].forEach((hh, j) => { out += SCN.bldg(x, y0 + h * .72, 26, hh, j === 1 && b.kind === "city2"); x += 30; });
-        out += `<path class="s-road" d="M-${W} ${y0 + h * .9} H${W}"/>` + SCN.amb(r() < .5 ? -150 : 150, y0 + h * .9 - 2); break; }
-      case "seaside": out += `<path class="s-sea" d="M-${W} ${y0 + h * .35} H${W} V${y1} H-${W}Z"/>`; [.45, .62, .8].forEach(f => { out += SCN.wave(-W, y0 + h * f, 90) + SCN.wave(W - 90, y0 + h * (f + .06), 90); }); out += SCN.boat(-150, y0 + h * .55) + SCN.lighthouse(160, y0 + h * .4); break;
-      case "night": out += `<path class="s-nightsky" d="M-${W} ${y0 + a} H${W} V${y1 + 40} H-${W}Z" opacity=".55"/>` + (bands.findIndex(x => x.kind === "night") === k ? SCN.moon(-150, y0 + 40) : ""); for (let j = 0; j < 14; j++) out += SCN.star(side(r), y0 + 20 + r() * (h - 30), .6 + r() * .6); L((x, y) => SCN.house(x, y, .9), 2); break;
-      case "playground": case "candy": out += `<path class="s-rainbow" d="M-${W} ${y0 + h * .9} A120 120 0 0 1 -${W - 150} ${y0 + h * .9}"/>`.replace(`-${W - 150}`, `${-W + 150}`); L((x, y) => SCN.balloon(x, y, ["s-b1", "s-b2", "s-b3"][Math.floor(r() * 3)]), 5); out += SCN.cloud(150, y0 + 40, .8); break;
-      case "tower": out += SCN.tower(r() < .5 ? -155 : 155, y0 + h * .82, 1) + SCN.cloud(-140, y0 + 30, .7); for (let j = 0; j < 4; j++) out += SCN.star(side(r), y0 + 16 + r() * 40, .7); break;
+      case "castle": out += SCN.castle(LR(), y0 + h * .7, 1); L((x, y) => SCN.pennant(x, y), 2); break;
+      case "arena": out += SCN.fence(-W + 6, y0 + h * .55, 70 * sc) + SCN.fence(W - 6 - 70 * sc, y0 + h * .65, 70 * sc); L((x, y) => SCN.pennant(x, y), 3); break;
+      case "highland": out += SCN.mount(-E, y0 + h * .7, 1.1) + SCN.mount(E, y0 + h * .85, .9); if (sc > 1) out += SCN.mount(-E + 90, y0 + h * .9, .8) + SCN.mount(E - 100, y0 + h * .6, 1); L((x, y) => SCN.pine(x, y, .7), 2); break;
+      case "sunrise": out += SCN.sun(-E + 10, y0 + 50) + SCN.cloud(E - 30, y0 + 40, .8); L((x, y) => SCN.flower(x, y), 4); break;
+      case "city": case "city2": { const hs = b.kind === "city" ? [70, 46, 92, 60, 80, 50] : [56, 84, 40, 74, 62, 90]; let j = 0;
+        for (let x = -W + 4; x < -lo + 10; x += 30, j++) out += SCN.bldg(x, y0 + h * .62, 26, hs[j % 6], j === 2 && b.kind === "city");
+        for (let x = W - 30; x > lo - 20; x -= 30, j++) out += SCN.bldg(x, y0 + h * .72, 26, hs[(j + 3) % 6], j === 4 && b.kind === "city2");
+        out += `<path class="s-road" d="M-${W} ${y0 + h * .9} H${W}"/>` + SCN.amb(LR(), y0 + h * .9 - 2); break; }
+      case "seaside": out += `<path class="s-sea" d="M-${W} ${y0 + h * .35} H${W} V${y1} H-${W}Z"/>`; [.45, .62, .8].forEach(f => { for (let x = -W; x < -lo + 40; x += 110) out += SCN.wave(x, y0 + h * f, 90); for (let x = lo - 40; x < W; x += 110) out += SCN.wave(x, y0 + h * (f + .06), 90); }); out += SCN.boat(-E, y0 + h * .55) + SCN.lighthouse(E, y0 + h * .4); break;
+      case "night": out += `<path class="s-nightsky" d="M-${W} ${y0 + a} H${W} V${y1 + 40} H-${W}Z" opacity=".55"/>` + (bands.findIndex(x => x.kind === "night") === k ? SCN.moon(-E, y0 + 40) : ""); for (let j = 0; j < 14 * sc; j++) out += SCN.star(side(r), y0 + 20 + r() * (h - 30), .6 + r() * .6); L((x, y) => SCN.house(x, y, .9), 2); break;
+      case "playground": case "candy": out += `<path class="s-rainbow" d="M-${W} ${y0 + h * .9} A120 120 0 0 1 ${-W + 150} ${y0 + h * .9}"/>`; L((x, y) => SCN.balloon(x, y, ["s-b1", "s-b2", "s-b3"][Math.floor(r() * 3)]), 5); out += SCN.cloud(E - 30, y0 + 40, .8); break;
+      case "tower": out += SCN.tower(LR(), y0 + h * .82, 1) + SCN.cloud(-E + 20, y0 + 30, .7); for (let j = 0; j < 4 * sc; j++) out += SCN.star(side(r), y0 + 16 + r() * 40, .7); break;
     }
   });
+  // 地圖元素：經緯格線、羅盤
+  let grid = ""; for (let x = -W + (W % 64); x < W; x += 64) grid += `M${x} 0 V${total} `; for (let y = 64; y < total; y += 64) grid += `M-${W} ${y} H${W} `;
+  out += `<path class="q-grid" d="${grid}"/>`;
+  out += `<g class="q-compass" transform="translate(${W - 40} 46)"><circle r="24"/><path class="cn" d="M0 -20 L5 0 L0 4 L-5 0Z"/><path class="cs" d="M0 20 L5 0 L0 -4 L-5 0Z"/><path class="ce" d="M-20 0 L0 -3 L20 0 L0 3Z"/><text y="-28" text-anchor="middle">N</text></g>`;
   return `<svg class="qscene" viewBox="-${W} 0 ${W * 2} ${total}" preserveAspectRatio="xMidYMin slice" aria-hidden="true">${out}</svg>`;
 }
 function qmap(z){
@@ -3283,26 +4450,33 @@ function qmap(z){
   store.set("lastq", z);
   setBar(Z.name, "點關卡開始", "quest", Z.color);
   const cur = Z.stages.findIndex((_, i) => !st[i]);
-  const OFF = [0, 60, 88, 60, 0, -60, -88, -60], H = 112;
+  const VW = Math.max(320, $("view").clientWidth), W = VW / 2, A = Math.round(Math.min(Math.max(W - 96, 80), 240)), H = VW >= 700 ? 120 : 112;
+  const OFF = [0, .68, 1, .68, 0, -.68, -1, -.68].map(k => Math.round(k * A));
+  QW = VW;
   let region = "", rows = "";
   Z.stages.forEach((s, i) => {
     if (s[0] !== region) { region = s[0]; rows += `<div class="qregion ${OFF[i % OFF.length] < 0 ? "r" : ""}" style="top:${i * H + 50}px">${esc(region)}</div>`; }
     const done = (st[i] || 0) > 0, open = unlocked(i), isCur = i === cur, boss = i === Z.stages.length - 1;
     rows += `<a class="qnode ${done ? "done" : ""} ${open ? "" : "lock"} ${isCur ? "cur" : ""} ${boss ? "boss" : ""}" ${open ? `href="#${z}qs-${i}"` : 'aria-disabled="true"'} style="top:${i * H + 34}px;--x:${OFF[i % OFF.length]}px">
-      <span class="qdot">${open ? (boss ? "王" : i + 1) : "🔒"}</span>
+      ${isCur ? `<span class="qpin">你在這裡</span>` : ""}<span class="qdot">${open ? (boss ? "王" : i + 1) : "🔒"}</span>
       <span class="qlab"><b>${esc(s[1])}</b><small>${done ? "★".repeat(st[i]) + "☆".repeat(3 - st[i]) : open ? (isCur ? "目前關卡" : "已解鎖") : "未解鎖"}</small></span></a>`;
   });
   const pts = Z.stages.map((_, i) => [OFF[i % OFF.length], i * H + 66]);
   const d = pts.map((p, i) => i ? `C ${pts[i - 1][0]} ${p[1] - H / 2}, ${p[0]} ${pts[i - 1][1] + H / 2}, ${p[0]} ${p[1]}` : `M ${p[0]} ${p[1]}`).join(" ");
   const n = Z.stages.filter((_, i) => st[i]).length;
-  $("view").innerHTML = `<section class="panel stack"><div class="row" style="justify-content:space-between"><b>已過 ${n} / ${Z.stages.length} 關</b><span class="hint">★ ${Object.values(st).reduce((a, b) => a + b, 0)} / ${Z.stages.length * 3}</span></div>
-      <div class="meter"><i style="width:${n / Z.stages.length * 100}%;background:var(${Z.color})"></i></div></section>
-    <div class="qmap" style="height:${Z.stages.length * H + 40}px;--zc2:var(${Z.color})">
-      ${qScene(z, Z, H, 34, Z.stages.length * H + 40)}
-      <svg viewBox="-160 0 320 ${Z.stages.length * H + 40}" preserveAspectRatio="xMidYMin meet" aria-hidden="true"><path d="${d}" fill="none" class="q-trail" stroke-width="18" stroke-linecap="round"/><path d="${d}" fill="none" class="q-dots" stroke-width="7" stroke-linecap="round" stroke-dasharray="1 15"/></svg>
+  const stars = Object.values(st).reduce((a, b) => a + b, 0), tier = zoneTier(z), MQ = MEDAL_Q.find(m => m[0] === z), tot = Z.stages.length;
+  const nextM = tier === 3 ? "金牌到手！每關都 3 顆星" : tier === 0 ? `全部過關得銅牌（還差 ${tot - n} 關）` : tier === 1 ? `星星 ${Math.ceil(tot * 3 * .8)} 顆升銀牌（還差 ${Math.ceil(tot * 3 * .8) - stars} 顆）` : `全部 3 顆星升金牌（還差 ${tot * 3 - stars} 顆）`;
+  $("view").innerHTML = `<section class="panel qhead"><a class="qmedal" href="#badges" aria-label="我的勳章">${medalArt(tier, MQ[2], 56)}</a><div class="stack" style="gap:6px;min-width:0"><div class="row" style="justify-content:space-between"><b>已過 ${n} / ${tot} 關</b><span class="hint">★ ${stars} / ${tot * 3}</span></div>
+      <div class="meter"><i style="width:${n / tot * 100}%;background:var(${Z.color})"></i></div><span class="hint">${tier ? MEDAL_TIER[tier][1] + "・" : ""}${nextM}</span></div></section>
+    <div class="qmap" style="height:${tot * H + 40}px;--zc2:var(${Z.color})">
+      ${qScene(z, Z, H, 34, tot * H + 40, W, A)}
+      <svg viewBox="-${W} 0 ${VW} ${tot * H + 40}" preserveAspectRatio="xMidYMin meet" aria-hidden="true"><path d="${d}" fill="none" class="q-trail" stroke-width="18" stroke-linecap="round"/><path d="${d}" fill="none" class="q-dots" stroke-width="7" stroke-linecap="round" stroke-dasharray="1 15"/></svg>
       ${rows}</div>`;
   const c = $("view").querySelector(".qnode.cur"); if (c && !RESTORING) setTimeout(() => c.scrollIntoView({ block: "center", behavior: "smooth" }), 250);
+  checkMedals();
 }
+let QW = 0, RZ = 0;
+addEventListener("resize", () => { clearTimeout(RZ); RZ = setTimeout(() => { if (/^[a-z]quest$/.test(route) && route !== "quest" && Math.abs($("view").clientWidth - QW) > 24) render(); }, 250); });
 function qstage(z, i){
   const { Z, st, unlocked } = questState(z), s = Z.stages[i];
   if (!s || !unlocked(i)) return qmap(z);
@@ -3579,11 +4753,14 @@ function vizStep(v, mode){
 
 /* ---------- handout ---------- */
 function handout(){
-  setBar("講義", "2026 檢傷人員訓練五單元", "triage");
+  setBar("講義", "線上教材：一節一頁", "triage");
   const U = [["單元一","TTAS 檢傷分類","佳娟"],["單元二","創傷分類重點","婷瑋"],["單元三","非創傷分類重點","沛鄉"],["單元四","婦兒科檢傷分類重點","逸靚"],["單元五","檢傷危機處理","宏榮"]];
-  $("view").innerHTML = `<section class="hello"><div><h2>動態講義</h2><p>色塊章節、重點卡片、可逐步播放的圖解；每單元附課前練習與複雜案例。</p></div>${img("record")}</section>
-    <div class="mods">${U.map((u,i) => `<a class="mod" href="${HANDOUT_URL}#u${i+1}" target="_blank" rel="noopener"><b>${u[0]}</b><span>${u[1]}｜${u[2]}</span></a>`).join("")}</div>
-    <p class="foot">講義會在新分頁開啟。</p>`;
+  let read = {}, secs = {}; try { read = JSON.parse(localStorage.getItem("ho:read") || "{}"); secs = JSON.parse(localStorage.getItem("ho:secs") || "{}"); } catch (e) {}
+  $("view").innerHTML = `<section class="hello"><div><h2>檢傷線上教材</h2><p>五個單元，一節一頁讀；圖解可逐步播放，每單元附課前練習與複雜案例。讀過的節會打勾。</p></div>${img("record")}</section>
+    <div class="courses">${U.map((u, i) => { const r = (read["u" + (i + 1)] || []).length, n = secs["u" + (i + 1)] || 0, done = n && r >= n;
+      return `<a class="course ${done ? "done" : ""}" href="${HANDOUT_URL}#u${i + 1}" target="_blank" rel="noopener" style="--cz:var(--z-triage)"><span class="cno">${i + 1}</span><div><b>${u[0]}　${u[1]}</b><span>講師 ${u[2]}</span>
+        ${n ? `<div class="cbar"><i style="width:${Math.min(r / n, 1) * 100}%"></i></div><small>${done ? "已讀完" : `已讀 ${r} / ${n} 節`}</small>` : `<small>還沒開始</small>`}</div><i class="cgo2" aria-hidden="true">${done ? "✓" : "↗"}</i></a>`; }).join("")}</div>
+    <p class="foot">教材在新分頁開啟；讀完回到這頁會更新進度。</p>`;
 }
 
 render();

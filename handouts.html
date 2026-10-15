@@ -308,6 +308,29 @@ h3.sub .ico{width:36px;height:36px}.h3.sub .ico svg{width:26px;height:26px}
 .goals{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media (max-width:640px){.goals{grid-template-columns:1fr}}
 
+
+/* ===== 2026-10：新配色＋線上教材（一節一頁） ===== */
+:root{--bg:#F3F6F9;--surface:#FFFFFF;--surface-2:#EDF2F6;--line:#DCE4EB;--ink:#1B2A35;--ink-2:#56677A;--brand:#1D74A0;--tint:#FFF3E6;--tint-line:#F2C79A;--warm:#E88B3A;--glow-cool:rgba(64,170,220,.16);--glow-warm:rgba(255,170,110,.18)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111A22;--surface:#18232D;--surface-2:#202E3A;--line:#2A3B49;--ink:#E6EEF3;--ink-2:#9DB0BD;--brand:#6CB8DE;--tint:#2B2118;--tint-line:#6B4A28;--warm:#F2A65A;--glow-cool:rgba(70,150,200,.12);--glow-warm:rgba(242,166,90,.09);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111A22;--surface:#18232D;--surface-2:#202E3A;--line:#2A3B49;--ink:#E6EEF3;--ink-2:#9DB0BD;--brand:#6CB8DE;--tint:#2B2118;--tint-line:#6B4A28;--warm:#F2A65A;--glow-cool:rgba(70,150,200,.12);--glow-warm:rgba(242,166,90,.09);color-scheme:dark}
+body{background:radial-gradient(900px 420px at 105% -8%,var(--glow-warm),transparent 62%),radial-gradient(820px 460px at -12% -4%,var(--glow-cool),transparent 58%),var(--bg);background-repeat:no-repeat}
+.doc{border-radius:20px;box-shadow:0 1px 2px rgba(16,40,64,.04),0 8px 24px -10px rgba(16,40,64,.12)}
+.sec[hidden],.hero[hidden]{display:none!important}
+.secbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin:0 calc(-1 * clamp(16px,4vw,44px)) 18px;padding:14px clamp(16px,4vw,44px);background:linear-gradient(100deg,color-mix(in srgb,var(--brand) 10%,var(--surface)),var(--surface));border-bottom:1px solid var(--line);font-size:13px;color:var(--ink-2)}
+.secbar b{color:var(--brand);font-family:var(--f-data);font-weight:600}
+.tochd{font-size:12px;font-weight:700;color:var(--ink-2);letter-spacing:.04em;padding:2px 0 6px}
+.toc button{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;align-items:start;text-align:left;border:0;background:transparent;font:inherit;font-size:13px;color:var(--ink-2);padding:5px 6px;border-radius:8px;cursor:pointer}
+.toc button i{font-style:normal;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:var(--surface-2);color:var(--ink-2);font-family:var(--f-data)}
+.toc button.read i{background:color-mix(in srgb,var(--brand) 18%,var(--surface));color:var(--brand)}
+.toc button[aria-current="true"]{background:var(--surface);color:var(--ink);font-weight:700;box-shadow:0 0 0 1px var(--line)}
+.toc button[aria-current="true"] i{background:var(--brand);color:#fff}
+.pager{position:relative;padding-top:12px}
+.pgbar{position:absolute;left:0;right:0;top:0;height:5px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.pgbar i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--warm));border-radius:999px}
+.pager button{border-radius:14px;max-width:48%}
+.pager .pnext{background:var(--brand);border-color:var(--brand);color:#fff;text-align:right;margin-left:auto}
+.pager .pnext span{color:#fff;opacity:.85}
+@media (max-width:560px){.pager button{max-width:none;flex:1 1 100%}}
 </style>
 
 <div id="prog" aria-hidden="true"></div>
@@ -318,6 +341,7 @@ h3.sub .ico{width:36px;height:36px}.h3.sub .ico svg{width:26px;height:26px}
     <nav class="units" id="units"></nav>
     <nav class="toc" id="toc" aria-label="本單元章節"></nav>
     <div class="tool">
+      <label class="switch"><input type="checkbox" id="pageMode">一節一頁（線上教材）</label>
       <label class="switch"><input type="checkbox" id="showAns">顯示輔導員答案</label>
       <a class="applink" href="https://cych05845-jpg.github.io/cych-ed-triage-/" target="_blank" rel="noopener">開啟檢傷練習 APP<small>66 題情境，自動批改</small></a>
     </div>
@@ -637,6 +661,7 @@ function observe(root) {
   root.querySelectorAll(".anim, .viz").forEach(el => IO.observe(el));
 }
 function progress() {
+  if (typeof MODE !== "undefined" && MODE === "page") return;
   const h = document.documentElement, p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
   const b = document.getElementById("prog"); if (b) b.style.transform = `scaleX(${p})`;
 }
@@ -645,7 +670,10 @@ const UNITS = [{"unit": "單元一", "title": "TTAS 檢傷分類", "speaker": "�
 const $ = id => document.getElementById(id);
 const store = { get(k,d){ try{ const v = localStorage.getItem("ho:"+k); return v===null ? d : JSON.parse(v); }catch(e){ return d; } },
                 set(k,v){ try{ localStorage.setItem("ho:"+k, JSON.stringify(v)); }catch(e){} } };
-let cur = Math.min(Math.max(+(location.hash.replace("#u","")) || store.get("unit",1), 1), UNITS.length);
+const HM = location.hash.match(/^#u(\d+)(?:-s(\d+))?/);
+let cur = Math.min(Math.max(HM ? +HM[1] : store.get("unit",1), 1), UNITS.length);
+let MODE = store.get("mode", "page");   // page：一節一頁；all：整份閱讀
+if (HM && HM[2] !== undefined) store.set("sec-" + cur, +HM[2]);
 let showAns = store.get("ans", false);
 
 function lvHTML(t){ return t.replace(/^\s*([1-5])\s*$/, '<span class="lv l$1">$1</span>')
@@ -710,16 +738,44 @@ function render(){
   }
   if (doc.querySelector(".pat")) bindPat(doc);
   enhance(doc, cur);
-  // toc
-  $("toc").innerHTML = [...doc.querySelectorAll("h2")].map(h => `<a href="#${h.id}">${h.textContent}</a>`).join("");
-  // pager
+  // ---- 線上教材：每個 ## 一節，一節一頁 ----
+  const secs = []; let box = null;
+  [...doc.children].forEach(n => {
+    if (n.classList.contains("hero")) return;
+    if (!box || n.tagName === "H2" || n.classList.contains("ch") || n.classList.contains("answer") || n.classList.contains("answer-lock")) { box = document.createElement("section"); box.className = "sec"; doc.appendChild(box); secs.push(box); }
+    box.appendChild(n);
+  });
+  const titles = secs.map(x => { const h = x.querySelector("h2"); return h ? h.textContent : "參考答案與解析"; });
+  const N = secs.length, SI = Math.min(Math.max(store.get("sec-" + cur, 0), 0), N - 1);
+  const RD = store.get("read", {}), key = "u" + cur; RD[key] = RD[key] || [];
+  const SC = store.get("secs", {}); SC[key] = N; store.set("secs", SC);
   const prev = UNITS[cur-2], next = UNITS[cur];
-  $("pager").innerHTML = (prev ? `<button data-i="${cur-1}"><span>上一單元</span>${prev.unit} ${prev.title}</button>` : "<span></span>") +
-                         (next ? `<button data-i="${cur+1}" style="text-align:right"><span>下一單元</span>${next.unit} ${next.title}</button>` : "");
-  $("showAns").checked = showAns;
+  if (MODE === "page") {
+    if (!RD[key].includes(SI)) RD[key].push(SI); store.set("read", RD);
+    secs.forEach((x, i) => x.hidden = i !== SI);
+    const hero = doc.querySelector(".hero"); if (hero) hero.hidden = SI > 0;
+    if (SI > 0) secs[SI].insertAdjacentHTML("afterbegin", `<div class="secbar"><span>${u.unit}・${u.title}</span><b>第 ${SI + 1} / ${N} 節</b></div>`);
+    $("toc").innerHTML = `<div class="tochd">本單元 ${N} 節・已讀 ${RD[key].length}</div>` + titles.map((t, i) => `<button data-sec="${i}" aria-current="${i === SI}" class="${RD[key].includes(i) ? "read" : ""}"><i>${RD[key].includes(i) ? "✓" : i + 1}</i>${t}</button>`).join("");
+    $("pager").innerHTML = `<div class="pgbar"><i style="width:${(SI + 1) / N * 100}%"></i></div>` +
+      (SI > 0 ? `<button data-sec="${SI - 1}"><span>‹ 上一節</span>${titles[SI - 1]}</button>` : prev ? `<button data-i="${cur - 1}" data-last="1"><span>‹ 上一單元</span>${prev.unit} ${prev.title}</button>` : "<span></span>") +
+      (SI < N - 1 ? `<button class="pnext" data-sec="${SI + 1}"><span>下一節 ›</span>${titles[SI + 1]}</button>` : next ? `<button class="pnext" data-i="${cur + 1}"><span>完成本單元 ✓ 前往</span>${next.unit} ${next.title}</button>` : `<button class="pnext" data-done="1"><span>恭喜</span>五個單元都讀完了 ✓</button>`);
+    const b = $("prog"); if (b) b.style.transform = `scaleX(${(SI + 1) / N})`;
+  } else {
+    secs.forEach(x => x.hidden = false);
+    $("toc").innerHTML = titles.map((t, i) => `<a href="#" data-jump="${i}">${t}</a>`).join("");
+    $("pager").innerHTML = (prev ? `<button data-i="${cur-1}"><span>上一單元</span>${prev.unit} ${prev.title}</button>` : "<span></span>") +
+                           (next ? `<button data-i="${cur+1}" style="text-align:right"><span>下一單元</span>${next.unit} ${next.title}</button>` : "");
+  }
+  $("units").innerHTML = UNITS.map((x,i) => { const r = (RD["u" + (i + 1)] || []).length, n = SC["u" + (i + 1)]; return `<button data-i="${i+1}" aria-current="${i+1===cur}"><span>${x.unit}${n ? `・${Math.min(r, n)}/${n}` : ""}</span>${x.title}</button>`; }).join("");
+  $("showAns").checked = showAns; $("pageMode").checked = MODE === "page";
 }
-function go(i){ cur = i; try{ history.replaceState(null, "", "#u"+i); }catch(e){} render(); window.scrollTo({ top: 0 }); }
-document.addEventListener("click", e => { const vb = e.target.closest(".vb"); if (vb){ vizStep(vb.closest(".viz"), vb.classList.contains("all") ? "all" : "next"); return; } const r = e.target.closest(".rv"); if (r){ const v = r.nextElementSibling; v.hidden = !v.hidden; r.setAttribute("aria-expanded", !v.hidden); r.textContent = v.hidden ? "看答案" : "收起答案"; return; } const b = e.target.closest("[data-i]"); if (b) go(+b.dataset.i); });
+function go(i, last){ cur = i; if (last) store.set("sec-" + i, 999); else if (MODE === "page") store.set("sec-" + i, 0); try{ history.replaceState(null, "", "#u"+i); }catch(e){} render(); window.scrollTo({ top: 0 }); }
+function goSec(k){ store.set("sec-" + cur, k); try{ history.replaceState(null, "", `#u${cur}-s${k}`); }catch(e){} render(); window.scrollTo({ top: 0 }); }
+document.addEventListener("click", e => { const vb = e.target.closest(".vb"); if (vb){ vizStep(vb.closest(".viz"), vb.classList.contains("all") ? "all" : "next"); return; } const r = e.target.closest(".rv"); if (r){ const v = r.nextElementSibling; v.hidden = !v.hidden; r.setAttribute("aria-expanded", !v.hidden); r.textContent = v.hidden ? "看答案" : "收起答案"; return; } const sb = e.target.closest("[data-sec]"); if (sb){ goSec(+sb.dataset.sec); return; }
+  const j = e.target.closest("[data-jump]"); if (j){ e.preventDefault(); const t = document.querySelectorAll("#doc .sec")[+j.dataset.jump]; if (t) t.scrollIntoView({ behavior: "smooth" }); return; }
+  if (e.target.closest("[data-done]")) { goSec(0); return; }
+  const b = e.target.closest("[data-i]"); if (b) go(+b.dataset.i, b.dataset.last); });
+$("pageMode").onchange = e => { MODE = e.target.checked ? "page" : "all"; store.set("mode", MODE); render(); window.scrollTo({ top: 0 }); };
 $("showAns").onchange = e => { showAns = e.target.checked; store.set("ans", showAns); render(); };
 addEventListener("scroll", progress, { passive: true });
 render();
