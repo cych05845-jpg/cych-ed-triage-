@@ -1163,6 +1163,8 @@ body.noscroll{overflow:hidden}
 .drannwho{flex:none;background:var(--rc);color:#fff;font-weight:900;border-radius:12px;padding:6px 12px;font-size:16px}
 .drmapbox{position:relative;max-width:720px;margin:0 auto}
 .drcall{position:absolute;transform:translate(-50%,calc(-100% - 26px));background:var(--surface);border:3px solid var(--rc);border-radius:16px;padding:8px 14px;font-weight:900;font-size:clamp(14px,1.8vw,19px);white-space:nowrap;box-shadow:0 12px 26px -10px rgba(0,0,0,.45);z-index:3;max-width:90%}
+.drreclink{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;flex-wrap:wrap}.drreclink i{margin-left:auto;font-style:normal;font-size:22px;color:var(--ink-2)}
+.drrecw{overflow-x:auto;margin:0 -4px}.drrec{border-collapse:collapse;font-size:13px;min-width:100%;white-space:nowrap}.drrec th,.drrec td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left}.drrec th{font-size:12px;color:var(--ink-2);font-weight:700;position:sticky;top:0;background:var(--surface)}
 .drcall small{display:block;font-size:12px;color:var(--rc);font-weight:900}
 .drcall::after{content:"";position:absolute;left:50%;bottom:-11px;transform:translateX(-50%);border:9px solid transparent;border-bottom:0;border-top-color:var(--rc)}
 @media (prefers-reduced-motion:no-preference){.drcall.pop,.drann.pop{animation:drpop .35s cubic-bezier(.2,1.5,.4,1)}}
@@ -1200,6 +1202,7 @@ body.noscroll{overflow:hidden}
 
 <!-- 嘉基急診帳號中心：登入、權限、公告後端 -->
 <script src="https://cych05845-jpg.github.io/ed-account/account-sdk.js"></script>
+<script src="config.js"></script>
 <script>
 /* ---------- visual components ---------- */
 const T = (l, txt) => `<span class="tag lvbg${l}">${txt || l + " 級"}</span>`;
@@ -4035,8 +4038,9 @@ function lcBlockHTML(b){
 function lcQuiz(id){ return QUESTS.l.stages.filter(s => s[3].some(l => l[1] === "#lc-" + id) && Array.isArray(s[4])).flatMap(s => s[4]); }
 
 /* ---------- 多人連線團隊擬真：大型面板＋各角色手機（院內 VF 心跳停止） ----------
-   規則（drReduce）前後端相同；後端在帳號中心 Apps Script（drillCreate / drillJoin / drillGet / drillAct）。
-   沒有連到帳號中心時為「示範模式」：同一台電腦開多個分頁即可演練。 */
+   規則（drReduce）前後端相同；後端是獨立的「er-learn 紀錄」Apps Script（不放在帳號中心），
+   帳號中心只用來確認員編登入。DRILL_API 還沒填時為「示範模式」：同一台電腦開多個分頁即可演練。 */
+const DRILL_API = String((window.ER_CONFIG && window.ER_CONFIG.DRILL_API) || "").trim();
 const DR_ROLES = { L: ["Leader", "指揮、分派、閉環確認", "#6650C0"], C: ["壓胸", "高品質 CPR、2 分鐘換手", "#C63D2F"], A: ["呼吸道", "BVM、插管、ETCO₂", "#1D74A0"], D: ["電擊／監視器", "貼片、心律、電擊", "#B7790A"], M: ["給藥", "IV／IO、Epinephrine、Amiodarone", "#1B7D63"], R: ["紀錄", "計時、提醒、記錄", "#56677A"] };
 const DR_ACT = { cpr: ["C", "開始壓胸"], swap: ["C", "換手壓胸"], hold: ["C", "暫停壓胸、檢查心律"], bvm: ["A", "BVM 給氧 30:2"], ett: ["A", "插管"], etco2: ["A", "接上 ETCO₂"], pads: ["D", "貼電擊片、接監視器"], charge: ["D", "充電 200 J"], shock: ["D", "電擊（確認所有人離開）"], rhy: ["D", "報告心律"], iv: ["M", "建立 IV／IO"], epi: ["M", "給 Epinephrine 1 mg"], amio1: ["M", "給 Amiodarone 300 mg"], amio2: ["M", "給 Amiodarone 150 mg"], tepi: ["R", "報告距上次 Epi 的時間"], tcyc: ["R", "提醒 2 分鐘換手"], note: ["R", "記錄時間點"] };
 const DR_DONE = { cpr: "已開始壓胸", swap: "已換手壓胸", hold: "已暫停、檢查心律", bvm: "BVM 給氧中", ett: "插管完成", etco2: "ETCO₂ 已接上", pads: "電擊片已貼、監視器已接", charge: "已充電 200 J", shock: "已電擊", rhy: "已報告心律", iv: "IV／IO 已建立", epi: "Epinephrine 1 mg 已給", amio1: "Amiodarone 300 mg 已給", amio2: "Amiodarone 150 mg 已給", tepi: "已報告距上次 Epi 的時間", tcyc: "已提醒換手", note: "已記錄時間點" };
@@ -4089,8 +4093,15 @@ const DRL = {
     return { ok: false, error: "未知動作" };
   }
 };
-const drLive = () => !!(ACC && !/[?&]local\b/.test(location.search));
-const drApi = (action, b) => drLive() ? ACC.api(action, b) : Promise.resolve(DRL.call(action, JSON.parse(JSON.stringify(b))));
+const drLive = () => !!(DRILL_API && !/[?&]local\b/.test(location.search));
+async function drApi(action, b){
+  b = Object.assign({}, b || {});
+  if (!drLive()) return DRL.call(action, JSON.parse(JSON.stringify(b)));
+  const t = ACC && ACC.token && ACC.token(); if (t && !b.token) b.token = t;
+  b.action = action;
+  try { const r = await fetch(DRILL_API, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(b) }); return await r.json(); }
+  catch (e) { return { ok: false, error: "連不上演練伺服器，請檢查網路後再試" }; }
+}
 let DRS = { code: "", seat: null, room: null, off: 0, poll: 0, tick: 0, view: "", busy: false };
 function drStop(){ clearInterval(DRS.poll); clearInterval(DRS.tick); DRS.poll = DRS.tick = 0; }
 const drSeat = c => { try { return JSON.parse(sessionStorage.getItem("drill-" + c) || "null"); } catch (e) { return null; } };
@@ -4159,7 +4170,31 @@ function drDebrief(R){
     ${row("指令到收到（平均）", avg(ackd.map(c => c.ack - c.t)) !== null ? avg(ackd.map(c => c.ack - c.t)) + " 秒" : "—")}
     ${row("指令到完成（平均）", avg(done.map(c => c.done - c.t)) !== null ? avg(done.map(c => c.done - c.t)) + " 秒" : "—")}
   </div><div class="label">各角色回報次數</div><div class="row">${Object.keys(DR_ROLES).map(k => `<span class="drchip" style="--rc:${DR_ROLES[k][2]}">${DR_ROLES[k][0]} ${by[k] || 0}</span>`).join("")}</div>
+  <div class="row"><button class="btn ghost" data-csv="1">下載本場紀錄（CSV）</button>${drLive() ? `<span class="hint">${R.saved ? "已存到「er-learn 紀錄」試算表" : R.saveErr ? "存檔失敗：" + esc(R.saveErr) : "存檔中…"}</span>` : `<span class="hint">示範模式不會存檔，可先下載 CSV</span>`}</div>
   <p class="hint" style="margin:0">參考：壓胸在辨識後 10 秒內開始；每 2 分鐘換手；Epinephrine 每 3–5 分鐘；VF 儘早電擊。依 AHA 2025 與本院流程，回饋請由臨床教師帶領討論。</p></section>`;
+}
+function drCSV(R){
+  const t0 = R.t0 || R.created, q = v => `"${String(v == null ? "" : v).replace(/"/g, '""')}"`;
+  const who = r => DR_ROLES[r] ? DR_ROLES[r][0] : r === "T" ? "教師" : r === "H" ? "主持" : "系統";
+  const rows = [["房號", "時間點", "秒", "角色", "姓名", "內容"]].concat(R.ev.map(e => [R.code, mmss(e.t - t0), Math.round((e.t - t0) / 1000), who(e.r), (R.seats[e.r] || {}).name || "", e.x]));
+  const blob = new Blob(["\ufeff" + rows.map(r => r.map(q).join(",")).join("\r\n")], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `團隊擬真_${R.code}_${new Date(t0).toISOString().slice(0, 10)}.csv`; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+document.addEventListener("click", e => { if (e.target.closest("[data-csv]") && DRS.room) drCSV(DRS.room); });
+async function drRecords(){
+  setBar("演練紀錄", "團隊擬真", "drill", "--z-resus");
+  const v = $("view");
+  if (!drLive()) { v.innerHTML = `<div class="note">示範模式沒有存檔。演練伺服器設定好之後，這裡會列出歷次演練。</div>`; return; }
+  const me = ACC && ACC.cachedUser && ACC.cachedUser();
+  if (!me) { v.innerHTML = `<section class="panel stack"><b>請先用員編登入</b><p class="hint" style="margin:0">紀錄依員編歸到個人；用暱稱參加的場次不會出現在個人紀錄裡。</p><button class="btn" id="drLogin" style="justify-self:start">登入</button></section>`; $("drLogin").onclick = () => ACC.goLogin && ACC.goLogin(); return; }
+  v.innerHTML = `<p class="hint">讀取中…</p>`;
+  const all = await drApi("drillList", { limit: 200 }), mine = all.ok ? null : await drApi("drillMine", {});
+  const r = all.ok ? all : mine;
+  if (!r.ok) { v.innerHTML = `<div class="bmsg err">${esc(r.error)}</div>`; return; }
+  const cols = all.ok ? ["日期", "房號", "結果", "Leader", "壓胸", "呼吸道", "電擊／監視器", "給藥", "紀錄", "到首次電擊(秒)", "到首劑Epi(秒)", "閉環完成率", "指令到完成(平均秒)"] : ["日期", "房號", "myRole", "結果", "到首次電擊(秒)", "到首劑Epi(秒)", "閉環完成率", "指令到完成(平均秒)"];
+  const head = { myRole: "我的角色", "到首次電擊(秒)": "到電擊 秒", "到首劑Epi(秒)": "到 Epi 秒", "指令到完成(平均秒)": "指令到完成 秒" };
+  v.innerHTML = `<section class="panel stack"><div class="row" style="justify-content:space-between"><b>${all.ok ? "全部演練" : esc(me.name) + " 的演練"}（${r.rows.length} 場）</b><span class="hint">${all.ok ? "完整資料在「er-learn 紀錄」試算表" : "只列出用員編登入參加的場次"}</span></div>
+    ${r.rows.length ? `<div class="drrecw"><table class="drrec"><thead><tr>${cols.map(c => `<th>${esc(head[c] || c)}</th>`).join("")}</tr></thead><tbody>${r.rows.map(o => `<tr>${cols.map(c => `<td>${esc(o[c] || "—")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>` : `<p class="hint">還沒有紀錄。</p>`}</section>`;
 }
 function drFeed(R, n){ const t0 = R.t0 || R.created;
   return `<ol class="drfeed">${R.ev.slice(-n).reverse().map(e => `<li style="--rc:${(DR_ROLES[e.r] || ["", "", "#8897A3"])[2]}"><time>${mmss(e.t - t0)}</time><span class="who">${esc(DR_ROLES[e.r] ? DR_ROLES[e.r][0] : e.r === "T" ? "教師" : e.r === "H" ? "主持" : "系統")}</span><span>${esc(e.x)}</span></li>`).join("") || `<li class="muted"><span>還沒有紀錄</span></li>`}</ol>`; }
@@ -4169,6 +4204,7 @@ function drillRoute(arg){
   const [v, code] = String(arg || "").split("-");
   if (v === "b" && code) return drBoard(code);
   if (v === "p" && code) return drPlayer(code);
+  if (v === "rec") return drRecords();
   return drLanding(v === "j" ? code : "");
 }
 function drLanding(code){
@@ -4176,7 +4212,7 @@ function drLanding(code){
   const me = ACC && ACC.cachedUser && ACC.cachedUser();
   $("view").innerHTML = `
     <section class="hello" style="--zz:var(--z-resus)"><div><h2>大型面板＋每人一支手機</h2><p>投影大面板建立房間，5–6 人用手機輸入房間號碼、選角色。Leader 下指令，各角色按「收到」「完成」，系統記錄時間，結束後看閉環溝通與急救時效。</p></div>${img("zResus")}</section>
-    ${drLive() ? "" : `<div class="note">示範模式：目前沒有連到帳號中心，只能在同一台電腦開多個分頁練習。正式上線後手機就能加入。</div>`}
+    ${drLive() ? "" : `<div class="note">示範模式：演練伺服器還沒設定，只能在同一台電腦開多個分頁練習，紀錄不會存檔。正式上線後手機就能加入。</div>`}
     <div class="drlgrid">
       <section class="panel stack"><h3 class="bh">建立房間（投影的電腦）</h3>
         <div class="drmode"><label><input type="radio" name="drm" value="teacher" checked><span><b>臨床教師控制心律</b><small>教師用手機依團隊表現切換 VF、ROSC 等</small></span></label>
@@ -4190,7 +4226,8 @@ function drLanding(code){
         <label class="bform" id="drPinW" hidden><span style="font-size:13px;font-weight:700;color:var(--ink-2)">教師碼（大面板上會顯示）</span><input id="drPin" inputmode="numeric" maxlength="4"></label>
         <div class="bmsg err" id="drErr" hidden></div></section>
     </div>
-    <p class="foot">演練內容依 AHA 2025 ACLS 與本院急救室配置；只做教學，不記錄病人資料。</p>`;
+    <a class="panel drreclink" href="#drill-rec"><b>演練紀錄</b><span class="hint">用員編登入的人可以看自己的歷次演練；有成績權限可看全部</span><i>›</i></a>
+    <p class="foot">演練內容依 AHA 2025 ACLS 與本院急救室配置；只做教學，不記錄病人資料。用員編登入的人，紀錄會存到自己名下；用暱稱只記暱稱。</p>`;
   let pick = "", forceRole = "";
   $("view").onclick = async e => {
     if (e.target.closest("#drNew")) { const mode = (document.querySelector("[name=drm]:checked") || {}).value;
