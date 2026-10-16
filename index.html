@@ -1105,6 +1105,35 @@ body.lcfull .lfig svg{max-height:46vh}
   .qlinks a{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px;border-radius:12px;text-decoration:none;color:var(--ink)}
   .qlinks a:hover{background:var(--surface-2)}.qlinks .qi{width:40px;height:40px;border-radius:12px;background:var(--surface-2);display:grid;place-items:center}.qlinks .qi img{width:28px;height:28px}
   .qlinks b{display:block;font-size:15px}.qlinks small{font-size:12.5px;color:var(--ink-2)}.qlinks i{font-style:normal;color:var(--ink-2)}}
+
+/* ===== 線上訓練手冊 ===== */
+.hubtoast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 14px);transform:translateX(-50%);z-index:90;max-width:min(92vw,560px);padding:12px 18px;border-radius:14px;font-weight:800;font-size:15px;box-shadow:0 10px 30px rgba(0,0,0,.25);color:#fff;background:#1B7D63}.hubtoast.bad{background:#B42318}
+.bkkpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}.bkkpi>div{display:grid;gap:4px}.bkkpi small{color:var(--ink-2);font-size:12.5px}.bkkpi b{font-size:18px;font-family:var(--f-data)}
+.bkhead .pill{font-size:12.5px;font-weight:800;border-radius:999px;padding:3px 10px;border:1px solid var(--line)}.bkhead .pill.ok{background:color-mix(in srgb,var(--ok) 14%,var(--surface));color:var(--ok);border-color:var(--ok)}
+.bkgrid{display:grid;gap:6px}.bkrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.bkrow.done{border-color:color-mix(in srgb,var(--ok) 45%,var(--line));background:color-mix(in srgb,var(--ok) 6%,var(--surface))}.bkn{font-size:14.5px;line-height:1.5}
+.bkcs{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.bkc{display:grid;justify-items:center;gap:2px;min-width:64px;padding:4px;border-radius:10px;background:var(--surface-2)}
+.bkc small{font-size:11px;color:var(--ink-2)}.bkc b{font-size:18px;font-family:var(--f-data)}.bkc b.o{color:var(--ok)}.bkc b.t{color:var(--bad)}.bkc em{font-style:normal;font-size:10.5px;color:var(--ink-2);text-align:center;line-height:1.25}
+.bkc.edit{background:transparent;border:1px dashed var(--line)}.bkv{display:flex;gap:3px}
+@media (max-width:640px){.bkrow{grid-template-columns:1fr}.bkcs{justify-content:flex-start}}
+.oxb.armed{outline:3px solid var(--warm);outline-offset:2px;animation:pulseArm .8s infinite}@keyframes pulseArm{50%{transform:scale(1.12)}}
+.bkmon{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:color-mix(in srgb,var(--warm) 12%,var(--surface));border:1.5px solid var(--warm);border-radius:12px;padding:10px 12px}
+.bkpin,.bkhf{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.bkpin input,.bkhf input,.bkhf select{font:inherit;font-size:16px;padding:9px 11px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink)}.bkpin input{width:9em}.bkhf #bkNote{flex:1;min-width:12em}
+.bklist{display:grid;gap:8px}.bklist a{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface)}
+.bklist a span{grid-column:1;font-size:13px;color:var(--ink-2)}.bklist a em{grid-row:1/span 3;grid-column:2;align-self:center;font-style:normal;font-size:12.5px;font-weight:800;color:var(--ink-2)}.bklist a em.ok{color:var(--ok)}
+.bktabs{display:flex;gap:6px;margin-bottom:12px}.bktabs a{text-decoration:none}
+.ckl{display:grid;gap:6px}.ckl label{display:flex;gap:8px;align-items:center;font-size:14.5px}
+.sigs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.sigbox{display:grid;gap:6px}.sigbox canvas{width:100%;height:150px;border:2px dashed var(--line);border-radius:12px;background:#fff;touch-action:none}
+.sigs figure{margin:0;display:grid;gap:4px;justify-items:center}.sigs img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff}.sigs figcaption{font-size:13px;color:var(--ink-2)}
+.mic{flex:none;width:46px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-size:20px;cursor:pointer}.mic.on{background:var(--bad);color:#fff;border-color:var(--bad)}
+.free textarea{flex:1;font:inherit;font-size:15px;padding:10px 12px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink)}
+.bkres button{font:inherit;font-weight:800;cursor:pointer}.bkres button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}.free:has(textarea){align-items:flex-start}
+.bkpaper{background:#fff;color:#111;border:1px solid var(--line);border-radius:6px;padding:28px 32px;display:grid;gap:10px;font-size:13px}
+.bkpaper h1{font-size:19px;margin:0}.bkpaper h2{font-size:15px;margin:10px 0 0;border-bottom:1.5px solid #111;padding-bottom:3px}.bkmeta{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;margin-top:6px}.bkrule{font-size:12px;color:#444;margin:0}
+.bkt{width:100%;border-collapse:collapse;font-size:12px}.bkt th,.bkt td{border:1px solid #888;padding:4px 6px;vertical-align:top;text-align:left}.bkt th{background:#eee}.bkt td b{font-size:14px}.bkt td small{display:block;font-size:10.5px;color:#444}
+.bkt tr.gh td{background:#f3f3f3;font-weight:700}.bknote{white-space:pre-wrap;border:1px solid #bbb;border-radius:4px;padding:8px;min-height:60px}
+.bksig{display:grid;grid-template-columns:1fr 1fr;gap:24px}.bksig figure{margin:0;display:grid;justify-items:center;gap:4px}.bksig img{max-width:100%;height:auto;border-bottom:1px solid #111}
+@media print{body{padding:0!important;background:#fff}.side,.appbar,#tabs,#fab,.dock,.noprint,.backmenu,#toast{display:none!important}.wrap{max-width:none!important;padding:0!important;zoom:1!important}.bkpaper{border:0;padding:0}.bkt tr{break-inside:avoid}}
 /* ===== 電腦版：字放大、版面加寬（手機版不變） ===== */
 .homtop{display:grid;gap:18px}.homl,.homr{display:grid;gap:18px;align-content:start;min-width:0}
 .homr .sec-h{margin-top:0}
@@ -1488,9 +1517,9 @@ function render(){
   }
   const v = $("view"); v.classList.remove("view"); void v.offsetWidth; v.classList.add("view");
   v.onclick = v.oninput = v.onchange = null;
-  const m = route.match(/^(lc|lw|lq|ta|tqs|lqs|rqs|rt|cqs|oqs|pqs|sqs|wt|ws|tm|jt|drill)-(.+)$/);
-  if (m) ({ lc, lw: x => lw(+x), lq: x => lq(+x), ta: x => ta(+x), tqs: x => qstage("t", +x), lqs: x => qstage("l", +x), rqs: x => qstage("r", +x), rt: rtopic, cqs: x => qstage("c", +x), oqs: x => qstage("o", +x), pqs: x => qstage("p", +x), sqs: x => qstage("s", +x), wt: wtopic, ws: sortPage, tm: tmPage, jt: jtopic, drill: drillRoute })[m[1]](m[2]);
-  else ({ room, team, codes, special: () => wardHub("s"), squest: () => qmap("s"), vsign, treat: () => wardHub("c"), obs: () => wardHub("o"), peds: () => wardHub("p"), cquest: () => qmap("c"), oquest: () => qmap("o"), pquest: () => qmap("p"), otier, home, triage, lookup, practice: pHome, ref, handout, news, pgy, works, games, rush, flash, leader, lmap, lcourse, lbook, ldrill, tassess: () => assessHub("t"), lassess: () => assessHub("l"), tbook, taudit, texam: () => quiz("t"), lsjt: () => quiz("l"), tnote: () => noteView("t"), lnote: () => noteView("l"), llog, quest, tquest: () => qmap("t"), lquest: () => qmap("l"), rquest: () => qmap("r"), resus: resusHub, rbook, rdrug, acct, bmanage, badges, drill: () => drillRoute("") }[route] || home)();
+  const m = route.match(/^(lc|lw|lq|ta|tqs|lqs|rqs|rt|cqs|oqs|pqs|sqs|wt|ws|tm|jt|drill|bk|bkm|bks|bkp)-(.+)$/);
+  if (m) ({ lc, lw: x => lw(+x), lq: x => lq(+x), ta: x => ta(+x), tqs: x => qstage("t", +x), lqs: x => qstage("l", +x), rqs: x => qstage("r", +x), rt: rtopic, cqs: x => qstage("c", +x), oqs: x => qstage("o", +x), pqs: x => qstage("p", +x), sqs: x => qstage("s", +x), wt: wtopic, ws: sortPage, tm: tmPage, jt: jtopic, drill: drillRoute, bk: bkMine, bkm: bkMentor, bks: bkSignPage, bkp: bkPrint })[m[1]](m[2]);
+  else ({ room, team, codes, special: () => wardHub("s"), squest: () => qmap("s"), vsign, treat: () => wardHub("c"), obs: () => wardHub("o"), peds: () => wardHub("p"), cquest: () => qmap("c"), oquest: () => qmap("o"), pquest: () => qmap("p"), otier, home, triage, lookup, practice: pHome, ref, handout, news, pgy, works, games, rush, flash, leader, lmap, lcourse, lbook, ldrill, tassess: () => assessHub("t"), lassess: () => assessHub("l"), tbook, taudit, texam: () => quiz("t"), lsjt: () => quiz("l"), tnote: () => noteView("t"), lnote: () => noteView("l"), llog, quest, tquest: () => qmap("t"), lquest: () => qmap("l"), rquest: () => qmap("r"), resus: resusHub, rbook, rdrug, acct, bmanage, badges, drill: () => drillRoute(""), bkm: () => bkMentor("") }[route] || home)();
   const y = RESTORING ? (SCROLL[route] || 0) : 0; window.scrollTo(0, y); if (y) requestAnimationFrame(() => window.scrollTo(0, y));
 }
 
@@ -1609,6 +1638,7 @@ function news(){
 }
 
 /* ---------- 我的帳號 ---------- */
+const bkBanner = b => `<a class="qbanner" href="#bk-${b}" style="--zz:var(${BOOKS[b].color});margin-bottom:12px"><div class="ill" style="width:52px;height:52px;background:rgba(255,255,255,.92)">${img("record")}</div><div><b>線上正式手冊</b><span>登入後由指導員評值、記實習時數，最後護理長會談簽核，可列印 PDF</span></div><span class="go">開啟</span></a>`;
 function acct(){
   setBar("我的帳號", "嘉基急診帳號中心", "home", "--z-leader");
   const u = ME || (ACC && ACC.cachedUser());
@@ -1623,6 +1653,7 @@ function acct(){
       <div class="row">
         ${canAnnounce() ? `<a class="btn" style="text-decoration:none" href="#bmanage">公告管理</a>` : ""}
         <a class="btn ghost" style="text-decoration:none" href="${esc(ACC.centerUrl)}">帳號中心（改 PIN、看權限）</a>
+        <a class="btn ghost" style="text-decoration:none" href="#bkm">指導員評值／護理長簽核</a>
         <button class="btn ghost" data-act="logout">登出</button>
       </div>
       <p class="hint" style="margin:0">在帳號中心登出或改 PIN，所有急診院內程式都會一起生效。</p></section>`;
@@ -2054,6 +2085,7 @@ function lc(arg){
 }
 function lbook(){
   setBar("手冊進度", "38 項自我追蹤（兩輪）", "leader", "--z-leader");
+  setTimeout(() => $("view").insertAdjacentHTML("afterbegin", bkBanner("l")), 0);
   const bk = store.get("lbook", {});
   const total = L_BOOK.reduce((a, b) => a + b[1].length, 0);
   const pass = k => bk[k] && (bk[k][1] === "○" || (!bk[k][1] && bk[k][0] === "○"));
@@ -2216,6 +2248,7 @@ function exportText(tri){
 }
 function tbook(){
   setBar("實習項目追蹤", "實習經驗 1–3，各 17 項", "tassess", "--z-triage");
+  setTimeout(() => $("view").insertAdjacentHTML("afterbegin", bkBanner("t")), 0);
   const b = store.get("tbook", {}), h = store.get("thours", 0);
   const ok = i => (b[i]||[]).includes("○");
   const n = T_BOOK.filter((_, i) => ok(i)).length;
@@ -2624,6 +2657,7 @@ const R_BOOK = [
 const DRUG_NAMES = ["Epinephrine", "Amiodarone", "Atropine", "Adenosine", "Lidocaine", "Sodium bicarbonate", "Calcium gluconate", "Calcium chloride", "Magnesium sulfate", "Dopamine", "Norepinephrine", "Dobutamine", "Nitroglycerin", "Labetalol", "Nicardipine", "Midazolam", "Etomidate", "Ketamine", "Propofol", "Succinylcholine", "Rocuronium", "Fentanyl", "Morphine", "Naloxone", "Flumazenil", "50% Dextrose", "Regular insulin", "Furosemide", "Heparin", "Tranexamic acid", "Mannitol", "Diazepam", "Levetiracetam"];
 function rbook(){
   setBar("急救室培訓手冊", "5 個工作天｜依 2023.02.01 版", "resus", "--z-resus");
+  setTimeout(() => $("view").insertAdjacentHTML("afterbegin", bkBanner("r")), 0);
   const b = store.get("rbook", {});
   const passed = k => (b[k] || {}).e1 === "○" || (b[k] || {}).e2 === "○";
   const total = R_BOOK.reduce((a, d) => a + d[3].length, 0), n = Object.keys(b).filter(passed).length;
@@ -4185,6 +4219,227 @@ function badges(){
 }
 
 /* ---------- Leader 課程：線上教材（一段一頁） ---------- */
+/* ================= 訓練手冊（線上正式版）：指導員評值、實習時數、護理長會談簽核 ================= */
+function toast(msg, bad){
+  let x = document.getElementById("toast"); if (!x) { x = document.createElement("div"); x.id = "toast"; x.setAttribute("role", "alert"); document.body.appendChild(x); }
+  x.textContent = msg; x.className = "hubtoast " + (bad ? "bad" : "ok"); x.hidden = false; clearTimeout(x._h); x._h = setTimeout(() => x.hidden = true, bad ? 5200 : 2800);
+}
+const BK_API = () => String((window.ER_CONFIG && window.ER_CONFIG.DRILL_API) || "").trim();
+async function bkApi(action, b){
+  const u = BK_API(); if (!u) return { ok: false, error: "學習站還沒設定後端網址（config.js 的 DRILL_API）" };
+  b = Object.assign({}, b, { action }); if (!b.token && ACC && ACC.token) { const t = ACC.token(); if (t) b.token = t; }
+  for (let k = 0; k < 2; k++) {
+    try { const r = await fetch(u, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(b) }); return await r.json(); }
+    catch (e) { if (k) return { ok: false, error: "連不上伺服器，請檢查網路" }; await new Promise(r => setTimeout(r, 700)); }
+  }
+}
+const BOOKS = {
+  l: { n: "小組長訓練手冊", short: "Leader", color: "--z-leader", back: "leader", local: "lbook", rounds: ["第1輪", "第2輪"], vals: ["○", "△", "×"], hours: 80, days: 10,
+    items: () => L_BOOK.flatMap((g, gi) => g[1].map((x, ii) => [gi + "-" + ii, x, g[0]])),
+    rule: "○ 完全了解＝通過；△ 部分了解＝再評一次；× 不了解＝重新教學再評。同一項目第 1、2 輪原則上由同一位指導員評值。",
+    req: ["五堂課程與案例討論報告", "實際作業滿 80 小時、實習至少 10 天", "手冊 38 項全數通過", "指導者與小組長以上評核、科室同仁評核"] },
+  t: { n: "檢傷訓練手冊", short: "檢傷", color: "--z-triage", back: "tassess", local: "tbook", rounds: ["第1回", "第2回", "第3回"], vals: ["○", "△", "×"], hours: 120, days: 15,
+    items: () => T_BOOK.map((x, i) => [String(i), x, "實習經驗"]),
+    rule: "○ very good；△ good；× poor。實習經驗 1–3 各評一次，由檢傷輔導員評值。",
+    req: ["實際參與檢傷 120 小時（15 天）", "實習項目評值", "檢傷紀錄審核", "筆試 80 分以上"], score: "筆試成績" },
+  r: { n: "急救室培訓手冊", short: "急救室", color: "--z-resus", back: "resus", local: "rbook", rounds: ["教學", "第1次", "第2次"], vals: ["○", "Δ", "×"], teach: 0, days: 5,
+    items: () => R_BOOK.flatMap((d, di) => d[3].map((it, ii) => [di + "-" + ii, it[0], d[0] + "｜" + d[1]])),
+    rule: "先教學（教），再評值：○ 完全了解；Δ 部分了解（註明原因並重新評值）；× 完全不了解（重新教學）。第二次評值原則上同一位護理臨床教師，不在時可由 Leader、HN 代評。",
+    req: ["5 個工作天內完成", "各項教學與評值", "急救室常見藥物 18 張"] }
+};
+const BK = { m: null, cache: {} };   // m：在學員手機上評值的指導員（員編＋PIN 換來的短期身分）
+const bkPass = (B, ev, code) => { let last = ""; B.rounds.forEach((_, r) => { if (r === B.teach) return; const x = ev[code + "|" + r]; if (x && x.v) last = x.v; }); return last === "○"; };
+function bkSum(B, d){
+  const items = B.items(), ok = items.filter(i => bkPass(B, d.ev, i[0])).length;
+  const hrs = d.hours.reduce((a, x) => a + x.h, 0), days = new Set(d.hours.map(x => x.date)).size;
+  return { items, ok, n: items.length, hrs, days, miss: items.filter(i => !bkPass(B, d.ev, i[0])) };
+}
+function bkGrid(B, d, edit){
+  const groups = []; B.items().forEach(i => { let g = groups.find(x => x[0] === i[2]); if (!g) groups.push(g = [i[2], []]); g[1].push(i); });
+  const cell = (code, r) => { const x = d.ev[code + "|" + r], v = x ? x.v : "";
+    const tip = x ? `${x.by}・${x.at}${x.note ? "・" + x.note : ""}` : "";
+    if (!edit) return `<div class="bkc ${v ? "has" : ""}" title="${esc(tip)}"><small>${B.rounds[r]}</small><b class="${v === "○" || v === "✓" ? "o" : v ? "t" : ""}">${v || "—"}</b>${x ? `<em>${esc(x.by)}<br>${esc(x.at.slice(5, 10))}</em>` : ""}</div>`;
+    const opts = r === B.teach ? ["✓"] : B.vals;
+    return `<div class="bkc edit ${v ? "has" : ""}"><small>${B.rounds[r]}</small><div class="bkv">${opts.map(o => `<button class="oxb ${v === o ? "on" : ""} ${o === "○" || o === "✓" ? "o" : o === "×" ? "x" : "t"}" data-ev="${code}" data-r="${r}" data-v="${o}" aria-pressed="${v === o}">${o === "✓" ? "教" : o}</button>`).join("")}</div>${x ? `<em>${esc(x.by)}・${esc(x.at.slice(5, 10))}</em>` : ""}</div>`; };
+  return groups.map(g => `<section class="panel stack"><h3 class="bh">${esc(g[0])}</h3><div class="bkgrid">${g[1].map(i => `<div class="bkrow ${bkPass(B, d.ev, i[0]) ? "done" : ""}"><span class="bkn">${esc(i[1])}</span><div class="bkcs">${B.rounds.map((_, r) => cell(i[0], r)).join("")}</div></div>`).join("")}</div></section>`).join("");
+}
+function bkHead(B, d, who){
+  const s = bkSum(B, d);
+  return `<section class="panel stack bkhead" style="--zz:var(${B.color})"><div class="row" style="justify-content:space-between;align-items:baseline"><b style="font-size:18px">${esc(B.n)}｜${esc(who)}</b>${d.sign ? `<span class="pill ok">已會談簽核：${esc(d.sign.result)}</span>` : `<span class="pill">訓練中</span>`}</div>
+    <div class="bkkpi"><div><small>項目通過</small><b>${s.ok} / ${s.n}</b><div class="meter"><i style="width:${s.ok / s.n * 100}%;background:var(${B.color})"></i></div></div>
+      ${B.hours ? `<div><small>實習時數</small><b>${s.hrs} / ${B.hours} 小時</b><div class="meter"><i style="width:${Math.min(100, s.hrs / B.hours * 100)}%;background:var(${B.color})"></i></div></div>` : ""}
+      <div><small>實習天數</small><b>${s.days}${B.days ? ` / ${B.days}` : ""} 天</b><div class="meter"><i style="width:${B.days ? Math.min(100, s.days / B.days * 100) : 0}%;background:var(${B.color})"></i></div></div></div>
+    <p class="hint" style="margin:0">${esc(B.rule)}</p></section>`;
+}
+function bkHours(d, mine){
+  const list = d.hours.slice().sort((a, b) => a.date < b.date ? 1 : -1);
+  const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  return `<section class="panel stack"><b>實習時數紀錄</b>
+    ${mine ? `<div class="bkhf"><input type="date" id="bkD" value="${today}"><select id="bkS"><option>白班</option><option>小夜</option><option>大夜</option></select>
+      <div class="chips">${[4, 8, 12].map(h => `<button class="chip" data-hrs="${h}">＋${h} 小時</button>`).join("")}</div><input id="bkNote" maxlength="60" placeholder="備註（選填，例如：擔任 Leader）"></div>` : ""}
+    ${list.length ? `<div class="tblw"><table><thead><tr><th>日期</th><th>班別</th><th>時數</th><th>備註</th>${mine ? "<th></th>" : ""}</tr></thead><tbody>${list.map(x => `<tr><td>${esc(x.date)}</td><td>${esc(x.shift)}</td><td>${x.h}</td><td>${esc(x.note || "")}</td>${mine ? `<td><button class="mini" data-hdel="${esc(x.id)}">刪除</button></td>` : ""}</tr>`).join("")}</tbody></table></div>` : `<p class="hint" style="margin:0">還沒有紀錄。</p>`}</section>`;
+}
+const bkLoading = () => { $("view").innerHTML = `<section class="panel"><p class="hint" style="margin:0">讀取中…（伺服器剛睡醒時要等幾秒）</p></section>`; };
+function bkNeedLogin(B){
+  $("view").innerHTML = `<section class="panel stack"><b>請先用員編登入</b><p class="hint" style="margin:0">線上手冊的評值、時數與簽核都記在你的員編下。沒登入也可以用「自我追蹤」先記，但不算正式評值。</p>
+    <div class="row"><button class="btn" id="bkLogin">登入</button>${B ? `<a class="btn ghost" style="text-decoration:none" href="#${B.local}">自我追蹤（不登入）</a>` : ""}</div></section>`;
+  $("bkLogin").onclick = () => ACC && ACC.goLogin && ACC.goLogin();
+}
+
+/* 學員：我的手冊（#bk-l） */
+async function bkMine(b){
+  const B = BOOKS[b]; if (!B) return home();
+  setBar(B.n, "線上正式版：指導員評值、實習時數、會談簽核", B.back, B.color);
+  if (!ME && !(ACC && ACC.token && ACC.token())) return bkNeedLogin(B);
+  bkLoading(); const d = await bkApi("bookMe", { book: b });
+  if (!d.ok) { if (d.login) return bkNeedLogin(B); $("view").innerHTML = `<div class="bmsg err">${esc(d.error)}</div>`; return; }
+  BK.cache[b] = d; const m = BK.m && BK.m.exp > Date.now() ? BK.m : null; if (!m) BK.m = null;
+  $("view").innerHTML = bkHead(B, d, d.me.name)
+    + `<section class="panel stack"><b>請指導員評值</b>
+      ${m ? `<div class="bkmon"><span>👩‍🏫 現在評值者：<b>${esc(m.name)}</b>（${Math.max(1, Math.round((m.exp - Date.now()) / 60000))} 分鐘內有效）</span><button class="btn ghost" id="bkEnd">評值完成，登出指導員</button></div>`
+        : `<div class="row"><button class="btn" id="bkPinOpen" style="background:var(${B.color})">指導員在這支手機評值</button><span class="hint">或請指導員用自己的手機登入，在「指導員評值」找到你的員編 <b>${esc(d.me.empId)}</b></span></div>
+        <div class="bkpin" id="bkPin" hidden><input id="bkPE" inputmode="numeric" maxlength="8" placeholder="指導員員編"><input id="bkPP" type="password" inputmode="numeric" maxlength="12" placeholder="PIN"><button class="btn" id="bkPinGo">確認身分</button></div>`}
+      <div class="row"><a class="btn ghost" style="text-decoration:none" href="#bkp-${b}">🖨 預覽／列印手冊</a>${d.canEval ? `<a class="btn ghost" style="text-decoration:none" href="#bkm-${b}">我是指導員：評值學員 ›</a>` : ""}</div></section>`
+    + bkHours(d, true) + bkGrid(B, d, !!m)
+    + (d.sign ? bkSignView(d.sign) : "");
+  const v = $("view");
+  v.onclick = async e => {
+    if (e.target.id === "bkPinOpen") { $("bkPin").hidden = false; $("bkPE").focus(); return; }
+    if (e.target.id === "bkPinGo") { const r = await bkApi("bookPin", { empId: $("bkPE").value.trim(), pin: $("bkPP").value.trim(), token: "" });
+      if (!r.ok) return toast(r.error, true); BK.m = { token: r.token, name: r.name, emp: r.empId, exp: Date.now() + 10 * 60000 }; toast(`${r.name} 可以開始評值`); return bkMine(b); }
+    if (e.target.id === "bkEnd") { const t = BK.m && BK.m.token; BK.m = null; if (t) bkApi("bookPinEnd", { token: t }); toast("已登出指導員"); return bkMine(b); }
+    const hb = e.target.closest("[data-hrs]"); if (hb) { const r = await bkApi("bookHours", { book: b, date: $("bkD").value, shift: $("bkS").value, hours: +hb.dataset.hrs, note: $("bkNote").value.trim() }); if (!r.ok) return toast(r.error, true); toast("已記錄"); return bkMine(b); }
+    const hd = e.target.closest("[data-hdel]"); if (hd) { if (!confirm("刪除這筆時數？")) return; const r = await bkApi("bookHours", { book: b, del: hd.dataset.hdel }); if (!r.ok) return toast(r.error, true); return bkMine(b); }
+    const ev = e.target.closest("[data-ev]"); if (ev && BK.m) await bkSave(b, d, d.me.empId, ev, { token: BK.m.token, via: "pin" }, () => bkMine(b));
+  };
+}
+async function bkSave(b, d, emp, btn, auth, again){
+  const B = BOOKS[b], code = btn.dataset.ev, r = +btn.dataset.r, cur = d.ev[code + "|" + r], v = cur && cur.v === btn.dataset.v ? "" : btn.dataset.v;
+  /* 防誤觸：同一顆要按兩次才存；清除要再確認 */
+  const key = code + "|" + r + "|" + btn.dataset.v;
+  if (!BK.arm || BK.arm.k !== key || Date.now() - BK.arm.t > 4000) { document.querySelectorAll(".oxb.armed").forEach(x => x.classList.remove("armed")); BK.arm = { k: key, t: Date.now() }; btn.classList.add("armed"); return toast(v ? `再按一次確認：${v === "✓" ? "已教學" : v}` : "再按一次：清除這個評值"); }
+  BK.arm = null; if (!v && !confirm("確定清除這個評值？（原紀錄仍保留在試算表）")) return;
+  let note = ""; if (v === "△" || v === "Δ" || v === "×") note = (prompt(`${v}：請簡單寫原因（會留在手冊上）`, "") || "").trim();
+  const it = B.items().find(i => i[0] === code);
+  btn.disabled = true; const res = await bkApi("bookEval", Object.assign({ book: b, emp, item: code, name: it ? it[1] : "", round: r, result: v, note }, auth)); btn.disabled = false;
+  if (!res.ok) { if (res.login && auth.via === "pin") BK.m = null; return toast(res.error, true); }
+  toast(v ? `✓ 已存檔：${v === "✓" ? "已教學" : v}（${res.by} ${res.at}）` : "已清除（原紀錄保留）"); const y = scrollY; await again(); scrollTo(0, y);
+}
+const bkSignView = s => `<section class="panel stack"><b>護理長會談與簽核</b><div class="kv"><span>結果</span><b>${esc(s.result)}</b></div><div class="kv"><span>日期</span><b>${esc(s.at)}</b></div><div class="kv"><span>護理長</span><b>${esc(s.hn)}</b></div>
+  ${s.note ? `<div class="note" style="white-space:pre-wrap">${esc(s.note)}</div>` : ""}<div class="sigs">${s.sigT ? `<figure><img src="${esc(s.sigT)}" alt="學員簽名"><figcaption>學員簽名</figcaption></figure>` : ""}${s.sigH ? `<figure><img src="${esc(s.sigH)}" alt="護理長簽名"><figcaption>護理長簽名</figcaption></figure>` : ""}</div></section>`;
+
+/* 指導員：學員名單（#bkm、#bkm-l）與評值（#bkm-l-員編） */
+async function bkMentor(arg){
+  const [b0, emp] = String(arg || "").split("-"), b = BOOKS[b0] ? b0 : "l", B = BOOKS[b];
+  setBar(emp ? "評值學員" : "指導員評值", "訓練手冊（線上正式版）", emp ? "bkm-" + b : "acct", B.color);
+  if (!ME && !(ACC && ACC.token && ACC.token())) return bkNeedLogin(null);
+  bkLoading();
+  if (!emp) {
+    const d = await bkApi("bookList", { book: b });
+    if (!d.ok) { if (d.login) return bkNeedLogin(null); $("view").innerHTML = `<div class="bmsg err">${esc(d.error)}</div>`; return; }
+    const total = B.items().length;
+    $("view").innerHTML = `<div class="tabs2 bktabs">${Object.entries(BOOKS).map(([k, x]) => `<a href="#bkm-${k}" class="${k === b ? "on" : ""}">${x.short}</a>`).join("")}</div>
+      <section class="panel stack"><b>找學員</b><div class="free"><input id="bkFind" inputmode="numeric" maxlength="8" placeholder="輸入學員員編"><button class="btn" id="bkGo">開啟手冊</button></div>
+        <p class="hint" style="margin:0">學員第一次登入打開自己的手冊後，就會出現在下面名單。</p></section>
+      <section class="panel stack"><b>${esc(B.n)}｜學員 ${d.rows.length} 人</b>${d.rows.length ? `<div class="bklist">${d.rows.map(x => `<a href="#bkm-${b}-${esc(x.emp)}"><b>${esc(x.name || x.emp)}</b><span>員編 ${esc(x.emp)}・開始 ${esc(x.start)}</span><span>項目 ${x.ok} / ${total}${B.hours ? `・${x.hours} / ${B.hours} 小時` : ""}</span><em class="${x.sign ? "ok" : ""}">${x.sign ? "已簽核：" + esc(x.sign) : "訓練中"}</em></a>`).join("")}</div>` : `<p class="hint" style="margin:0">還沒有學員。</p>`}</section>`;
+    $("view").onclick = e => { if (e.target.id === "bkGo") { const x = $("bkFind").value.trim(); if (x) go(`bkm-${b}-${x}`); } };
+    return;
+  }
+  const d = await bkApi("bookOf", { book: b, emp });
+  if (!d.ok) { if (d.login) return bkNeedLogin(null); $("view").innerHTML = `<div class="bmsg err">${esc(d.error)}</div>`; return; }
+  $("view").innerHTML = bkHead(B, d, `${d.name || "學員"}（${emp}）`)
+    + `<section class="panel stack"><div class="row">${d.canSign ? `<a class="btn" style="text-decoration:none;background:var(${B.color})" href="#bks-${b}-${esc(emp)}">護理長會談與簽核 ›</a>` : ""}<a class="btn ghost" style="text-decoration:none" href="#bkp-${b}-${esc(emp)}">🖨 預覽／列印手冊</a></div>
+      <p class="hint" style="margin:0">評值者：<b>${esc(d.me.name)}</b>。為防誤觸，同一顆要<b>連按兩次</b>才存檔；△、× 會請你寫原因。每次評值都留在試算表，改過也查得到。</p></section>`
+    + bkGrid(B, d, true) + bkHours(d, false) + (d.sign ? bkSignView(d.sign) : "");
+  $("view").onclick = async e => { const ev = e.target.closest("[data-ev]"); if (ev) await bkSave(b, d, emp, ev, {}, () => bkMentor(arg)); };
+}
+
+/* 護理長：會談與簽核（#bks-l-員編） */
+async function bkSignPage(arg){
+  const [b, emp] = String(arg || "").split("-"), B = BOOKS[b]; if (!B || !emp) return home();
+  setBar("會談與簽核", B.n, "bkm-" + b + "-" + emp, B.color);
+  if (!ME && !(ACC && ACC.token && ACC.token())) return bkNeedLogin(null);
+  bkLoading(); const d = await bkApi("bookOf", { book: b, emp });
+  if (!d.ok) { $("view").innerHTML = `<div class="bmsg err">${esc(d.error)}</div>`; return; }
+  if (!d.canSign) { $("view").innerHTML = `<div class="bmsg err">只有護理長（帳號中心「hub.grades」權限）可以會談簽核。</div>`; return; }
+  const s = bkSum(B, d), mentors = {}; Object.values(d.ev).forEach(x => { mentors[x.by] = (mentors[x.by] || 0) + 1; });
+  const notes = Object.entries(d.ev).filter(([, x]) => x.note).map(([k, x]) => { const it = B.items().find(i => i[0] === k.split("|")[0]); return `${it ? it[1] : k}（${B.rounds[+k.split("|")[1]]} ${x.v}）：${x.note}`; });
+  const summary = `項目通過 ${s.ok}/${s.n}${B.hours ? `；時數 ${s.hrs}/${B.hours}` : ""}；天數 ${s.days}${B.days ? "/" + B.days : ""}`;
+  $("view").innerHTML = bkHead(B, d, `${d.name || "學員"}（${emp}）`)
+    + `<section class="panel stack"><b>會談前檢核</b>
+      <div class="ckl">${B.req.map(x => `<label><input type="checkbox" class="bkreq"> ${esc(x)}</label>`).join("")}</div>
+      ${s.miss.length ? `<div class="note">尚未通過 ${s.miss.length} 項：${esc(s.miss.slice(0, 8).map(i => i[1]).join("、"))}${s.miss.length > 8 ? "…" : ""}</div>` : `<div class="note">手冊項目全部通過。</div>`}
+      <p style="margin:0">評值過的指導員：<b>${esc(Object.entries(mentors).map(([n, c]) => `${n}（${c} 項次）`).join("、") || "—")}</b></p>
+      ${notes.length ? `<details><summary>指導員註記（${notes.length}）</summary><ul class="plain">${notes.map(x => `<li>${esc(x)}</li>`).join("")}</ul></details>` : ""}</section>
+    <section class="panel stack"><b>會談紀錄</b><p class="hint" style="margin:0">按 🎤 可以邊談邊用說的記錄，說完再修改文字。</p>
+      <div class="free"><textarea id="bkTalk" rows="6" placeholder="學員自評、優點、需加強、後續計畫…">${esc(d.sign ? d.sign.note : "")}</textarea><button class="mic" data-hmic="bkTalk" aria-label="語音輸入">🎤</button></div>
+      ${B.score ? `<label class="fld">${B.score}<input id="bkScore" inputmode="decimal" maxlength="6" style="max-width:8em" value="${esc(d.sign ? d.sign.score : "")}"></label>` : ""}
+      <div class="row bkres"><b>結果</b><button class="chip on" data-res="通過">通過</button><button class="chip" data-res="延長訓練">延長訓練</button></div></section>
+    <section class="panel stack"><b>簽名</b><div class="sigs">
+      <div class="sigbox"><canvas id="sigT"></canvas><div class="row"><span>學員：${esc(d.name || emp)}</span><button class="mini" data-clr="sigT">清除</button></div></div>
+      <div class="sigbox"><canvas id="sigH"></canvas><div class="row"><span>護理長：${esc(d.me.name)}</span><button class="mini" data-clr="sigH">清除</button></div></div></div>
+      <p class="hint" style="margin:0">用手指或觸控筆在框內簽名。</p>
+      <button class="btn big" id="bkSignGo" style="background:var(${B.color})">確認簽核並存檔</button></section>`;
+  const pads = { sigT: sigPad($("sigT")), sigH: sigPad($("sigH")) }; let res = "通過";
+  $("view").onclick = async e => {
+    const rb = e.target.closest("[data-res]"); if (rb) { res = rb.dataset.res; document.querySelectorAll(".bkres button").forEach(x => x.classList.toggle("on", x === rb)); return; }
+    const c = e.target.closest("[data-clr]"); if (c) return pads[c.dataset.clr].clear();
+    const mic = e.target.closest("[data-hmic]"); if (mic) return hubDictate(mic.dataset.hmic, mic);
+    if (e.target.id === "bkSignGo") {
+      if (pads.sigT.empty() || pads.sigH.empty()) return toast("學員與護理長都要簽名", true);
+      if (!confirm(`確定以「${res}」簽核？`)) return;
+      const r = await bkApi("bookSign", { book: b, emp, result: res, note: $("bkTalk").value.trim(), score: $("bkScore") ? $("bkScore").value.trim() : "", summary, sigT: pads.sigT.data(), sigH: pads.sigH.data() });
+      if (!r.ok) return toast(r.error, true); toast("已簽核存檔"); go(`bkp-${b}-${emp}`); }
+  };
+}
+/* 手寫簽名板 */
+function sigPad(cv){
+  const ctx = cv.getContext("2d"); let drawing = false, any = false, last = null;
+  const fit = () => { const w = cv.offsetWidth, h = cv.offsetHeight, d = devicePixelRatio || 1; cv.width = w * d; cv.height = h * d; ctx.setTransform(d, 0, 0, d, 0, 0); ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h); ctx.lineWidth = 2.4; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.strokeStyle = "#111"; any = false; };
+  fit();
+  const pt = e => { const r = cv.getBoundingClientRect(), k = cv.offsetWidth / (r.width || 1); return [(e.clientX - r.left) * k, (e.clientY - r.top) * k]; };   // 版面有放大（zoom）時換算回畫布座標
+  cv.addEventListener("pointerdown", e => { drawing = true; last = pt(e); cv.setPointerCapture(e.pointerId); e.preventDefault(); });
+  cv.addEventListener("pointermove", e => { if (!drawing) return; const p = pt(e); ctx.beginPath(); ctx.moveTo(last[0], last[1]); ctx.lineTo(p[0], p[1]); ctx.stroke(); last = p; any = true; e.preventDefault(); });
+  const up = () => { drawing = false; }; cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", up);
+  return { clear: fit, empty: () => !any,
+    data: () => { const o = document.createElement("canvas"); o.width = 420; o.height = 140; const c = o.getContext("2d"); c.fillStyle = "#fff"; c.fillRect(0, 0, 420, 140); c.drawImage(cv, 0, 0, 420, 140); return o.toDataURL("image/png"); } };
+}
+/* 列印版手冊（#bkp-l 自己、#bkp-l-員編 指導員／護理長） */
+async function bkPrint(arg){
+  const [b, emp] = String(arg || "").split("-"), B = BOOKS[b]; if (!B) return home();
+  setBar("列印手冊", B.n, emp ? `bkm-${b}-${emp}` : `bk-${b}`, B.color);
+  if (!ME && !(ACC && ACC.token && ACC.token())) return bkNeedLogin(null);
+  bkLoading(); const d = await bkApi(emp ? "bookOf" : "bookMe", emp ? { book: b, emp } : { book: b });
+  if (!d.ok) { $("view").innerHTML = `<div class="bmsg err">${esc(d.error)}</div>`; return; }
+  const s = bkSum(B, d), name = emp ? (d.name || emp) : d.me.name, id = emp || d.me.empId;
+  const groups = []; s.items.forEach(i => { let g = groups.find(x => x[0] === i[2]); if (!g) groups.push(g = [i[2], []]); g[1].push(i); });
+  $("view").innerHTML = `<div class="row noprint"><button class="btn" onclick="print()">🖨 列印／存成 PDF</button><span class="hint">列印時選「另存為 PDF」即可存檔。</span></div>
+    <article class="bkpaper"><header><h1>嘉義基督教醫院 急診部　${esc(B.n)}</h1><div class="bkmeta"><span>受訓者：<b>${esc(name)}</b></span><span>員編：${esc(id)}</span><span>開始日：${esc(d.start || "—")}</span><span>列印：${new Date().toLocaleDateString("zh-TW")}</span></div></header>
+      <p class="bkrule">${esc(B.rule)}</p>
+      <table class="bkt"><thead><tr><th style="width:42%">項目</th>${B.rounds.map(r => `<th>${r}</th>`).join("")}</tr></thead><tbody>
+        ${groups.map(g => `<tr class="gh"><td colspan="${B.rounds.length + 1}">${esc(g[0])}</td></tr>` + g[1].map(i => `<tr><td>${esc(i[1])}</td>${B.rounds.map((_, r) => { const x = d.ev[i[0] + "|" + r]; return `<td>${x ? `<b>${esc(x.v === "✓" ? "已教" : x.v)}</b><small>${esc(x.by)}<br>${esc(x.at.slice(0, 10))}</small>${x.note ? `<small>${esc(x.note)}</small>` : ""}` : ""}</td>`; }).join("")}</tr>`).join("")).join("")}
+      </tbody></table>
+      <h2>實習時數</h2><p>合計 ${s.hrs} 小時、${s.days} 天${B.hours ? `（目標 ${B.hours} 小時）` : ""}</p>
+      ${d.hours.length ? `<table class="bkt sm"><thead><tr><th>日期</th><th>班別</th><th>時數</th><th>備註</th></tr></thead><tbody>${d.hours.slice().sort((a, b) => a.date > b.date ? 1 : -1).map(x => `<tr><td>${esc(x.date)}</td><td>${esc(x.shift)}</td><td>${x.h}</td><td>${esc(x.note || "")}</td></tr>`).join("")}</tbody></table>` : ""}
+      <h2>護理長會談與簽核</h2>
+      ${d.sign ? `<p>結果：<b>${esc(d.sign.result)}</b>　日期：${esc(d.sign.at)}${d.sign.score ? `　${esc(B.score || "成績")}：${esc(d.sign.score)}` : ""}</p><div class="bknote">${esc(d.sign.note || "")}</div>
+        <div class="bksig"><figure><img src="${esc(d.sign.sigT)}" alt=""><figcaption>受訓者　${esc(name)}</figcaption></figure><figure><img src="${esc(d.sign.sigH)}" alt=""><figcaption>護理長　${esc(d.sign.hn)}</figcaption></figure></div>` : `<p class="hint">尚未會談簽核。</p>`}
+    </article>`;
+  $("view").onclick = null;
+}
+/* 學習站的語音輸入（說話轉文字） */
+let HSR = null;
+function hubDictate(id, btn){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) return toast("這個瀏覽器不支援語音輸入，可以按手機鍵盤上的麥克風", true);
+  if (HSR) { try { HSR.stop(); } catch (e) {} return; }
+  const el = $(id), base = el ? el.value.trim() : "", r = new SR(); r.lang = "zh-TW"; r.interimResults = true; r.continuous = true;
+  r.onresult = ev => { let x = ""; for (const res of ev.results) x += res[0].transcript; if (el) el.value = (base ? base + "\n" : "") + x; };
+  r.onerror = ev => toast(ev.error === "not-allowed" ? "沒有麥克風權限" : "語音辨識中斷，再按一次 🎤", true);
+  r.onend = () => { HSR = null; if (btn) btn.classList.remove("on"); };
+  HSR = r; if (btn) btn.classList.add("on"); try { r.start(); toast("請說話…再按一次 🎤 停止"); } catch (e) { HSR = null; }
+}
+
 function lcRead(){ return store.get("lc-read", {}); }
 const LC_KIND = { "暖身": "#B7791F", "講述": "var(--z-leader)", "互動": "#1F6F5C", "討論": "#14506B", "演練": "#9E2A1E", "小結": "#555" };
 const lcMin = c => c.blocks.reduce((a, b) => a + (b.m || 0), 0);

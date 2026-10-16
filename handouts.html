@@ -335,9 +335,21 @@ body{background:radial-gradient(900px 420px at 105% -8%,var(--glow-warm),transpa
 .pager .pnext{background:var(--brand);border-color:var(--brand);color:#fff;text-align:right;margin-left:auto}
 .pager .pnext span{color:#fff;opacity:.85}
 @media (max-width:560px){.pager button{max-width:none;flex:1 1 100%}}
+
+/* 滿版投影 */
+.fullbtn{font:inherit;font-weight:800;font-size:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:9px 12px;cursor:pointer;text-align:left}
+.fullexit{display:none;position:fixed;top:10px;right:12px;z-index:20;font:inherit;font-weight:800;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+body.full .fullexit{display:block}
+body.full .rail{display:none}
+body.full .shell{grid-template-columns:1fr;max-width:none;padding-inline:clamp(16px,3vw,56px);zoom:1}
+body.full .doc p,body.full .doc li{max-width:none}
+@media (min-width:1200px){body.full .shell{zoom:1.18}}
+@media (min-width:1500px){body.full .shell{zoom:1.38}}
+@media (min-width:1850px){body.full .shell{zoom:1.6}}
 </style>
 
 <div id="prog" aria-hidden="true"></div>
+<button class="fullexit" id="fullExit" type="button">✕ 結束滿版</button>
 <div class="shell">
   <aside class="rail" aria-label="講義導覽">
     <div class="brand"><div class="strip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
@@ -345,6 +357,7 @@ body{background:radial-gradient(900px 420px at 105% -8%,var(--glow-warm),transpa
     <nav class="units" id="units"></nav>
     <nav class="toc" id="toc" aria-label="本單元章節"></nav>
     <div class="tool">
+      <button class="fullbtn" id="fullBtn" type="button">⛶ 滿版投影</button>
       <label class="switch"><input type="checkbox" id="pageMode">一節一頁（線上教材）</label>
       <label class="switch"><input type="checkbox" id="showAns">顯示輔導員答案</label>
       <a class="applink" href="./#triage">到檢傷區練習<small>66 題情境闖關、紀錄稽核</small></a>
@@ -782,6 +795,16 @@ document.addEventListener("click", e => { const vb = e.target.closest(".vb"); if
 $("pageMode").onchange = e => { MODE = e.target.checked ? "page" : "all"; store.set("mode", MODE); render(); window.scrollTo({ top: 0 }); };
 $("showAns").onchange = e => { showAns = e.target.checked; store.set("ans", showAns); render(); };
 addEventListener("scroll", progress, { passive: true });
+/* 滿版投影：收起左側導覽、字放大；鍵盤左右鍵（或簡報筆）翻上一節、下一節 */
+function setFull(on){ document.body.classList.toggle("full", on); store.set("full", on);
+  try { if (on && document.documentElement.requestFullscreen && !document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {}); else if (!on && document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
+  if (on && MODE !== "page") { MODE = "page"; store.set("mode", MODE); render(); } window.scrollTo({ top: 0 }); }
+$("fullBtn").onclick = () => setFull(true); $("fullExit").onclick = () => setFull(false);
+document.addEventListener("keydown", e => { if (MODE !== "page" || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+  const pg = $("pager"); if (!pg) return; const bs = pg.querySelectorAll("button");
+  if (e.key === "ArrowRight" || e.key === "PageDown") { const n = pg.querySelector(".pnext"); if (n) { e.preventDefault(); n.click(); } }
+  if (e.key === "ArrowLeft" || e.key === "PageUp") { const f = bs[0]; if (f && !f.classList.contains("pnext")) { e.preventDefault(); f.click(); } } });
+if (store.get("full", false)) document.body.classList.add("full");
 render();
 </script>
 
