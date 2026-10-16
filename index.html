@@ -1114,7 +1114,7 @@ body.lcfull .lfig svg{max-height:46vh}
 .bkrow.done{border-color:color-mix(in srgb,var(--ok) 45%,var(--line));background:color-mix(in srgb,var(--ok) 6%,var(--surface))}.bkn{font-size:14.5px;line-height:1.5}
 .bkcs{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.bkc{display:grid;justify-items:center;gap:2px;min-width:64px;padding:4px;border-radius:10px;background:var(--surface-2)}
 .bkc small{font-size:11px;color:var(--ink-2)}.bkc b{font-size:18px;font-family:var(--f-data)}.bkc b.o{color:var(--ok)}.bkc b.t{color:var(--bad)}.bkc em{font-style:normal;font-size:10.5px;color:var(--ink-2);text-align:center;line-height:1.25}
-.bkc.edit{background:transparent;border:1px dashed var(--line)}.bkv{display:flex;gap:3px}
+.bkc.edit{background:transparent;border:1px dashed var(--line)}.bkc .pre{font-style:normal;font-size:11px;font-weight:800;color:var(--warm-ink);background:color-mix(in srgb,var(--warm) 18%,var(--surface));border-radius:6px;padding:0 5px}.bkv{display:flex;gap:3px}
 @media (max-width:640px){.bkrow{grid-template-columns:1fr}.bkcs{justify-content:flex-start}}
 .oxb.armed{outline:3px solid var(--warm);outline-offset:2px;animation:pulseArm .8s infinite}@keyframes pulseArm{50%{transform:scale(1.12)}}
 .bkmon{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:color-mix(in srgb,var(--warm) 12%,var(--surface));border:1.5px solid var(--warm);border-radius:12px;padding:10px 12px}
@@ -4254,13 +4254,38 @@ function bkSum(B, d){
   const hrs = d.hours.reduce((a, x) => a + x.h, 0), days = new Set(d.hours.map(x => x.date)).size;
   return { items, ok, n: items.length, hrs, days, miss: items.filter(i => !bkPass(B, d.ev, i[0])) };
 }
+/* 自我追蹤（本機，可能是別人先幫忙勾的）→ 預評 */
+function bkLocalMarks(b){
+  const m = {}, put = (k, r, v) => { if (v) m[k + "|" + r] = v; };
+  if (b === "l") Object.entries(store.get("lbook", {})).forEach(([k, a]) => (a || []).forEach((v, r) => put(k, r, v)));
+  if (b === "t") Object.entries(store.get("tbook", {})).forEach(([k, a]) => (a || []).forEach((v, r) => put(k, r, v)));
+  if (b === "r") Object.entries(store.get("rbook", {})).forEach(([k, o]) => { if (!o) return; if (o.t) put(k, 0, "✓"); put(k, 1, o.e1); put(k, 2, o.e2); });
+  return m;
+}
+const bkPending = d => d.draft ? Object.entries(d.draft.marks || {}).filter(([k]) => !d.ev[k]) : [];
+function bkDraftBox(b, d, canImport){
+  const local = Object.keys(bkLocalMarks(b)).length, pend = bkPending(d);
+  return `<section class="panel stack"><b>預評（先幫忙評過的勾選）</b>
+    <p class="hint" style="margin:0">有時不是同一位指導員、或先在「自我追蹤」勾好；上傳後會以「預」標在項目旁，由輔導員確認後一鍵帶入正式紀錄。預評不算正式評值。</p>
+    ${d.draft ? `<p style="margin:0">已上傳 ${Object.keys(d.draft.marks || {}).length} 筆（${esc(d.draft.at)}${d.draft.helper ? `，協助評值：${esc(d.draft.helper)}` : ""}），尚未帶入 <b>${pend.length}</b> 筆。</p>` : ""}
+    <div class="row">${!canImport && local ? `<button class="btn ghost" id="bkDraftUp">上傳這支手機的自我追蹤（${local} 筆）</button>` : ""}
+      ${canImport && pend.length ? `<button class="btn" id="bkImport">輔導員確認後帶入預評（${pend.length} 筆）</button>` : ""}</div></section>`;
+}
+async function bkImport(b, d, auth){
+  const B = BOOKS[b], pend = bkPending(d); if (!pend.length) return;
+  const items = pend.map(([k, v]) => { const [code, r] = k.split("|"), it = B.items().find(i => i[0] === code); return { item: code, round: +r, result: v, name: it ? it[1] : "", note: "依預評帶入" + (d.draft.helper ? `（協助評值：${d.draft.helper}）` : "") }; });
+  if (!confirm(`將 ${items.length} 筆預評帶入正式紀錄，評值者記為您本人（註記「依預評帶入」）。確定？`)) return false;
+  const r = await bkApi("bookEval", Object.assign({ book: b, emp: d.emp || d.me.empId, items }, auth));
+  if (!r.ok) { toast(r.error, true); return false; } toast(`✓ 已帶入 ${r.n} 筆`); return true;
+}
 function bkGrid(B, d, edit){
   const groups = []; B.items().forEach(i => { let g = groups.find(x => x[0] === i[2]); if (!g) groups.push(g = [i[2], []]); g[1].push(i); });
+  const pre = (code, r) => { const p = !d.ev[code + "|" + r] && d.draft && d.draft.marks ? d.draft.marks[code + "|" + r] : ""; return p ? `<i class="pre" title="預評，尚未正式帶入">預 ${esc(p === "✓" ? "教" : p)}</i>` : ""; };
   const cell = (code, r) => { const x = d.ev[code + "|" + r], v = x ? x.v : "";
     const tip = x ? `${x.by}・${x.at}${x.note ? "・" + x.note : ""}` : "";
-    if (!edit) return `<div class="bkc ${v ? "has" : ""}" title="${esc(tip)}"><small>${B.rounds[r]}</small><b class="${v === "○" || v === "✓" ? "o" : v ? "t" : ""}">${v || "—"}</b>${x ? `<em>${esc(x.by)}<br>${esc(x.at.slice(5, 10))}</em>` : ""}</div>`;
+    if (!edit) return `<div class="bkc ${v ? "has" : ""}" title="${esc(tip)}"><small>${B.rounds[r]}</small><b class="${v === "○" || v === "✓" ? "o" : v ? "t" : ""}">${v || "—"}</b>${x ? `<em>${esc(x.by)}<br>${esc(x.at.slice(5, 10))}</em>` : pre(code, r)}</div>`;
     const opts = r === B.teach ? ["✓"] : B.vals;
-    return `<div class="bkc edit ${v ? "has" : ""}"><small>${B.rounds[r]}</small><div class="bkv">${opts.map(o => `<button class="oxb ${v === o ? "on" : ""} ${o === "○" || o === "✓" ? "o" : o === "×" ? "x" : "t"}" data-ev="${code}" data-r="${r}" data-v="${o}" aria-pressed="${v === o}">${o === "✓" ? "教" : o}</button>`).join("")}</div>${x ? `<em>${esc(x.by)}・${esc(x.at.slice(5, 10))}</em>` : ""}</div>`; };
+    return `<div class="bkc edit ${v ? "has" : ""}"><small>${B.rounds[r]}</small><div class="bkv">${opts.map(o => `<button class="oxb ${v === o ? "on" : ""} ${o === "○" || o === "✓" ? "o" : o === "×" ? "x" : "t"}" data-ev="${code}" data-r="${r}" data-v="${o}" aria-pressed="${v === o}">${o === "✓" ? "教" : o}</button>`).join("")}</div>${x ? `<em>${esc(x.by)}・${esc(x.at.slice(5, 10))}</em>` : pre(code, r)}</div>`; };
   return groups.map(g => `<section class="panel stack"><h3 class="bh">${esc(g[0])}</h3><div class="bkgrid">${g[1].map(i => `<div class="bkrow ${bkPass(B, d.ev, i[0]) ? "done" : ""}"><span class="bkn">${esc(i[1])}</span><div class="bkcs">${B.rounds.map((_, r) => cell(i[0], r)).join("")}</div></div>`).join("")}</div></section>`).join("");
 }
 function bkHead(B, d, who){
@@ -4300,7 +4325,7 @@ async function bkMine(b){
         : `<div class="row"><button class="btn" id="bkPinOpen" style="background:var(${B.color})">指導員在這支手機評值</button><span class="hint">或請指導員用自己的手機登入，在「指導員評值」找到你的員編 <b>${esc(d.me.empId)}</b></span></div>
         <div class="bkpin" id="bkPin" hidden><input id="bkPE" inputmode="numeric" maxlength="8" placeholder="指導員員編"><input id="bkPP" type="password" inputmode="numeric" maxlength="12" placeholder="PIN"><button class="btn" id="bkPinGo">確認身分</button></div>`}
       <div class="row"><a class="btn ghost" style="text-decoration:none" href="#bkp-${b}">🖨 預覽／列印手冊</a>${d.canEval ? `<a class="btn ghost" style="text-decoration:none" href="#bkm-${b}">我是指導員：評值學員 ›</a>` : ""}</div></section>`
-    + bkHours(d, true) + bkGrid(B, d, !!m)
+    + bkDraftBox(b, d, !!m) + bkHours(d, true) + bkGrid(B, d, !!m)
     + (d.sign ? bkSignView(d.sign) : "");
   const v = $("view");
   v.onclick = async e => {
@@ -4310,6 +4335,9 @@ async function bkMine(b){
     if (e.target.id === "bkEnd") { const t = BK.m && BK.m.token; BK.m = null; if (t) bkApi("bookPinEnd", { token: t }); toast("已登出指導員"); return bkMine(b); }
     const hb = e.target.closest("[data-hrs]"); if (hb) { const r = await bkApi("bookHours", { book: b, date: $("bkD").value, shift: $("bkS").value, hours: +hb.dataset.hrs, note: $("bkNote").value.trim() }); if (!r.ok) return toast(r.error, true); toast("已記錄"); return bkMine(b); }
     const hd = e.target.closest("[data-hdel]"); if (hd) { if (!confirm("刪除這筆時數？")) return; const r = await bkApi("bookHours", { book: b, del: hd.dataset.hdel }); if (!r.ok) return toast(r.error, true); return bkMine(b); }
+    if (e.target.id === "bkDraftUp") { const helper = (prompt("先幫你評值的是哪幾位？（選填，例如：佳娟、婷瑋）", "") || "").trim();
+      const r = await bkApi("bookDraft", { book: b, marks: bkLocalMarks(b), helper }); if (!r.ok) return toast(r.error, true); toast(`已上傳 ${r.n} 筆預評，請輔導員確認帶入`); return bkMine(b); }
+    if (e.target.id === "bkImport" && BK.m) { if (await bkImport(b, d, { token: BK.m.token, via: "pin" })) bkMine(b); return; }
     const ev = e.target.closest("[data-ev]"); if (ev && BK.m) await bkSave(b, d, d.me.empId, ev, { token: BK.m.token, via: "pin" }, () => bkMine(b));
   };
 }
@@ -4350,8 +4378,9 @@ async function bkMentor(arg){
   $("view").innerHTML = bkHead(B, d, `${d.name || "學員"}（${emp}）`)
     + `<section class="panel stack"><div class="row">${d.canSign ? `<a class="btn" style="text-decoration:none;background:var(${B.color})" href="#bks-${b}-${esc(emp)}">護理長會談與簽核 ›</a>` : ""}<a class="btn ghost" style="text-decoration:none" href="#bkp-${b}-${esc(emp)}">🖨 預覽／列印手冊</a></div>
       <p class="hint" style="margin:0">評值者：<b>${esc(d.me.name)}</b>。為防誤觸，同一顆要<b>連按兩次</b>才存檔；△、× 會請你寫原因。每次評值都留在試算表，改過也查得到。</p></section>`
-    + bkGrid(B, d, true) + bkHours(d, false) + (d.sign ? bkSignView(d.sign) : "");
-  $("view").onclick = async e => { const ev = e.target.closest("[data-ev]"); if (ev) await bkSave(b, d, emp, ev, {}, () => bkMentor(arg)); };
+    + (d.draft ? bkDraftBox(b, d, true) : "") + bkGrid(B, d, true) + bkHours(d, false) + (d.sign ? bkSignView(d.sign) : "");
+  $("view").onclick = async e => { if (e.target.id === "bkImport") { if (await bkImport(b, d, {})) bkMentor(arg); return; }
+    const ev = e.target.closest("[data-ev]"); if (ev) await bkSave(b, d, emp, ev, {}, () => bkMentor(arg)); };
 }
 
 /* 護理長：會談與簽核（#bks-l-員編） */
