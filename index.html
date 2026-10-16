@@ -1114,7 +1114,9 @@ body.lcfull .lfig svg{max-height:46vh}
 .bkrow.done{border-color:color-mix(in srgb,var(--ok) 45%,var(--line));background:color-mix(in srgb,var(--ok) 6%,var(--surface))}.bkn{font-size:14.5px;line-height:1.5}
 .bkcs{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.bkc{display:grid;justify-items:center;gap:2px;min-width:64px;padding:4px;border-radius:10px;background:var(--surface-2)}
 .bkc small{font-size:11px;color:var(--ink-2)}.bkc b{font-size:18px;font-family:var(--f-data)}.bkc b.o{color:var(--ok)}.bkc b.t{color:var(--bad)}.bkc em{font-style:normal;font-size:10.5px;color:var(--ink-2);text-align:center;line-height:1.25}
-.bkc.edit{background:transparent;border:1px dashed var(--line)}.bkc .pre{font-style:normal;font-size:11px;font-weight:800;color:var(--warm-ink);background:color-mix(in srgb,var(--warm) 18%,var(--surface));border-radius:6px;padding:0 5px}.bkv{display:flex;gap:3px}
+.bkc.edit{background:transparent;border:1px dashed var(--line)}.oxb.preon{border:2px dashed var(--warm);background:color-mix(in srgb,var(--warm) 22%,var(--surface));box-shadow:0 0 0 2px color-mix(in srgb,var(--warm) 25%,transparent)}.bkc .pretip{color:var(--warm-ink);font-weight:800}
+.bkc.draft{border:1px dashed var(--warm);background:transparent}.oxb.dr{border-style:dashed}.oxb.dr.on{border-style:solid}
+.bkc .pre{font-style:normal;font-size:11px;font-weight:800;color:var(--warm-ink);background:color-mix(in srgb,var(--warm) 18%,var(--surface));border-radius:6px;padding:0 5px}.bkv{display:flex;gap:3px}
 @media (max-width:640px){.bkrow{grid-template-columns:1fr}.bkcs{justify-content:flex-start}}
 .oxb.armed{outline:3px solid var(--warm);outline-offset:2px;animation:pulseArm .8s infinite}@keyframes pulseArm{50%{transform:scale(1.12)}}
 .bkmon{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:color-mix(in srgb,var(--warm) 12%,var(--surface));border:1.5px solid var(--warm);border-radius:12px;padding:10px 12px}
@@ -4266,26 +4268,39 @@ const bkPending = d => d.draft ? Object.entries(d.draft.marks || {}).filter(([k]
 function bkDraftBox(b, d, canImport){
   const local = Object.keys(bkLocalMarks(b)).length, pend = bkPending(d);
   return `<section class="panel stack"><b>預評（先幫忙評過的勾選）</b>
-    <p class="hint" style="margin:0">有時不是同一位指導員、或先在「自我追蹤」勾好；上傳後會以「預」標在項目旁，由輔導員確認後一鍵帶入正式紀錄。預評不算正式評值。</p>
+    <p class="hint" style="margin:0">別的學長姐先幫忙評過的，可以<b>直接在下面項目點虛線的 ○／△／×</b> 當預評（或上傳這支手機的自我追蹤）。預評會以「預」標示，<b>不算正式評值</b>，由輔導員確認後一鍵帶入。</p>
+    ${!canImport ? `<label class="fld" style="max-width:24em">協助評值者（選填）<input id="bkHelper" maxlength="40" value="${esc(d.draft && d.draft.helper || "")}" placeholder="例如：佳娟、婷瑋"></label>` : ""}
     ${d.draft ? `<p style="margin:0">已上傳 ${Object.keys(d.draft.marks || {}).length} 筆（${esc(d.draft.at)}${d.draft.helper ? `，協助評值：${esc(d.draft.helper)}` : ""}），尚未帶入 <b>${pend.length}</b> 筆。</p>` : ""}
     <div class="row">${!canImport && local ? `<button class="btn ghost" id="bkDraftUp">上傳這支手機的自我追蹤（${local} 筆）</button>` : ""}
       ${canImport && pend.length ? `<button class="btn" id="bkImport">輔導員確認後帶入預評（${pend.length} 筆）</button>` : ""}</div></section>`;
+}
+async function bkDraftMark(b, d, btn){
+  const k = btn.dataset.dr + "|" + btn.dataset.r, marks = Object.assign({}, d.draft ? d.draft.marks : {}), helper = ($("bkHelper") && $("bkHelper").value.trim()) || (d.draft && d.draft.helper) || "";
+  if (marks[k] === btn.dataset.v) delete marks[k]; else marks[k] = btn.dataset.v;
+  btn.disabled = true; const r = await bkApi("bookDraft", { book: b, marks, helper }); btn.disabled = false;
+  if (!r.ok) return toast(r.error, true);
+  d.draft = { at: "剛剛", helper, marks }; toast(marks[k] ? `預評已存：${marks[k] === "✓" ? "已教" : marks[k]}（尚未正式，請輔導員帶入）` : "已取消這個預評");
+  const y = scrollY; bkMine(b, true); scrollTo(0, y);
 }
 async function bkImport(b, d, auth){
   const B = BOOKS[b], pend = bkPending(d); if (!pend.length) return;
   const items = pend.map(([k, v]) => { const [code, r] = k.split("|"), it = B.items().find(i => i[0] === code); return { item: code, round: +r, result: v, name: it ? it[1] : "", note: "依預評帶入" + (d.draft.helper ? `（協助評值：${d.draft.helper}）` : "") }; });
   if (!confirm(`將 ${items.length} 筆預評帶入正式紀錄，評值者記為您本人（註記「依預評帶入」）。確定？`)) return false;
   const r = await bkApi("bookEval", Object.assign({ book: b, emp: d.emp || d.me.empId, items }, auth));
-  if (!r.ok) { toast(r.error, true); return false; } toast(`✓ 已帶入 ${r.n} 筆`); return true;
+  if (!r.ok) { toast(r.error, true); return false; }
+  items.forEach(x => { d.ev[x.item + "|" + x.round] = { v: x.result, by: r.by, at: r.at, note: x.note }; });
+  toast(`✓ 已帶入 ${r.n} 筆，畫面已填好`); return true;
 }
 function bkGrid(B, d, edit){
   const groups = []; B.items().forEach(i => { let g = groups.find(x => x[0] === i[2]); if (!g) groups.push(g = [i[2], []]); g[1].push(i); });
   const pre = (code, r) => { const p = !d.ev[code + "|" + r] && d.draft && d.draft.marks ? d.draft.marks[code + "|" + r] : ""; return p ? `<i class="pre" title="預評，尚未正式帶入">預 ${esc(p === "✓" ? "教" : p)}</i>` : ""; };
   const cell = (code, r) => { const x = d.ev[code + "|" + r], v = x ? x.v : "";
     const tip = x ? `${x.by}・${x.at}${x.note ? "・" + x.note : ""}` : "";
-    if (!edit) return `<div class="bkc ${v ? "has" : ""}" title="${esc(tip)}"><small>${B.rounds[r]}</small><b class="${v === "○" || v === "✓" ? "o" : v ? "t" : ""}">${v || "—"}</b>${x ? `<em>${esc(x.by)}<br>${esc(x.at.slice(5, 10))}</em>` : pre(code, r)}</div>`;
-    const opts = r === B.teach ? ["✓"] : B.vals;
-    return `<div class="bkc edit ${v ? "has" : ""}"><small>${B.rounds[r]}</small><div class="bkv">${opts.map(o => `<button class="oxb ${v === o ? "on" : ""} ${o === "○" || o === "✓" ? "o" : o === "×" ? "x" : "t"}" data-ev="${code}" data-r="${r}" data-v="${o}" aria-pressed="${v === o}">${o === "✓" ? "教" : o}</button>`).join("")}</div>${x ? `<em>${esc(x.by)}・${esc(x.at.slice(5, 10))}</em>` : pre(code, r)}</div>`; };
+    if (edit === "draft" && !x) { const p = d.draft && d.draft.marks ? d.draft.marks[code + "|" + r] : "", opts = r === B.teach ? ["✓"] : B.vals;
+      return `<div class="bkc draft"><small>${B.rounds[r]}・預評</small><div class="bkv">${opts.map(o => `<button class="oxb dr ${p === o ? "on" : ""} ${o === "○" || o === "✓" ? "o" : o === "×" ? "x" : "t"}" data-dr="${code}" data-r="${r}" data-v="${o}" aria-pressed="${p === o}">${o === "✓" ? "教" : o}</button>`).join("")}</div></div>`; }
+    if (!edit || edit === "draft") return `<div class="bkc ${v ? "has" : ""}" title="${esc(tip)}"><small>${B.rounds[r]}</small><b class="${v === "○" || v === "✓" ? "o" : v ? "t" : ""}">${v || "—"}</b>${x ? `<em>${esc(x.by)}<br>${esc(x.at.slice(5, 10))}</em>` : pre(code, r)}</div>`;
+    const opts = r === B.teach ? ["✓"] : B.vals, pv = !x && d.draft && d.draft.marks ? d.draft.marks[code + "|" + r] : "";
+    return `<div class="bkc edit ${v ? "has" : ""} ${pv ? "haspre" : ""}"><small>${B.rounds[r]}</small><div class="bkv">${opts.map(o => `<button class="oxb ${v === o ? "on" : ""} ${pv === o ? "preon" : ""} ${o === "○" || o === "✓" ? "o" : o === "×" ? "x" : "t"}" data-ev="${code}" data-r="${r}" data-v="${o}" ${pv === o ? 'data-pre="1"' : ""} aria-pressed="${v === o}">${o === "✓" ? "教" : o}</button>`).join("")}</div>${x ? `<em>${esc(x.by)}・${esc(x.at.slice(5, 10))}</em>` : pv ? `<em class="pretip">預評 ${esc(pv === "✓" ? "教" : pv)}：點一下確認</em>` : ""}</div>`; };
   return groups.map(g => `<section class="panel stack"><h3 class="bh">${esc(g[0])}</h3><div class="bkgrid">${g[1].map(i => `<div class="bkrow ${bkPass(B, d.ev, i[0]) ? "done" : ""}"><span class="bkn">${esc(i[1])}</span><div class="bkcs">${B.rounds.map((_, r) => cell(i[0], r)).join("")}</div></div>`).join("")}</div></section>`).join("");
 }
 function bkHead(B, d, who){
@@ -4312,56 +4327,61 @@ function bkNeedLogin(B){
 }
 
 /* 學員：我的手冊（#bk-l） */
-async function bkMine(b){
+const bkWarm = () => { if (BK.warm || !BK_API()) return; BK.warm = 1; try { fetch(BK_API(), { mode: "no-cors" }).catch(() => {}); } catch (e) {} };
+async function bkMine(b, local){
   const B = BOOKS[b]; if (!B) return home();
   setBar(B.n, "線上正式版：指導員評值、實習時數、會談簽核", B.back, B.color);
   if (!ME && !(ACC && ACC.token && ACC.token())) return bkNeedLogin(B);
-  bkLoading(); const d = await bkApi("bookMe", { book: b });
-  if (!d.ok) { if (d.login) return bkNeedLogin(B); $("view").innerHTML = `<div class="bmsg err">${esc(d.error)}</div>`; return; }
-  BK.cache[b] = d; const m = BK.m && BK.m.exp > Date.now() ? BK.m : null; if (!m) BK.m = null;
+  let d = local && BK.cache[b];
+  if (!d) { bkWarm(); bkLoading(); d = await bkApi("bookMe", { book: b });
+    if (!d.ok) { if (d.login) return bkNeedLogin(B); $("view").innerHTML = `<div class="bmsg err">${esc(d.error)}</div>`; return; } BK.cache[b] = d; }
+  const m = BK.m && BK.m.exp > Date.now() ? BK.m : null; if (!m) BK.m = null;
   $("view").innerHTML = bkHead(B, d, d.me.name)
     + `<section class="panel stack"><b>請指導員評值</b>
       ${m ? `<div class="bkmon"><span>👩‍🏫 現在評值者：<b>${esc(m.name)}</b>（${Math.max(1, Math.round((m.exp - Date.now()) / 60000))} 分鐘內有效）</span><button class="btn ghost" id="bkEnd">評值完成，登出指導員</button></div>`
         : `<div class="row"><button class="btn" id="bkPinOpen" style="background:var(${B.color})">指導員在這支手機評值</button><span class="hint">或請指導員用自己的手機登入，在「指導員評值」找到你的員編 <b>${esc(d.me.empId)}</b></span></div>
         <div class="bkpin" id="bkPin" hidden><input id="bkPE" inputmode="numeric" maxlength="8" placeholder="指導員員編"><input id="bkPP" type="password" inputmode="numeric" maxlength="12" placeholder="PIN"><button class="btn" id="bkPinGo">確認身分</button></div>`}
       <div class="row"><a class="btn ghost" style="text-decoration:none" href="#bkp-${b}">🖨 預覽／列印手冊</a>${d.canEval ? `<a class="btn ghost" style="text-decoration:none" href="#bkm-${b}">我是指導員：評值學員 ›</a>` : ""}</div></section>`
-    + bkDraftBox(b, d, !!m) + bkHours(d, true) + bkGrid(B, d, !!m)
+    + bkDraftBox(b, d, !!m) + bkHours(d, true) + bkGrid(B, d, m ? true : "draft")
     + (d.sign ? bkSignView(d.sign) : "");
   const v = $("view");
   v.onclick = async e => {
     if (e.target.id === "bkPinOpen") { $("bkPin").hidden = false; $("bkPE").focus(); return; }
-    if (e.target.id === "bkPinGo") { const r = await bkApi("bookPin", { empId: $("bkPE").value.trim(), pin: $("bkPP").value.trim(), token: "" });
-      if (!r.ok) return toast(r.error, true); BK.m = { token: r.token, name: r.name, emp: r.empId, exp: Date.now() + 10 * 60000 }; toast(`${r.name} 可以開始評值`); return bkMine(b); }
-    if (e.target.id === "bkEnd") { const t = BK.m && BK.m.token; BK.m = null; if (t) bkApi("bookPinEnd", { token: t }); toast("已登出指導員"); return bkMine(b); }
+    if (e.target.id === "bkPinGo") { const g = e.target; g.disabled = true; g.textContent = "確認中…"; toast("確認指導員身分中…");
+      const r = await bkApi("bookPin", { empId: $("bkPE").value.trim(), pin: $("bkPP").value.trim(), token: "" }); g.disabled = false; g.textContent = "確認身分";
+      if (!r.ok) return toast(r.error, true); BK.m = { token: r.token, name: r.name, emp: r.empId, exp: Date.now() + 10 * 60000 }; toast(`${r.name} 可以開始評值`); return bkMine(b, true); }
+    if (e.target.id === "bkEnd") { const t = BK.m && BK.m.token; BK.m = null; if (t) bkApi("bookPinEnd", { token: t }); toast("已登出指導員"); return bkMine(b, true); }
     const hb = e.target.closest("[data-hrs]"); if (hb) { const r = await bkApi("bookHours", { book: b, date: $("bkD").value, shift: $("bkS").value, hours: +hb.dataset.hrs, note: $("bkNote").value.trim() }); if (!r.ok) return toast(r.error, true); toast("已記錄"); return bkMine(b); }
     const hd = e.target.closest("[data-hdel]"); if (hd) { if (!confirm("刪除這筆時數？")) return; const r = await bkApi("bookHours", { book: b, del: hd.dataset.hdel }); if (!r.ok) return toast(r.error, true); return bkMine(b); }
     if (e.target.id === "bkDraftUp") { const helper = (prompt("先幫你評值的是哪幾位？（選填，例如：佳娟、婷瑋）", "") || "").trim();
-      const r = await bkApi("bookDraft", { book: b, marks: bkLocalMarks(b), helper }); if (!r.ok) return toast(r.error, true); toast(`已上傳 ${r.n} 筆預評，請輔導員確認帶入`); return bkMine(b); }
-    if (e.target.id === "bkImport" && BK.m) { if (await bkImport(b, d, { token: BK.m.token, via: "pin" })) bkMine(b); return; }
-    const ev = e.target.closest("[data-ev]"); if (ev && BK.m) await bkSave(b, d, d.me.empId, ev, { token: BK.m.token, via: "pin" }, () => bkMine(b));
+      const r = await bkApi("bookDraft", { book: b, marks: Object.assign({}, d.draft ? d.draft.marks : {}, bkLocalMarks(b)), helper }); if (!r.ok) return toast(r.error, true); toast(`已上傳 ${r.n} 筆預評，請輔導員確認帶入`); return bkMine(b); }
+    if (e.target.id === "bkImport" && BK.m) { if (await bkImport(b, d, { token: BK.m.token, via: "pin" })) bkMine(b, true); return; }
+    const dr = e.target.closest("[data-dr]"); if (dr) return bkDraftMark(b, d, dr);
+    const ev = e.target.closest("[data-ev]"); if (ev && BK.m) await bkSave(b, d, d.me.empId, ev, { token: BK.m.token, via: "pin" }, () => bkMine(b, true));
   };
 }
 async function bkSave(b, d, emp, btn, auth, again){
   const B = BOOKS[b], code = btn.dataset.ev, r = +btn.dataset.r, cur = d.ev[code + "|" + r], v = cur && cur.v === btn.dataset.v ? "" : btn.dataset.v;
   /* 防誤觸：同一顆要按兩次才存；清除要再確認 */
   const key = code + "|" + r + "|" + btn.dataset.v;
-  if (!BK.arm || BK.arm.k !== key || Date.now() - BK.arm.t > 4000) { document.querySelectorAll(".oxb.armed").forEach(x => x.classList.remove("armed")); BK.arm = { k: key, t: Date.now() }; btn.classList.add("armed"); return toast(v ? `再按一次確認：${v === "✓" ? "已教學" : v}` : "再按一次：清除這個評值"); }
+  if (!btn.dataset.pre && (!BK.arm || BK.arm.k !== key || Date.now() - BK.arm.t > 4000)) { document.querySelectorAll(".oxb.armed").forEach(x => x.classList.remove("armed")); BK.arm = { k: key, t: Date.now() }; btn.classList.add("armed"); return toast(v ? `再按一次確認：${v === "✓" ? "已教學" : v}` : "再按一次：清除這個評值"); }
   BK.arm = null; if (!v && !confirm("確定清除這個評值？（原紀錄仍保留在試算表）")) return;
-  let note = ""; if (v === "△" || v === "Δ" || v === "×") note = (prompt(`${v}：請簡單寫原因（會留在手冊上）`, "") || "").trim();
+  let note = btn.dataset.pre ? "依預評確認" + (d.draft && d.draft.helper ? `（協助評值：${d.draft.helper}）` : "") : ""; if (!btn.dataset.pre && (v === "△" || v === "Δ" || v === "×")) note = (prompt(`${v}：請簡單寫原因（會留在手冊上）`, "") || "").trim();
   const it = B.items().find(i => i[0] === code);
   btn.disabled = true; const res = await bkApi("bookEval", Object.assign({ book: b, emp, item: code, name: it ? it[1] : "", round: r, result: v, note }, auth)); btn.disabled = false;
   if (!res.ok) { if (res.login && auth.via === "pin") BK.m = null; return toast(res.error, true); }
+  const k = code + "|" + r; if (v) d.ev[k] = { v, by: res.by, at: res.at, note }; else delete d.ev[k];
   toast(v ? `✓ 已存檔：${v === "✓" ? "已教學" : v}（${res.by} ${res.at}）` : "已清除（原紀錄保留）"); const y = scrollY; await again(); scrollTo(0, y);
 }
 const bkSignView = s => `<section class="panel stack"><b>護理長會談與簽核</b><div class="kv"><span>結果</span><b>${esc(s.result)}</b></div><div class="kv"><span>日期</span><b>${esc(s.at)}</b></div><div class="kv"><span>護理長</span><b>${esc(s.hn)}</b></div>
   ${s.note ? `<div class="note" style="white-space:pre-wrap">${esc(s.note)}</div>` : ""}<div class="sigs">${s.sigT ? `<figure><img src="${esc(s.sigT)}" alt="學員簽名"><figcaption>學員簽名</figcaption></figure>` : ""}${s.sigH ? `<figure><img src="${esc(s.sigH)}" alt="護理長簽名"><figcaption>護理長簽名</figcaption></figure>` : ""}</div></section>`;
 
 /* 指導員：學員名單（#bkm、#bkm-l）與評值（#bkm-l-員編） */
-async function bkMentor(arg){
+async function bkMentor(arg, cached){
   const [b0, emp] = String(arg || "").split("-"), b = BOOKS[b0] ? b0 : "l", B = BOOKS[b];
   setBar(emp ? "評值學員" : "指導員評值", "訓練手冊（線上正式版）", emp ? "bkm-" + b : "acct", B.color);
   if (!ME && !(ACC && ACC.token && ACC.token())) return bkNeedLogin(null);
-  bkLoading();
+  if (!cached) { bkWarm(); bkLoading(); }
   if (!emp) {
     const d = await bkApi("bookList", { book: b });
     if (!d.ok) { if (d.login) return bkNeedLogin(null); $("view").innerHTML = `<div class="bmsg err">${esc(d.error)}</div>`; return; }
@@ -4373,14 +4393,14 @@ async function bkMentor(arg){
     $("view").onclick = e => { if (e.target.id === "bkGo") { const x = $("bkFind").value.trim(); if (x) go(`bkm-${b}-${x}`); } };
     return;
   }
-  const d = await bkApi("bookOf", { book: b, emp });
+  const d = cached || await bkApi("bookOf", { book: b, emp });
   if (!d.ok) { if (d.login) return bkNeedLogin(null); $("view").innerHTML = `<div class="bmsg err">${esc(d.error)}</div>`; return; }
   $("view").innerHTML = bkHead(B, d, `${d.name || "學員"}（${emp}）`)
     + `<section class="panel stack"><div class="row">${d.canSign ? `<a class="btn" style="text-decoration:none;background:var(${B.color})" href="#bks-${b}-${esc(emp)}">護理長會談與簽核 ›</a>` : ""}<a class="btn ghost" style="text-decoration:none" href="#bkp-${b}-${esc(emp)}">🖨 預覽／列印手冊</a></div>
       <p class="hint" style="margin:0">評值者：<b>${esc(d.me.name)}</b>。為防誤觸，同一顆要<b>連按兩次</b>才存檔；△、× 會請你寫原因。每次評值都留在試算表，改過也查得到。</p></section>`
     + (d.draft ? bkDraftBox(b, d, true) : "") + bkGrid(B, d, true) + bkHours(d, false) + (d.sign ? bkSignView(d.sign) : "");
-  $("view").onclick = async e => { if (e.target.id === "bkImport") { if (await bkImport(b, d, {})) bkMentor(arg); return; }
-    const ev = e.target.closest("[data-ev]"); if (ev) await bkSave(b, d, emp, ev, {}, () => bkMentor(arg)); };
+  $("view").onclick = async e => { if (e.target.id === "bkImport") { if (await bkImport(b, d, {})) bkMentor(arg, d); return; }
+    const ev = e.target.closest("[data-ev]"); if (ev) await bkSave(b, d, emp, ev, {}, () => bkMentor(arg, d)); };
 }
 
 /* 護理長：會談與簽核（#bks-l-員編） */
