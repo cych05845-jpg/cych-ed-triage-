@@ -1098,6 +1098,34 @@ body.lcfull .lfig svg{max-height:46vh}
 @media (min-width:1200px){body.lcfull .cwpage{zoom:1.18}}
 @media (min-width:1500px){body.lcfull .cwpage{zoom:1.38}}
 @media (min-width:1850px){body.lcfull .cwpage{zoom:1.6}}
+
+.qlinks{display:none}
+@media (min-width:1100px){.qlinks{display:grid;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px;box-shadow:var(--shadow)}
+  .qlinks h3{margin:2px 6px 4px;font-size:15px}
+  .qlinks a{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px;border-radius:12px;text-decoration:none;color:var(--ink)}
+  .qlinks a:hover{background:var(--surface-2)}.qlinks .qi{width:40px;height:40px;border-radius:12px;background:var(--surface-2);display:grid;place-items:center}.qlinks .qi img{width:28px;height:28px}
+  .qlinks b{display:block;font-size:15px}.qlinks small{font-size:12.5px;color:var(--ink-2)}.qlinks i{font-style:normal;color:var(--ink-2)}}
+/* ===== 電腦版：字放大、版面加寬（手機版不變） ===== */
+.homtop{display:grid;gap:18px}.homl,.homr{display:grid;gap:18px;align-content:start;min-width:0}
+.homr .sec-h{margin-top:0}
+.tnext{display:grid;gap:2px;min-width:0}.tnext small{font-size:12px;color:var(--warm-ink);font-weight:800}.tnext b{font-size:15.5px}.tnext span{font-size:13px;color:var(--ink-2);line-height:1.5}
+.today .tnext{grid-column:1/-1;border-top:1px dashed var(--tint-line);padding-top:10px}
+@media (min-width:640px){
+  .today{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"ring main go" "ring next med"}
+  .today .tring{grid-area:ring}.today .tmain{grid-area:main}.today .tgo{grid-area:go;align-self:center}.today .tmed{grid-area:med;align-self:end}.today .tnext{grid-area:next;grid-column:auto}
+}
+@media (min-width:1100px){
+  .wrap,.appbar .in{max-width:1120px}
+  .wrap{zoom:1.08}.appbar .in{zoom:1.06}
+  .sitem{font-size:16px;padding:10px 10px}.sgrp{font-size:12.5px}.sbrand{font-size:17px}
+  .homtop{grid-template-columns:minmax(0,1.6fr) minmax(300px,1fr);align-items:start}
+  .homr{position:sticky;top:84px}
+  .extras.hubx{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .mods{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+}
+@media (min-width:1400px){ .wrap{zoom:1.14}.appbar .in{zoom:1.1} }
+@media (min-width:1800px){ .wrap,.appbar .in{max-width:1180px}.wrap{zoom:1.22}.appbar .in{zoom:1.16} }
+body.lcfull .wrap{zoom:1}
 .cwpage{min-height:220px}
 .cwnav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .cwnav .btn{text-decoration:none}
@@ -1532,21 +1560,30 @@ function todayCard(){
       <p class="tcheer">${esc(todayCheer())}</p>
       <div class="week" aria-label="最近 7 天">${week.map(d => `<span class="${d.n ? "on" : ""} ${d.today ? "now" : ""}" title="${d.k}：過 ${d.n} 關"><i>${d.n || ""}</i>${d.today ? "今" : d.w}</span>`).join("")}</div></div>
     <a class="tmed" href="#badges">${(() => { const m = medalState(), n = Object.values(m).filter(Boolean).length; return `${medalArt(n ? 3 : 0, "works", 30)}<span>我的勳章 <b>${n}</b> / ${Object.keys(m).length}</span>`; })()}</a>
+    ${nextStageHTML(lq)}
     <a class="btn tgo" href="#${lq ? lq + "quest" : "quest"}">${t.pass >= DAY_GOAL ? "再闖一關" : lq ? "繼續闖關" : "開始今天的一關"} →</a></section>`;
+}
+/* 下一關預覽（最後玩的那張地圖，第一個還沒過的關） */
+function nextStageHTML(z){
+  if (!z || !QUESTS[z]) return `<div class="tnext"><small>從哪裡開始？</small><b>打開成長地圖，選你現在輪到的區域</b></div>`;
+  const Z = QUESTS[z], st = store.get("quest-" + z, {}), i = Z.stages.findIndex((_, k) => !st[k]);
+  if (i < 0) return `<div class="tnext"><small>${esc(Z.name)}</small><b>全部過關！換一張地圖挑戰</b></div>`;
+  const s = Z.stages[i]; return `<div class="tnext"><small>下一關・${esc(Z.name)} 第 ${i + 1} / ${Z.stages.length} 關</small><b>${esc(s[1])}</b><span>${esc(s[2])}</span></div>`;
 }
 const greet = () => { const h = new Date().getHours(); return h >= 23 || h < 5 ? "夜班辛苦了" : h < 11 ? "早安" : h < 14 ? "午安" : h < 18 ? "午後好" : "晚上好"; };
 const hiDate = () => { const n = new Date(); return `${n.getMonth() + 1}/${n.getDate()} 週${"日一二三四五六"[n.getDay()]}`; };
 const given = n => { n = String(n || "").trim(); return n.length === 3 ? n.slice(1) : n; };
 const cheer = () => ["忙了一整班，記得先喝口水。", "今天也謝謝你守護急診。", "學一點就好，慢慢來。", "累了就去遊戲區喘口氣。", "有不懂的，隨時問學長姐。"][Math.floor(Date.now() / 864e5) % 5];
 function home(){
-  setBar("嘉基急診學習站", "急診各區訓練", null);
+  setBar(innerWidth >= 1100 ? "首頁" : "嘉基急診學習站", "急診各區訓練", null);
   const pg = pgyProgress();
-  $("view").innerHTML = `
+  $("view").innerHTML = `<div class="homtop"><div class="homl">
     <section class="hello"><div><span class="hi-eyebrow"><i class="pulse" aria-hidden="true"></i>${greet()}<time>${hiDate()}</time></span><h2>${ME ? esc(given(ME.name)) + "，" : ""}今天想練哪一區？</h2><p>依你輪到的工作區域學習，一站一站往上。${cheer()}</p></div>${img("hospital")}</section>
     ${todayCard()}
-    <a class="qbanner" href="#quest"><div class="ill" style="width:52px;height:52px;background:rgba(255,255,255,.92)">${img("map")}</div><div><b>急診成長地圖</b><span>新進 → 兒科 → 急救區 → 檢傷 → Leader，一站一站往上</span></div><span class="go">看我的地圖</span></a>
-    <div class="sec-h"><h2>公告</h2><span class="row" style="gap:14px">${canAnnounce() ? `<a href="#bmanage">＋ 發公告</a>` : ""}<a href="#news">全部公告 ›</a></span></div>
+    <a class="qbanner" href="#quest"><div class="ill" style="width:52px;height:52px;background:rgba(255,255,255,.92)">${img("map")}</div><div><b>急診成長地圖</b><span>新進 → 兒科 → 急救區 → 檢傷 → Leader，一站一站往上</span></div><span class="go">看我的地圖</span></a></div>
+    <aside class="homr"><div class="sec-h"><h2>公告</h2><span class="row" style="gap:14px">${canAnnounce() ? `<a href="#bmanage">＋ 發公告</a>` : ""}<a href="#news">全部公告 ›</a></span></div>
     ${newsHTML(sortedNews().slice(0, 3))}
+    <section class="qlinks"><h3>常用入口</h3>${[["#team", "fireext", "團隊擬真演練", "多人連線急救、000 火災"], ["#special", "police", "特殊教學", "院內代號、暴力、毒化災"], ["#pgy", "pgy", "PGY 新人專區", `已完成 ${pg.done} / ${pg.total}`], ["#badges", "works", "我的勳章", "闖關與每日成就"]].map(x => `<a href="${x[0]}"><span class="qi">${img(x[1])}</span><span><b>${x[2]}</b><small>${x[3]}</small></span><i aria-hidden="true">›</i></a>`).join("")}</section></aside></div>
     <div class="sec-h"><h2>學習區（依年資）</h2></div>
     <div class="zones">${ZONES.map(([id, n, s, a, c, live, yr]) => `<button class="zone ${live ? "" : "soon"}" style="--zz:var(${c})" ${live ? `data-z="${id}"` : 'aria-disabled="true"'}>
       <div><span class="yr">${yr}</span><b>${n}</b><span>${s}</span>${ZONE_Q[id] ? (q => `<div class="zp${q.n === q.tot ? " full" : ""}"><small>${q.n === q.tot ? "全部過關" : q.n ? "闖關進度" : "還沒開始"}<em>${q.n} / ${q.tot}</em></small><div class="zbar"><i style="width:${q.n / q.tot * 100}%"></i></div></div>`)(qProg(ZONE_Q[id])) : ""}<div class="st">${live ? (ZONE_Q[id] && qProg(ZONE_Q[id]).n ? "繼續學習" : "開始學習") : "建置中"}</div></div><div class="ill">${img(a)}</div></button>`).join("")}</div>
@@ -3047,10 +3084,10 @@ function wardHub(z){
     <section class="panel stack"><h3 class="bh">PAT 小兒評估三角：點三個邊</h3>${patWidget()}</section>
     <section class="panel stack"><div class="row" style="justify-content:space-between"><h3 class="bh">家長最常問</h3><a class="hint" href="#wt-family">看全部 8 張 ›</a></div>${famCards(WT_BY.family.fam.slice(0, 4))}
       <a class="btn" href="#ws-p" style="text-decoration:none;justify-self:start;background:var(--z-peds)">情境排序挑戰 ›</a></section>`;
-  if (z === "s") mid = `
+  if (z === "s") mid = `<div class="extras hubx">
     <a class="extra pop" href="#codes"><div class="ill">${img("siren")}</div><div><b>院內代號</b><span>999・888・000・333・藍色警報，翻卡＋小測驗</span></div></a>
     <a class="extra pop" href="#team"><div class="ill">${img("fireext")}</div><div><b>團體演練</b><span>一台主持、2–8 人分角色：000 火災三個情境</span></div></a>
-    <a class="extra pop" href="#vsign"><div class="ill">${img("police")}</div><div><b>暴力前兆辨識小遊戲</b><span>候診區裡哪些是前兆？最佳成績 ${store.get("vsign-best", 0)} / ${VSIGN.length}</span></div></a>
+    <a class="extra pop" href="#vsign"><div class="ill">${img("police")}</div><div><b>暴力前兆辨識小遊戲</b><span>候診區裡哪些是前兆？最佳成績 ${store.get("vsign-best", 0)} / ${VSIGN.length}</span></div></a></div>
     <section class="panel stack"><h3 class="bh">請求支援，一句話講完</h3><div class="order"><span style="--i:0">哪裡</span><i aria-hidden="true">＋</i><span style="--i:1">幾個人</span><i aria-hidden="true">＋</i><span style="--i:2">什麼狀況</span></div>
       <p class="hint" style="margin:0">例：「急診檢傷區有一位家屬情緒激動、拍桌，請駐警支援。」看到前兆就說，不要等到動手。</p></section>`;
   if (z === "p") mid += `<a class="extra" href="#special"><div class="ill">${img("shield")}</div><div><b>性侵採證、家暴兒虐流程</b><span>依本院流程圖，在「特殊教學」區</span></div></a>`;
